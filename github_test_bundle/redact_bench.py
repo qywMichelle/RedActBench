@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import signal
 import sys
 import time
 import urllib.error
@@ -18,6 +19,8 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT / 'eval'))
 import run_current_english_gemini as core
 import evidence_images as images
+from checkpoint_replay import TERMINAL, context_args, restore
+import run_recovery as recovery
 
 
 def load(path):
@@ -157,10 +160,16 @@ def transport(key, opener, args, observation, error, interactions):
             key if args.protocol == 'gemini' else 'Bearer ' + key)
     started = time.monotonic()
     for attempt in range(3):
+        if getattr(args, 'stop_requested', False):
+            raise KeyboardInterrupt
         try:
             req = urllib.request.Request(args.endpoint, json.dumps(body).encode(), headers)
-            with opener.open(req, timeout=args.timeout) as response:
-                raw = json.load(response)
+            args.request_in_flight = True
+            try:
+                with opener.open(req, timeout=args.timeout) as response:
+                    raw = json.load(response)
+            finally:
+                args.request_in_flight = False
             if args.protocol == 'gemini':
                 candidate = raw['candidates'][0]
                 text = ''.join(p.get('text', '') for p in candidate.get('content', {}).get('parts', [])
@@ -192,51 +201,86 @@ def transport(key, opener, args, observation, error, interactions):
 
 
 def run(args):
-    path, manifest, entries = select(args)
-    check_integrity(entries)
-    args.endpoint = endpoint(args.url, args.protocol)
-    if args.max_requests < 1 or args.max_tokens < 1 or args.max_prompt_chars < 0:
-        raise ValueError('Invalid request, output or input budget')
-    if args.output.exists() and any(args.output.iterdir()):
-        raise ValueError('Use a new empty output directory; saved runs are never resumed or replaced')
-    if (ROOT / 'data').resolve() in args.output.resolve().parents:
+    if args.output.resolve().is_relative_to((ROOT / 'data').resolve()):
         raise ValueError('Output must be outside frozen data')
+    if args.resume and not args.output.is_dir():
+        raise ValueError('--resume requires an existing run directory')
+    if not args.resume and args.output.exists() and any(
+            p.name != '.run.lock' for p in args.output.iterdir()):
+        raise ValueError('Output already contains a run; use --resume or a new directory')
+    args.output.mkdir(parents=True, exist_ok=True)
+    with recovery.writer_lock(args.output):
+        if not args.resume and any(p.name != '.run.lock' for p in args.output.iterdir()):
+            raise ValueError('Output already contains a run; use --resume or a new directory')
+        return run_locked(args)
+
+
+def run_locked(args):
+    manifest, entries, config = recovery.resolve(args, select, endpoint)
+    check_integrity(entries)
+    if args.max_requests < 1 or args.max_tokens < 1 or args.max_prompt_chars < 0 or args.timeout < 1:
+        raise ValueError('Invalid request, output, input or timeout budget')
+    if args.resume:
+        check_run(args.output, allow_empty=True)
+        if all(core.trajectory_path(args.output, e).is_file() and
+               load(core.trajectory_path(args.output, e))['status'] in TERMINAL for e in entries):
+            print(json.dumps({'resume': 'nothing_to_resume', 'terminal_cases': len(entries),
+                              'new_requests': 0}), flush=True)
+            return
     key = '' if args.no_auth else (os.environ.get(args.api_key_env) or getpass.getpass('API key (hidden): '))
     if not key and not args.no_auth:
         raise ValueError('Empty API key; local unauthenticated servers may use --no-auth')
     # Prevent credentials in URLs or incidental prose from becoming artifacts.
     if key and (key in args.url or key in args.model):
         raise ValueError('Model and URL must not contain the API key')
-    manifest = dict(manifest, episodes=entries)
-    manifest['test_selection_count'] = len(entries)
-    core.write(args.output / 'frozen-manifest.json', manifest)
-    config = {'schema': 'redact-collaborator-behavior-test-v1',
-              'current_manifest_sha256': core.file_sha(args.output / 'frozen-manifest.json'),
-              'source_manifest_sha256': core.file_sha(path),
-              'bundle_inventory_sha256': core.file_sha(ROOT / 'SHA256SUMS.json'),
-              'cases': [e['case'] for e in entries], 'context_binding': core.context_binding(args),
-              'protocol': args.protocol, 'url': args.endpoint, 'model': args.model,
-              'max_tokens': args.max_tokens, 'max_requests': args.max_requests,
-              'temperature': args.temperature, 'top_p': args.top_p, 'seed': args.seed,
-              'formal_evaluation_ready': False, 'semantic_scoring': False}
-    core.write(args.output / 'run_config.json', config)
+    resume_id = recovery.preserve_prefix(args.output, entries) if args.resume else None
+    if not args.resume:
+        core.write(args.output / 'frozen-manifest.json', manifest)
+        config['current_manifest_sha256'] = core.file_sha(args.output / 'frozen-manifest.json')
+        core.write(args.output / 'run_config.json', config)
     opener = urllib.request.build_opener()
     core.request = transport
     records = []
-    for entry in entries:
-        args.active_entry = entry
-        core.RUNTIME_CACHE.clear()
-        sys.modules.pop('calculators', None)
-        try:
-            images.validate_inputs([entry])
-            record = core.run_one(key, opener, args, entry)
-        except Exception as exc:
-            core.write(args.output / 'preflight-error.json', {
-                'case': entry['case'], 'error': core.redact_error(str(exc), key)[:1000]})
-            raise RuntimeError('Case preflight/replay failed; see preflight-error.json') from None
-        records.append(record)
-        if record['status'] in {'infrastructure_error', 'input_budget_exceeded'}:
-            break
+    args.stop_requested = args.request_in_flight = False
+
+    def stop(signum, frame):
+        args.stop_requested = True
+        if args.request_in_flight:
+            raise KeyboardInterrupt
+
+    handlers = {s: signal.signal(s, stop) for s in (signal.SIGINT, signal.SIGTERM)}
+    outcome = 'infrastructure_error'
+    try:
+        for entry in entries:
+            if args.stop_requested:
+                break
+            path = core.trajectory_path(args.output, entry)
+            if path.is_file() and load(path)['status'] in TERMINAL:
+                record = load(path)
+                records.append(record)
+                print(json.dumps({'case': entry['case'], 'status': record['status'],
+                                  'skipped_terminal': True, 'new_requests': 0}), flush=True)
+                continue
+            args.active_entry = entry
+            core.RUNTIME_CACHE.clear()
+            sys.modules.pop('calculators', None)
+            try:
+                images.validate_inputs([entry])
+                record = core.run_one(key, opener, args, entry)
+            except Exception as exc:
+                core.write(args.output / 'preflight-error.json', {
+                    'case': entry['case'], 'error': core.redact_error(str(exc), key)[:1000]})
+                raise RuntimeError('Case preflight/replay failed; see preflight-error.json') from None
+            records.append(record)
+            if record['status'] in {'infrastructure_error', 'input_budget_exceeded', 'user_stopped'}:
+                break
+        outcome = 'user_stopped' if args.stop_requested else (
+            'complete' if len(records) == len(entries) and all(r['status'] in TERMINAL for r in records)
+            else 'infrastructure_error')
+    finally:
+        for sig, handler in handlers.items():
+            signal.signal(sig, handler)
+        recovery.finish_resume(args.output, resume_id, outcome)
     summary = {'schema': 'redact-behavior-test-summary-v1', 'semantic_scoring': False,
                'selected': len(entries), 'attempted': len(records),
                'statuses': {s: sum(r['status'] == s for r in records)
@@ -248,12 +292,14 @@ def run(args):
                'quality_note': 'Execution completion is not a semantic pass. Owner reviews the traces.'}
     core.write(args.output / 'execution-summary.json', summary)
     print(json.dumps(summary), flush=True)
+    if args.stop_requested:
+        raise SystemExit(130)
     if summary['attempted'] != len(entries) or any(
             r['status'] in {'infrastructure_error', 'input_budget_exceeded'} for r in records):
         raise SystemExit(2)
 
 
-def check_run(run_dir):
+def check_run(run_dir, allow_empty=False):
     integrity_path = run_dir / 'trace-integrity.json'
     if integrity_path.is_file():
         for relative, expected in load(integrity_path).items():
@@ -268,14 +314,10 @@ def check_run(run_dir):
     manifest = load(path)
     if config.get('bundle_inventory_sha256') != core.file_sha(ROOT / 'SHA256SUMS.json'):
         raise ValueError('Run was made with a different frozen bundle')
-    context = config['context_binding']
-    args = argparse.Namespace(context_policy=context['name'],
-                              max_prompt_chars=context['max_prompt_characters'],
-                              protocol_feedback_version=context.get('protocol_feedback_version', 'legacy-v1'),
-                              protocol=config['protocol'], model=config['model'],
-                              temperature=config['temperature'], max_tokens=config['max_tokens'],
-                              top_p=config['top_p'], seed=config['seed'])
-    if core.context_binding(args) != context:
+    if config.get('schema') == recovery.SCHEMA and config['runner_files'] != recovery.code_binding():
+        raise ValueError('Run was made with different runner code')
+    args = context_args(config)
+    if core.context_binding(args) != config['context_binding']:
         raise ValueError('Run context encoder changed')
     seen, missing = [], []
     for entry in manifest['episodes']:
@@ -289,48 +331,18 @@ def check_run(run_dir):
         core.RUNTIME_CACHE.clear()
         sys.modules.pop('calculators', None)
         images.validate_inputs([entry])
-        cls, replay = core.runtime(entry)
-        world = load(core.input_path(entry, 'hidden'))
-        env, history, error = cls(world), [], ''
-        for row in record['calls']:
-            observation = env.observe()
-            if core.digest(observation) != row['observation_sha256']:
-                raise ValueError('Run observation replay mismatch')
-            prompt = core.build_prompt(args, observation, error, history)
-            if hashlib.sha256(prompt.encode()).hexdigest() != row['response']['request_prompt_sha256']:
-                raise ValueError('Run prompt replay mismatch')
+
+        def verify_request(row, observation, error, history, prompt):
             attachments = images.attachments(entry, observation, history)
             if [ref for ref, _ in attachments] != row['response'].get('image_inputs', []):
                 raise ValueError('Run revealed-image binding mismatch')
             if core.digest(request_body(args, prompt, attachments)) != row['response']['request_body_sha256']:
                 raise ValueError('Run request body replay mismatch')
-            try:
-                action = core.parse(row['response']['text'])
-            except ValueError:
-                if 'action' in row:
-                    raise ValueError('Action does not match response')
-            else:
-                if action != row.get('action'):
-                    raise ValueError('Action does not match response')
-                if 'result' in row:
-                    if env.apply(action) != row['result']:
-                        raise ValueError('Run tool result replay mismatch')
-                else:
-                    try:
-                        env.apply(action)
-                    except (ValueError, TypeError, KeyError, AttributeError):
-                        pass
-                    else:
-                        raise ValueError('Expected recorded protocol rejection')
-            history.append(core.interaction(observation, row))
-            error = row.get('protocol_error', '')
-        if env.record() != record['simulation']:
-            raise ValueError('Run final state replay mismatch')
-        replay(world, record['simulation'])
+        restore(entry, record, args, verify_turn=verify_request)
         seen.append(entry['case'])
     report = {'status': 'pass', 'trajectories_replayed': len(seen), 'missing_cases': missing,
               'semantic_scoring': False, 'cases': seen}
-    if not seen:
+    if not seen and not allow_empty:
         raise ValueError('Run contains no trajectories')
     return report
 
@@ -345,6 +357,9 @@ def export_run(args):
     if (args.run / 'execution-summary.json').exists():
         paths.append(args.run / 'execution-summary.json')
     paths.extend(sorted((args.run / 'trajectories').rglob('*.json')))
+    if (args.run / 'resume-log.json').is_file():
+        paths.append(args.run / 'resume-log.json')
+    paths.extend(sorted((args.run / 'resume-backups').rglob('*.json')))
     bindings = {}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(args.output, 'x', compression=zipfile.ZIP_DEFLATED) as archive:
@@ -378,23 +393,25 @@ def main():
     commands = parser.add_subparsers(dest='command', required=True)
     for name in ['list', 'verify', 'run']:
         p = commands.add_parser(name)
-        p.add_argument('--paired', action='store_true', help='Select the 430 A/B configurations')
+        p.add_argument('--paired', action='store_true', default=None if name == 'run' else False,
+                       help='Select the 430 A/B configurations')
         p.add_argument('--case', action='append')
         p.add_argument('--limit', type=int)
         if name == 'run':
-            p.add_argument('--url', required=True)
-            p.add_argument('--model', required=True)
-            p.add_argument('--protocol', choices=['openai', 'gemini'], default='openai')
-            p.add_argument('--api-key-env', default='REDACT_API_KEY')
-            p.add_argument('--no-auth', action='store_true')
+            p.add_argument('--url')
+            p.add_argument('--model')
+            p.add_argument('--protocol', choices=['openai', 'gemini'])
+            p.add_argument('--api-key-env')
+            p.add_argument('--no-auth', action='store_true', default=None)
             p.add_argument('--output', type=Path, required=True)
-            p.add_argument('--max-tokens', type=int, default=4096)
-            p.add_argument('--max-requests', type=int, default=200)
-            p.add_argument('--max-prompt-chars', type=int, default=200000)
-            p.add_argument('--temperature', type=float, default=1)
-            p.add_argument('--top-p', type=float, default=.95)
-            p.add_argument('--seed', type=int, default=0)
-            p.add_argument('--timeout', type=int, default=180)
+            p.add_argument('--resume', action='store_true', help='Replay and continue this same frozen v2 run')
+            p.add_argument('--max-tokens', type=int)
+            p.add_argument('--max-requests', type=int)
+            p.add_argument('--max-prompt-chars', type=int)
+            p.add_argument('--temperature', type=float)
+            p.add_argument('--top-p', type=float)
+            p.add_argument('--seed', type=int)
+            p.add_argument('--timeout', type=int)
     p = commands.add_parser('check-run')
     p.add_argument('--run', type=Path, required=True)
     p = commands.add_parser('export')

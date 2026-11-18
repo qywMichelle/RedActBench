@@ -11,6 +11,7 @@ from pathlib import Path
 import sys
 
 import run_current_english_gemini as core
+from checkpoint_replay import context_args, restore
 
 
 def critical_criteria(rubric):
@@ -36,22 +37,16 @@ def packet(entry, run):
     rubric = json.loads(core.input_path(entry, 'rubrics').read_text())
     core.RUNTIME_CACHE.clear()
     sys.modules.pop('calculators', None)
-    cls, replay = core.runtime(entry)
-    replay(world, record['simulation'])
-    env = cls(world)
+    config = json.loads((run / 'run_config.json').read_text())
+    env, interactions, error = restore(entry, record, context_args(config))
     rows = []
-    for index, call in enumerate(record['calls'], 1):
-        observation = env.observe()
-        if core.digest(observation) != call['observation_sha256']:
-            raise ValueError('Observation hash mismatch')
+    for index, (call, interaction) in enumerate(zip(record['calls'], interactions), 1):
+        observation = interaction['observation']
         row = {'request': index, 'observation': observation,
                'candidate_text': call['response']['text']}
         for key in ('action', 'result', 'protocol_error'):
             if key in call:
                 row[key] = call[key]
-        if 'result' in call:
-            if env.apply(call['action']) != call['result']:
-                raise ValueError('Tool result replay mismatch')
         row['image_inputs'] = call['response'].get('image_inputs', [])
         rows.append(row)
     if env.record() != record['simulation']:

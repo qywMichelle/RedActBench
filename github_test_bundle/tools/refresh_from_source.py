@@ -1,6 +1,5 @@
 """Export the current synthetic inputs and required runtime closure, without archives."""
 import argparse
-import ast
 import hashlib
 import json
 from pathlib import Path
@@ -127,45 +126,16 @@ def main():
         references[pair['A_case']] = references[pair['case']]
     write(DEST / 'data/reference-index.json', references)
     copy('eval/rubric.json')
-    for name in ['data_paths.py', 'revealed_context.py', 'review_current_local.py',
+    for name in ['data_paths.py', 'revealed_context.py',
                  'scoring_v2.py', 'aggregate_current_local_v2.py']:
         copy('eval/' + name)
 
-    core = (source / 'eval/run_current_english_gemini.py').read_text()
-    tree = ast.parse(core)
-    # Keep the tested orchestration implementation, remove the old internal
-    # transport/CLI. New network requests live only in the portable entrypoint.
-    remove = {'ENDPOINT', 'REQUESTED_MODEL', 'request', 'main'}
-    lines = core.splitlines(keepends=True)
-    ranges = []
-    for node in tree.body:
-        name = getattr(node, 'name', None)
-        if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name):
-            name = node.targets[0].id
-        if name in remove or isinstance(node, ast.If):
-            ranges.append((node.lineno - 1, node.end_lineno))
-    for start, end in sorted(ranges, reverse=True):
-        lines[start:end] = []
-    (DEST / 'eval/run_current_english_gemini.py').write_text(''.join(lines))
-    parser_source = (source / 'eval/run_local_construction_models.py').read_text()
-    parser_node = next(n for n in ast.parse(parser_source).body if getattr(n, 'name', '') == 'parse')
-    (DEST / 'eval/run_local_construction_models.py').write_text(
-        '"""Action parser extracted from the source runner."""\nimport json\n\n' +
-        ast.get_source_segment(parser_source, parser_node) + '\n')
-    image_source = (source / 'eval/run_current_local_multimodal.py').read_text()
-    keep = {'image_bytes', 'image_references', 'attachments', 'image_relative_paths',
-            'resolve_image_path', 'validate_inputs'}
-    parts = []
-    for node in ast.parse(image_source).body:
-        if getattr(node, 'name', '') in keep:
-            start = min([node.lineno] + [d.lineno for d in node.decorator_list]) - 1
-            parts.append(''.join(image_source.splitlines(keepends=True)[start:node.end_lineno]))
-    (DEST / 'eval/evidence_images.py').write_text(
-        '"""Revealed-image projection from the source multimodal adapter."""\n'
-        'import functools\nimport hashlib\nimport json\nfrom pathlib import Path\n'
-        'import run_current_english_gemini as core\n'
-        'from data_paths import data_roots, resolve_data_path\nIMAGE_BINDINGS = {}\n\n' +
-        '\n\n'.join(parts) + '\n')
+    adapters = ['run_current_english_gemini.py', 'run_local_construction_models.py',
+                'evidence_images.py', 'checkpoint_replay.py', 'run_recovery.py',
+                'review_current_local.py']
+    for name in adapters:
+        if not (DEST / 'eval' / name).is_file():
+            raise ValueError('Start from the current client scaffold; missing eval/' + name)
     upstream = ['eval/run_current_english_gemini.py', 'eval/run_current_local_multimodal.py',
                 'eval/run_local_construction_models.py', 'data/current-english-manifest.json',
                 'data/current-counterfactual-manifest.json']
@@ -175,7 +145,10 @@ def main():
         'image_sources': len(images), 'formal_evaluation_ready': False,
         'source_sha256': {p: sha(source / p) for p in upstream},
         'distribution_changes': 'Transport and metadata adapted; visible/hidden/rubrics/runtime/reference/image bytes preserved.',
-        'semantic_evaluation_owner': 'Project owner; collaborators submit traces only.'})
+        'semantic_evaluation_owner': 'Project owner; collaborators submit traces only.',
+        'behavior_run_schema': 'redact-collaborator-behavior-test-v2',
+        'resume_policy': 'same frozen v2 code/data/config; verify recorded requests before continuation',
+        'previous_release_commit': 'aa9c58e3f078e15d77a3643304d552fb781f76cd'})
     print(json.dumps({'exported_configurations': len(entries), 'copied_files': len(copied),
                       'images': len(images)}))
 

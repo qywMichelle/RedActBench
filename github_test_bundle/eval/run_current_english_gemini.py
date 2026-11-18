@@ -273,24 +273,13 @@ def run_one(key, opener, args, entry):
     error = ""
     policy = context_binding(args)
     if destination.exists():
+        from checkpoint_replay import restore
         record = json.loads(destination.read_text())
         assert record["input_hashes"] == binding
         validate_checkpoint_context(record, policy)
+        env, interactions, error = restore(entry, record, args)
         if record["status"] in ("complete", "request_limit", "action_budget_exhausted", "input_budget_exceeded"):
-            replay(world, record["simulation"])
             return record
-        for row in record["calls"]:
-            previous_observation = env.observe()
-            assert digest(previous_observation) == row["observation_sha256"]
-            saved_prompt = row["response"].get("request_prompt_sha256")
-            if saved_prompt:
-                prompt = build_prompt(args, previous_observation, error, interactions)
-                assert hashlib.sha256(prompt.encode()).hexdigest() == saved_prompt, "Recovered model-visible prompt changed"
-            if "action" in row and "result" in row:
-                assert env.apply(row["action"]) == row["result"]
-            interactions.append(interaction(previous_observation, row))
-            error = row.get("protocol_error", "")
-        assert env.record() == record["simulation"]
         record["status"] = "running"
         record.pop("error", None)
     else:
@@ -308,6 +297,9 @@ def run_one(key, opener, args, entry):
     record["context_binding"] = policy
     try:
         while not env.done and len(record["calls"]) < args.max_requests:
+            if getattr(args, 'stop_requested', False):
+                record['status'] = 'user_stopped'
+                break
             observation = env.observe()
             if observation.get("budget", {}).get("remaining", 1) == 0:
                 record["status"] = "action_budget_exhausted"
@@ -339,6 +331,9 @@ def run_one(key, opener, args, entry):
             record["status"] = "complete"
         elif record["status"] == "running":
             record["status"] = "request_limit"
+    except KeyboardInterrupt:
+        record['status'] = 'user_stopped'
+        record['error'] = 'Interrupted; completed saved turns are preserved.'
     except InputBudgetExceeded as exc:
         record["status"] = "input_budget_exceeded"
         record["blocked_request"] = {

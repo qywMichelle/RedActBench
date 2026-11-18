@@ -48,7 +48,26 @@ python redact_bench.py run --protocol openai --url http://127.0.0.1:8000/v1 \
   --model my-model --no-auth --case batch_020/t1-01 --output runs/one-case
 ```
 
-不加 `--limit` / `--case` 会运行所选清单全部题目并产生模型调用费用。每个测试使用新的输出目录，已有轨迹不会覆盖或续跑。遇到接口/预算错误会保存已完成前缀并停止后续题目；不自动换 key、不补采失败结果。
+不加 `--limit` / `--case` 会运行所选清单全部题目并产生模型调用费用。首次运行使用新的输出目录。遇到接口/预算错误会保存已完成前缀并停止后续题目；不会自动换 key 或重新采样已终止的题。
+
+## 断点续跑
+
+首次运行仍使用上面的命令。中断或接口恢复后，在**同一版本**的测试包中执行：
+
+```bash
+python redact_bench.py run --resume --output runs/my-model-smoke
+```
+
+模型、URL、A/B 选择、题目范围、采样参数、输入上限和总请求预算都从原 `run_config.json`、`frozen-manifest.json` 读取，无需重新填写。也可以在原命令后添加 `--resume`，但显式提供的配置必须与原来一致。可以更新 API key，或用 `--api-key-env NEW_VARIABLE` 改用另一个已有凭据环境变量；密钥仍不写入文件。
+
+- 先校验原数据、运行器、客户端代码和文件清单 SHA，再逐轮重建观察、完整历史、图片及请求体，核对哈希和工具结果。任何不一致都在发请求前拒绝恢复。
+- `complete`、`request_limit`、`action_budget_exhausted`、`input_budget_exceeded` 已终止题目直接跳过，不重写其轨迹、不重发请求。请求预算以已保存请求总数累计，不因续跑清零，也不能提高旧 run 的上限。
+- `running`、`infrastructure_error`、`user_stopped` 的题从已落盘回合继续；尚未开始的题随后正常启动。A、B 分别恢复各自状态和历史。
+- Ctrl+C 或 SIGTERM 会保存中断前缀并停止后续题目；进程被强制结束时，恢复最近一次完整原子落盘。中断时尚未落盘的在途请求无法确认服务端是否已执行，恢复时可能重新发送这一轮；已落盘请求不重发。
+- 续跑前保存原配置、统计和未完成题目的字节副本到 `resume-backups/`，并写入 `resume-log.json`。已终止题目保持原文件和 SHA。写入锁防止两个进程同时使用同一输出目录，进程退出或被杀后锁由操作系统释放。
+- 从 ZIP 恢复时先验证原导出校验表，随后将旧校验表归档到备份；下一次导出生成新的完整校验表，备份和恢复日志一起交付。
+
+长期测试请固定 Git commit，不要更新程序后继续旧检查点。此功能只支持新的 **v2 行为测试 run**；之前 `aa9c58e` 版本产生的 v1 轨迹保持原样，需使用其原冻结版本检查和评阅，不能用新版续跑。完整结束的旧样例不会为了验证续跑重新调用模型。
 
 ## 保存并提交测试轨迹
 
@@ -63,6 +82,7 @@ python redact_bench.py export --run runs/my-model-smoke --output exports/my-mode
 - `frozen-manifest.json`：这次实际选择的题目和数据/运行器 SHA。
 - `trajectories/<batch>/<case>.json`：每轮原始动作文本、可见观察哈希、实际工具结果、协议错误、时间、状态快照、图片绑定、用量和延迟。
 - `execution-summary.json`：执行覆盖、终止状态和调用统计，不包含语义成绩。
+- `resume-log.json`、`resume-backups/`：若发生续跑，包含恢复记录、原未完成轨迹及原配置/校验表快照。
 - `trace-integrity.json`、`replay-verification.json`：导出文件校验和回放检查。
 
 已揭示观察可以从冻结初始状态和每轮动作/工具结果无损重建；`check-run` 会逐轮重建观察及完整模型 prompt，并核对 SHA、动作解析、工具结果和最终状态。ZIP 不含 API key。`runs/`、`output/`、`exports/` 已被 Git 忽略。
@@ -91,4 +111,4 @@ python redact_bench.py evaluate --run runs/received-run --output output/received
 
 模型只接收已揭示观察、历史交互和已揭示图片，不接收隐藏世界、评分准则、未来事件、配对差异说明或参考轨迹。真实平台不会被操作。当前是 development 数据；`formal_evaluation_ready=false`，人审、难度和裁判校准尚未完成。原始帖子、身份/来源映射、历史模型成绩、模型权重和本机服务均未包含。
 
-`tools/refresh_from_source.py --source SOURCE_REPO` 用于在新的空白脚手架中重新导出；`tools/freeze_inventory.py` 冻结文件清单。已有冻结包不应修改后继续用于同一轮测试。本轮尚未上传 GitHub。
+`tools/refresh_from_source.py --source SOURCE_REPO` 用于在包含当前客户端代码、但尚无数据和 release.json 的脚手架中重新导出数据；`tools/freeze_inventory.py` 冻结文件清单。已有冻结包不应修改后继续用于同一轮测试。仓库入口为 [RedActBench](https://github.com/qywMichelle/RedActBench)。
