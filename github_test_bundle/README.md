@@ -60,7 +60,7 @@ python redact_bench.py run --resume --output runs/my-model-smoke
 
 模型、URL、A/B 选择、题目范围、采样参数、输入上限和总请求预算都从原 `run_config.json`、`frozen-manifest.json` 读取，无需重新填写。也可以在原命令后添加 `--resume`，但显式提供的配置必须与原来一致。可以更新 API key，或用 `--api-key-env NEW_VARIABLE` 改用另一个已有凭据环境变量；密钥仍不写入文件。
 
-- 先校验原数据、运行器、客户端代码和文件清单 SHA，再逐轮重建观察、完整历史、图片及请求体，核对哈希和工具结果。任何不一致都在发请求前拒绝恢复。
+- `run-binding.json` 绑定原配置和冻结清单的文件 SHA，手工修改 URL、预算或其他配置也会拒绝恢复。先校验原数据、运行器、客户端代码和文件清单 SHA，再逐轮重建观察、完整历史、图片及请求体，核对哈希和工具结果。任何不一致都在发请求前拒绝恢复。
 - `complete`、`request_limit`、`action_budget_exhausted`、`input_budget_exceeded` 已终止题目直接跳过，不重写其轨迹、不重发请求。请求预算以已保存请求总数累计，不因续跑清零，也不能提高旧 run 的上限。
 - `running`、`infrastructure_error`、`user_stopped` 的题从已落盘回合继续；尚未开始的题随后正常启动。A、B 分别恢复各自状态和历史。
 - Ctrl+C 或 SIGTERM 会保存中断前缀并停止后续题目；进程被强制结束时，恢复最近一次完整原子落盘。中断时尚未落盘的在途请求无法确认服务端是否已执行，恢复时可能重新发送这一轮；已落盘请求不重发。
@@ -80,6 +80,7 @@ python redact_bench.py export --run runs/my-model-smoke --output exports/my-mode
 
 - `run_config.json`：模型、非敏感 URL、采样参数、协议、代码清单及输入绑定。
 - `frozen-manifest.json`：这次实际选择的题目和数据/运行器 SHA。
+- `run-binding.json`：v2 原配置及冻结清单的 SHA，防止修改配置后意外接着旧轨迹运行。
 - `trajectories/<batch>/<case>.json`：每轮原始动作文本、可见观察哈希、实际工具结果、协议错误、时间、状态快照、图片绑定、用量和延迟。
 - `execution-summary.json`：执行覆盖、终止状态和调用统计，不包含语义成绩。
 - `resume-log.json`、`resume-backups/`：若发生续跑，包含恢复记录、原未完成轨迹及原配置/校验表快照。

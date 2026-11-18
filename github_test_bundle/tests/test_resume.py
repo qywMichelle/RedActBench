@@ -204,7 +204,9 @@ class ResumeTest(unittest.TestCase):
         path = run / 'run_config.json'
         config = json.loads(path.read_text())
         for key, value in [('schema', 'redact-collaborator-behavior-test-v1'),
-                           ('runner_files', {}), ('bundle_inventory_sha256', '0' * 64)]:
+                           ('runner_files', {}), ('bundle_inventory_sha256', '0' * 64),
+                           ('url', 'http://127.0.0.1:1/v1/chat/completions'),
+                           ('max_requests', 99), ('timeout', 99), ('no_auth', True)]:
             changed = dict(config, **{key: value})
             path.write_text(json.dumps(changed))
             self.cli('run', '--resume', '--output', run, success=False)

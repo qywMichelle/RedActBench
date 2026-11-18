@@ -31,6 +31,21 @@ def code_binding():
     return {name: core.file_sha(core.ROOT / name) for name in SOURCES}
 
 
+def seal_metadata(output):
+    core.write(output / 'run-binding.json', {
+        name: core.file_sha(output / name) for name in ('run_config.json', 'frozen-manifest.json')})
+
+
+def validate_metadata(output):
+    path = output / 'run-binding.json'
+    if not path.is_file():
+        raise ValueError('Checkpoint metadata binding is missing; use the original runner')
+    binding = load(path)
+    for name in ('run_config.json', 'frozen-manifest.json'):
+        if binding.get(name) != core.file_sha(output / name):
+            raise ValueError('Checkpoint metadata binding mismatch: ' + name)
+
+
 def resolve(args, select, normalize_endpoint):
     """Resume uses the saved selection and fills omitted options from its config."""
     if not args.resume:
@@ -59,6 +74,7 @@ def resolve(args, select, normalize_endpoint):
     config = load(config_path)
     if config.get('schema') != SCHEMA:
         raise ValueError('Legacy checkpoint: use its original frozen runner; this version cannot resume v1 runs')
+    validate_metadata(args.output)
     if config['runner_files'] != code_binding():
         raise ValueError('Runner changed; resume requires the original frozen code')
     if config['bundle_inventory_sha256'] != core.file_sha(core.ROOT / 'SHA256SUMS.json'):
@@ -108,7 +124,7 @@ def preserve_prefix(output, entries):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S') + '-' + uuid.uuid4().hex[:8]
     backup = output / 'resume-backups' / identifier
     backup.mkdir(parents=True)
-    names = ['run_config.json', 'frozen-manifest.json', 'execution-summary.json',
+    names = ['run_config.json', 'frozen-manifest.json', 'run-binding.json', 'execution-summary.json',
              'preflight-error.json', 'trace-integrity.json', 'replay-verification.json', 'resume-log.json']
     checkpoints = {}
     for entry in entries:

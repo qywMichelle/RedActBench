@@ -238,6 +238,7 @@ def run_locked(args):
         core.write(args.output / 'frozen-manifest.json', manifest)
         config['current_manifest_sha256'] = core.file_sha(args.output / 'frozen-manifest.json')
         core.write(args.output / 'run_config.json', config)
+        recovery.seal_metadata(args.output)
     opener = urllib.request.build_opener()
     core.request = transport
     records = []
@@ -310,6 +311,8 @@ def check_run(run_dir, allow_empty=False):
                     not path.is_file() or core.file_sha(path) != expected):
                 raise ValueError('Exported trace integrity mismatch: ' + relative)
     config = load(run_dir / 'run_config.json')
+    if config.get('schema') == recovery.SCHEMA:
+        recovery.validate_metadata(run_dir)
     path = core.run_manifest_path(run_dir)
     manifest = load(path)
     if config.get('bundle_inventory_sha256') != core.file_sha(ROOT / 'SHA256SUMS.json'):
@@ -354,6 +357,8 @@ def export_run(args):
     if args.output.suffix != '.zip':
         raise ValueError('Export must use .zip')
     paths = [args.run / 'run_config.json', args.run / 'frozen-manifest.json']
+    if (args.run / 'run-binding.json').is_file():
+        paths.append(args.run / 'run-binding.json')
     if (args.run / 'execution-summary.json').exists():
         paths.append(args.run / 'execution-summary.json')
     paths.extend(sorted((args.run / 'trajectories').rglob('*.json')))
