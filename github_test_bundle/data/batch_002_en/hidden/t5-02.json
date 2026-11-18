@@ -1,0 +1,208 @@
+{
+  "id": "construction_batch_002-t5-02",
+  "version": "v1.2-en.1",
+  "family": "T5",
+  "title": "Blind tasting vote and recipe reveal: how to tally votes of people who knew the answer in advance",
+  "domain": "food",
+  "difficulty": "medium",
+  "split": "development",
+  "source_kind": "local_topic_motif_all_scenario_facts_synthetic",
+  "template_group": "blind-poll-unblinding-cohort-separation",
+  "task": "English edition: all material is rendered in English, and all text you author must be in English. Chinese/English language labels identify the original source-language objects; keep those objects and their separate maintenance obligations distinct. Original language tags are provenance, not an instruction to answer in Chinese. Completion deadlines are inclusive: finishing exactly at the stated cutoff is on time. A prohibition on acting before an effective time still forbids early action.\n\nThe sole response deadline for the initial consultation of c1 in this question is t=14, judged by the actual delivery completion time ≤14, inclusive of the deadline boundary; this item is calculated separately from the body text maintenance deadline. Maintain the blind tasting vote and reveal post for Qianbei Coffee Channel, correct the statistical criteria and reply to participants before t14. Complete the valid vote snapshot before t18, and the recipe may only be made public after t22; those who learned the recipe in advance cannot be mixed into blind votes. Synchronize statistics and replies already made within ten minutes of the new audit, retaining informed evaluations. The full service window this time is t0—50, and an early FINISH will not cancel subsequent obligations. Independent information cards and asset fields must be truly updated, not merely claimed as changed in the body text.",
+  "authorization": "Only operate editable owned objects and current session on behalf of the creator; must not modify others' original text, cannot conduct real payments/receipts, repairs, placing orders, or external publishing. private data can be read but cannot be made public by default; see facts for specific permissions.",
+  "deadline": 50,
+  "budget": {
+    "calls": 48
+  },
+  "tool_protocol": {
+    "clock": "Integer simulated minutes. READ/WRITE/SET/REPLY cost one minute and complete at end; WAIT advances to until. Actions at the deadline cannot start. Actions completing exactly on deadline are recorded, then the session closes.",
+    "visibility": "observe shows all currently revealed resources, including authorized private workspace; no future event list or rubric. READ takes ids of current resources. New notifications appear when time advances.",
+    "WRITE": "target must be editable; text replaces actual stored content. status may be draft/published/withdrawn; assets is an optional list from visible asset_catalog. Does not edit any other object or imply external completion.",
+    "REPLY": "target comment/dm/reply; text delivered in its channel to its conversation recipient, id optional unique. A reply to an old owned reply is a thread correction visible alongside the parent; a clear correction may supersede old content for evaluation. It does not erase the old text.",
+    "SET": "target editable record; fields must be nonempty and use visible field_schema. A record is local bookkeeping, not an external payment, repair or actual platform action.",
+    "FINISH": "text is a private handoff, never a public message. Immediately freezes all agent actions and advances world to deadline. Future external events still reveal and baseline duties stay in denominator; early finish does not waive them.",
+    "judging": "Runtime never scores semantic meaning or claims satisfaction. Free text and actual final states are reviewed. Scope restrictions in facts apply to content and assets even where simulator permits recording a violation.",
+    "history": "Updates must cover all still actionable owned statements, including new replies. A clearly linked correction is acceptable instead of deletion when readers can find the supersession. Merely saying updated without an edit or delivery does not change objects.",
+    "service": "Full service window t0—50. Initial query c1 requires actual response delivery completed at or before t14. Actionable followup needs reply within 8 minutes of availability. External notices carry separate deadlines. No triggered followup does not remove the initial c1 duty.",
+    "budget": "48 successful actions total, including WAIT and FINISH; observe and rejected actions cost no calls. observe reports total/used/remaining. Time and calls are independent limits.",
+    "c1_response_deadline": 14,
+    "deadline_boundary": "Response deadline uses actual delivery completion time <= deadline; exactly on the boundary is on time. A later correction does not erase an earlier missed initial deadline."
+  },
+  "resources": [
+    {
+      "id": "main",
+      "text": "X is tentatively 5/8 blind votes, all eight people completely unaware of the recipe; the recipe awaits reveal after t22.",
+      "kind": "post",
+      "channel": "public",
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "c0",
+      "text": "Please check current arrangements against the creator's past replies.",
+      "kind": "comment",
+      "channel": "public",
+      "editable": false,
+      "author": "U"
+    },
+    {
+      "id": "old",
+      "text": "Knowing the recipe does not affect the blind evaluation either, and it counts just the same.",
+      "kind": "reply",
+      "channel": "public",
+      "editable": true,
+      "author": "creator",
+      "parent": "c0",
+      "recipient": "U"
+    },
+    {
+      "id": "facts",
+      "text": "10 people in the blind evaluation group, anonymous sample cups X/Y. 7 people voted before the reveal: X 4, Y 3; in addition, U obtained the recipe in advance in a private message and voted X; this vote can be listed as an informed evaluation but is not counted as a blind vote. Two people did not vote. Recipe: X oat, Y regular milk; this is merely sandbox recipe information, with no health advice. Public reveal must not be earlier than t22. All existing votes were cast before t0, and the public statistics post was published at t=-1 and has never made the recipe public. U learned the recipe privately at t=-12 and voted X at t=-10; V1—V7 voted respectively from t=-9 to -3 and declared not having seen the recipe, tentatively counted as blind votes according to current declarations, with the independent audit uncompleted. V1—V4 voted X, V5—V7 voted Y. The two non-voters are not in the denominator of valid votes.",
+      "kind": "document",
+      "channel": "private",
+      "editable": false
+    },
+    {
+      "id": "c1",
+      "text": "I'm the one who asked for the recipe in advance; is my vote going to be completely deleted?",
+      "kind": "comment",
+      "channel": "public",
+      "editable": false,
+      "author": "U"
+    },
+    {
+      "id": "protected",
+      "text": "All raw voting records are preserved as read-only; evaluation group does not equal invalid person.",
+      "kind": "post",
+      "channel": "public",
+      "editable": true
+    },
+    {
+      "id": "snapshot",
+      "kind": "record",
+      "channel": "private",
+      "editable": true,
+      "text": "The valid vote snapshot has not yet been frozen."
+    },
+    {
+      "id": "reveal",
+      "kind": "draft",
+      "channel": "public",
+      "editable": true,
+      "status": "draft",
+      "text": "X oat, Y regular milk."
+    },
+    {
+      "id": "profiles",
+      "text": "[{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh\", \"context\": \"food content creator; completely fictional\", \"explicit_preferences\": [{\"scope\": \"all channels this time\", \"text\": \"Express according to facts and context; do not mechanically copy historical catchphrases.\"}], \"profile_visibility\": \"t0 workspace, internal context not permission to disclose\", \"history_samples\": [{\"id\": \"creator-h1\", \"time\": \"before_session_1\", \"channel\": \"public\", \"context\": \"ordinary work description\", \"text\": \"Cups can be anonymous, statistics cannot be ambiguous.\"}, {\"id\": \"creator-h2\", \"time\": \"before_session_2\", \"channel\": \"private\", \"context\": \"reader clarification\", \"text\": \"Feelings from knowing the recipe also have value; address them separately.\"}, {\"id\": \"creator-h3\", \"time\": \"before_session_3\", \"channel\": \"public\", \"context\": \"cooperation handoff\", \"text\": \"Do not forcefully declare a winner just for a catchy title.\"}]}]",
+      "kind": "profile",
+      "channel": "private",
+      "editable": false
+    },
+    {
+      "id": "vote_ledger",
+      "text": "Original votes read-only: U t=-10 X (known at t=-12); V1 t=-9 X, V2 t=-8 X, V3 t=-7 X, V4 t=-6 X, V5 t=-5 Y, V6 t=-4 Y, V7 t=-3 Y (V1–V7 all declared not having seen the recipe, pending audit); W1/W2 have not voted.",
+      "kind": "document",
+      "editable": false,
+      "channel": "private"
+    }
+  ],
+  "profiles": [
+    {
+      "user_id": "creator",
+      "role": "creator",
+      "language": "zh",
+      "context": "food content creator; completely fictional",
+      "explicit_preferences": [
+        {
+          "scope": "all channels this time",
+          "text": "Express based on facts and context; do not mechanically copy historical catchphrases."
+        }
+      ],
+      "profile_visibility": "t0 workspace, internal context not permission to disclose",
+      "history_samples": [
+        {
+          "id": "creator-h1",
+          "time": "before_session_1",
+          "channel": "public",
+          "context": "ordinary work description",
+          "text": "Cups can be anonymous, statistics cannot be ambiguous."
+        },
+        {
+          "id": "creator-h2",
+          "time": "before_session_2",
+          "channel": "private",
+          "context": "reader clarification",
+          "text": "Feelings from knowing the recipe also have value; address them separately."
+        },
+        {
+          "id": "creator-h3",
+          "time": "before_session_3",
+          "channel": "public",
+          "context": "collaboration handoff",
+          "text": "Do not forcefully declare a winner just for a catchy title."
+        }
+      ]
+    }
+  ],
+  "asset_catalog": [],
+  "events": [
+    {
+      "id": "external-update",
+      "at": 25,
+      "published_at": 25,
+      "effective_at": 25,
+      "add": [
+        {
+          "id": "update",
+          "text": "t25 verification: Another X vote originally counted as a blind vote came from someone who had viewed the recipe preview, and must be transferred to the informed group. Valid blind votes become 6: X3/Y3; informed X2 listed separately. Modify statistics, snapshot notes, and old replies before t35; do not alter original voting records, and do not state that X won blindly. Audit evidence: V4 viewed a recipe preview visible only to themselves at t=-11, earlier than their vote for X at t=-6; this evidence became visible to assistant only at t25. The informed timestamps of both U and V4 are earlier than their own votes, and the declarations of not having seen the recipe by the other six people have not been overturned.",
+          "kind": "notification",
+          "channel": "private",
+          "editable": false
+        },
+        {
+          "id": "preview_audit",
+          "text": "V4 private preview receipt t=-11; their vote for X t=-6. Only V4 received this preview; do not presume others are informed based on this.",
+          "kind": "document",
+          "editable": false,
+          "channel": "private"
+        }
+      ],
+      "visibility": "workspace on clock advancement",
+      "discovery": "observe resources / READ update",
+      "affected_rule": "All still-actionable owned content contradicting this notice, including new replies; accurate protected content remains.",
+      "response_window": "As explicitly stated in notification",
+      "exclusive_branches": "none",
+      "trigger_limit": 1,
+      "without_prerequisite": "External notice may arrive independently; no implication the assistant submitted anything."
+    }
+  ],
+  "action_events": [
+    {
+      "id": "reader-followup",
+      "trigger": {
+        "action": "REPLY",
+        "target": "c1"
+      },
+      "delay": 2,
+      "add": [
+        {
+          "id": "followup",
+          "text": "Then I want to write about mouthfeel impressions; can it be placed in the informed reviews without taking away the blind vote rankings?",
+          "kind": "comment",
+          "channel": "public",
+          "editable": false,
+          "author": "U",
+          "parent": "c1"
+        }
+      ],
+      "visibility": "same conversation as c1",
+      "discovery": "observe / READ followup",
+      "response_window": 8,
+      "exclusive_branches": "one followup only",
+      "trigger_limit": 1,
+      "without_prerequisite": "No reply => no followup; initial c1 response duty still required.",
+      "semantics": "A neutral further question after an actual delivery; no claim of satisfaction, acceptance or external completion."
+    }
+  ]
+}

@@ -1,0 +1,2802 @@
+{
+  "episode_id": "redact-20261030-b01-t3-04",
+  "version": "v2.4-en.1",
+  "strategy": "reference",
+  "input_hashes": {
+    "hidden": "28adbbadfa02d0ef9257adede9751933182863a0d87c7a9b29e13e98174c1dbc",
+    "visible": "6f098f42f1b0c50db3d4aa5221850f8adb2c884930cbb4108b86429645c55bcd",
+    "rubrics": "28f46f7ed6630a79a017ad74462c9a7f0364637cb5bdada0c6edf24a17134b6a"
+  },
+  "simulation": {
+    "protocol": "construction-workflow-v2.3",
+    "case_id": "redact-20261030-b01-t3-04",
+    "history": [
+      {
+        "time": 0,
+        "until": 1,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "profile_creator",
+            "profile_U1",
+            "north"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "profile_creator",
+              "kind": "profile",
+              "title": "Historical expression: creator",
+              "text": "{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh-CN\", \"context\": \"Dual-store menu maintenance\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [{\"time\": -2, \"channel\": \"Delegation\", \"text\": \"State facts clearly, do not use store-wide unification to omit the scope.\"}], \"history_samples\": [{\"message_id\": \"creator-h1\", \"time\": -58, \"target\": \"history-creator-1\", \"channel\": \"public\", \"context\": \"Previous menu\", \"text\": \"Write which store first, then write what can be ordered; do not let the same dish name obscure store differences.\"}, {\"message_id\": \"creator-h2\", \"time\": -46, \"target\": \"history-creator-2\", \"channel\": \"public\", \"context\": \"Reservation reply\", \"text\": \"Yours is already confirmed, so new order restrictions will not be retroactively cancelled.\"}, {\"message_id\": \"creator-h3\", \"time\": -34, \"target\": \"history-creator-3\", \"channel\": \"dm\", \"context\": \"Before meal swap\", \"text\": \"If you want to swap, you can, but I will wait until you explicitly choose before changing the record.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_creator\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "profile_U1",
+              "kind": "profile",
+              "title": "Expression history: U1",
+              "text": "{\"user_id\": \"U1\", \"role\": \"reader\", \"language\": \"zh-CN\", \"context\": \"Confirmed North Store dinner\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [], \"history_samples\": [{\"message_id\": \"U1-h1\", \"time\": -58, \"target\": \"history-U1-1\", \"channel\": \"public\", \"context\": \"Prior reservation\", \"text\": \"I usually get off work late, so I ask first about the latest pickup time.\"}, {\"message_id\": \"U1-h2\", \"time\": -46, \"target\": \"history-U1-2\", \"channel\": \"public\", \"context\": \"Past meal swap\", \"text\": \"If the original meal is kept, then let me think about it more; that does not mean I am swapping right now.\"}, {\"message_id\": \"U1-h3\", \"time\": -34, \"target\": \"history-U1-3\", \"channel\": \"public\", \"context\": \"After confirmation\", \"text\": \"This time I explicitly change to B, please reply to confirm it has been changed.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_U1\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "north",
+              "kind": "document",
+              "title": "north",
+              "text": "North Store N current menu: Starting from t0, no new Combo A orders will be taken, while new orders for B can be placed; R1/R2 with confirmed A before t0 are still reserved as originally promised and will not be automatically swapped. Original pickup window 18:00–18:30.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            }
+          ]
+        }
+      },
+      {
+        "time": 1,
+        "until": 2,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "south",
+            "R1_question",
+            "R2_question"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "south",
+              "kind": "document",
+              "title": "south",
+              "text": "South Store S current menu: Both A/B can be ordered, pickup 18:00–18:30; unaffected by North Store ingredient changes.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "R1_question",
+              "kind": "comment",
+              "title": "R1_question",
+              "text": "I am R1, already confirmed at North Store. You said before that A would be kept; in the end, do I need to change it now? I currently plan to arrive at the store at 18:20.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U1"
+            },
+            {
+              "id": "R2_question",
+              "kind": "comment",
+              "title": "R2_question",
+              "text": "R2 is also an old A confirmation at North Store. I still want A and will not swap; if restrictions are only on new orders, do not touch mine.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U2"
+            }
+          ]
+        }
+      },
+      {
+        "time": 2,
+        "until": 3,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "edit",
+              "target": "main",
+              "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "edit",
+              "target": "north_pin",
+              "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "reply",
+              "target": "R1_question",
+              "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched."
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "main",
+            "north_pin",
+            "reply_1"
+          ],
+          "private_messages_sent": 0,
+          "stage": 0,
+          "done": false
+        }
+      },
+      {
+        "time": 3,
+        "until": 5,
+        "action": {
+          "action": "WAIT",
+          "time": 17
+        },
+        "result": {
+          "woke_at": 5,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 5,
+        "until": 17,
+        "action": {
+          "action": "WAIT",
+          "time": 17
+        },
+        "result": {
+          "woke_at": 17,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 17,
+        "until": 18,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "choice"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "choice",
+              "kind": "comment",
+              "title": "choice",
+              "text": "Adding my decision: Regardless of whether original A is still kept for me, I now explicitly request to swap North Store R1 to B. Please verify if this can be processed according to North Store's current menu and confirm; it is still North Store, original pickup plan 18:20. This is not saying you have already verified or changed it.",
+              "at": 5,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U1",
+              "parent": "R1_question"
+            }
+          ]
+        }
+      },
+      {
+        "time": 18,
+        "until": 19,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "set_record",
+              "target": "r1",
+              "fields": {
+                "dish": "B",
+                "branch": "N"
+              },
+              "expected_revision": 1
+            },
+            {
+              "kind": "reply",
+              "target": "choice",
+              "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged."
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "reply_2",
+            "r1"
+          ],
+          "private_messages_sent": 0,
+          "stage": 1,
+          "done": false
+        }
+      },
+      {
+        "time": 19,
+        "until": 28,
+        "action": {
+          "action": "WAIT",
+          "time": 30
+        },
+        "result": {
+          "woke_at": 28,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 28,
+        "until": 30,
+        "action": {
+          "action": "WAIT",
+          "time": 30
+        },
+        "result": {
+          "woke_at": 30,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 30,
+        "until": 31,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "pickup"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "pickup",
+              "kind": "document",
+              "title": "North Store pickup window change",
+              "text": "North Store N t28 update: Today all N orders including old confirmations have their pickup window changed to 17:30–18:00; meal reservations and already accepted swaps remain unchanged. South Store S remains 18:00–18:30. Directly notify R1, who has already mentioned arriving at the store at 18:20, before t34, and maintain North Store announcements and old replies before t40.",
+              "at": 28,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            }
+          ]
+        }
+      },
+      {
+        "time": 31,
+        "until": 32,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "reply",
+              "target": "R1_question",
+              "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you."
+            },
+            {
+              "kind": "edit",
+              "target": "main",
+              "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+              "expected_revision": 2
+            },
+            {
+              "kind": "edit",
+              "target": "north_pin",
+              "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+              "expected_revision": 2
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "reply_3",
+            "main",
+            "north_pin"
+          ],
+          "private_messages_sent": 0,
+          "stage": 3,
+          "done": false
+        }
+      },
+      {
+        "time": 32,
+        "until": 48,
+        "action": {
+          "action": "WAIT",
+          "time": 48
+        },
+        "result": {
+          "woke_at": 48,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 48,
+        "until": 49,
+        "action": {
+          "action": "COMMIT",
+          "operations": [],
+          "handoff": "R1 North Store B, R2 North Store A, North Store both 17:30–18:00; S3 South Store A still 18:00–18:30. R1's original thread reminded before t34 that old 18:20 is invalid, main text and pinned notice synchronized; no actual debit/refund or confirmed arrival."
+        },
+        "result": {
+          "changed": [],
+          "private_messages_sent": 0,
+          "stage": 5,
+          "done": false
+        }
+      },
+      {
+        "time": 49,
+        "until": 55,
+        "action": {
+          "action": "WAIT",
+          "time": 55
+        },
+        "result": {
+          "woke_at": 55,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "time": 2,
+        "stage": 0,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "edit",
+            "target": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "edit",
+            "target": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "reply",
+            "target": "R1_question",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched."
+          }
+        ]
+      },
+      {
+        "time": 15,
+        "stage": 1,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": ""
+      },
+      {
+        "time": 18,
+        "stage": 1,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "set_record",
+            "target": "r1",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "expected_revision": 1
+          },
+          {
+            "kind": "reply",
+            "target": "choice",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged."
+          }
+        ]
+      },
+      {
+        "time": 24,
+        "stage": 2,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": ""
+      },
+      {
+        "time": 28,
+        "stage": 3,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N takes only B for new orders, original confirmed A continues to be kept; South Store S can still take new orders for A/B. Both stores currently pickup 18:00–18:30. Changing meals requires explicit personal choice.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store new orders B only; confirmed A before t0 kept per original promise, meals cannot be automatically changed. Currently pickup 18:00–18:30.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": ""
+      },
+      {
+        "time": 31,
+        "stage": 3,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "reply",
+            "target": "R1_question",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you."
+          },
+          {
+            "kind": "edit",
+            "target": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "expected_revision": 2
+          },
+          {
+            "kind": "edit",
+            "target": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "expected_revision": 2
+          }
+        ]
+      },
+      {
+        "time": 34,
+        "stage": 4,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": ""
+      },
+      {
+        "time": 40,
+        "stage": 5,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": ""
+      },
+      {
+        "time": 48,
+        "stage": 5,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": "R1 North Store B, R2 North Store A, North Store both 17:30–18:00; S3 South Store A still 18:00–18:30. R1's original thread reminded before t34 that old 18:20 is invalid, main text and pinned notice synchronized; no actual debit/refund or confirmed arrival.",
+        "operations": []
+      },
+      {
+        "time": 55,
+        "stage": 5,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "north_pin": {
+            "id": "north_pin",
+            "kind": "post",
+            "title": "north_pin",
+            "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "old_R1": {
+            "id": "old_R1",
+            "kind": "agent_reply",
+            "title": "old_R1",
+            "text": "R1, North Store has kept A for you; just come at 18:20.",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published",
+            "parent": "R1_question"
+          },
+          "r1": {
+            "id": "r1",
+            "kind": "record",
+            "title": "r1",
+            "text": "R1 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "B",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "r2": {
+            "id": "r2",
+            "kind": "record",
+            "title": "r2",
+            "text": "R2 North Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "N"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "south_order": {
+            "id": "south_order",
+            "kind": "record",
+            "title": "south_order",
+            "text": "S3 South Store confirmed",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "dish": "A",
+              "branch": "S"
+            },
+            "field_schema": {
+              "dish": [
+                "A",
+                "B",
+                "cancelled"
+              ],
+              "branch": [
+                "N",
+                "S"
+              ]
+            }
+          },
+          "reply_1": {
+            "id": "reply_1",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+            "parent": "R1_question",
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_2": {
+            "id": "reply_2",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+            "parent": "choice",
+            "stage": 1,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "reply_3": {
+            "id": "reply_3",
+            "title": "Assistant public reply",
+            "kind": "agent_reply",
+            "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+            "parent": "R1_question",
+            "stage": 3,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "private_outbox": [],
+        "handoff": "R1 North Store B, R2 North Store A, North Store both 17:30–18:00; S3 South Store A still 18:00–18:30. R1's original thread reminded before t34 that old 18:20 is invalid, main text and pinned notice synchronized; no actual debit/refund or confirmed arrival."
+      }
+    ],
+    "public": {
+      "main": {
+        "id": "main",
+        "kind": "post",
+        "title": "main",
+        "text": "North Store N: new orders B, original confirmed A kept, pickup for all N orders changed to 17:30–18:00. South Store S still has A/B available, pickup 18:00–18:30. Confirmed personal meal swaps still follow respective new records.",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      },
+      "north_pin": {
+        "id": "north_pin",
+        "kind": "post",
+        "title": "north_pin",
+        "text": "North Store only new orders B, old A kept, those personally agreed to swap to B follow B; all North Store pickups 17:30–18:00, old 18:20 advice invalid.",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      },
+      "old_R1": {
+        "id": "old_R1",
+        "kind": "agent_reply",
+        "title": "old_R1",
+        "text": "R1, North Store has kept A for you; just come at 18:20.",
+        "at": 0,
+        "stage": 0,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "published",
+        "parent": "R1_question"
+      },
+      "reply_1": {
+        "id": "reply_1",
+        "title": "Assistant public reply",
+        "kind": "agent_reply",
+        "text": "R1 is an old confirmation at North Store, A is still kept for you, 18:20 is currently within the pickup window; if you want to switch to B please say so explicitly, inquiring does not count as having agreed. R2 original A untouched.",
+        "parent": "R1_question",
+        "stage": 0,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      },
+      "reply_2": {
+        "id": "reply_2",
+        "title": "Assistant public reply",
+        "kind": "agent_reply",
+        "text": "R1 has been changed to North Store B per your explicit choice, pickup 18:00–18:30, 18:20 is currently feasible. Original reply keeping A no longer applies to R1; other old A orders remain unchanged.",
+        "parent": "choice",
+        "stage": 1,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      },
+      "reply_3": {
+        "id": "reply_3",
+        "title": "Assistant public reply",
+        "kind": "agent_reply",
+        "text": "R1 please update your plan: North Store pickup changed to 17:30–18:00, cannot proceed according to prior 18:20 advice. Your chosen B and North Store remain unchanged; this is a time adjustment and does not change store or meal for you.",
+        "parent": "R1_question",
+        "stage": 3,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      }
+    },
+    "private_outbox": [],
+    "handoff": "R1 North Store B, R2 North Store A, North Store both 17:30–18:00; S3 South Store A still 18:00–18:30. R1's original thread reminded before t34 that old 18:20 is invalid, main text and pinned notice synchronized; no actual debit/refund or confirmed arrival.",
+    "ended_by": "deadline",
+    "costs": {
+      "calls": 14,
+      "reads": 4,
+      "asks": 0,
+      "writes": 8
+    },
+    "time": 55,
+    "reminders": [],
+    "workflow_records": {
+      "r1": {
+        "id": "r1",
+        "kind": "record",
+        "title": "r1",
+        "text": "R1 North Store confirmed",
+        "at": 0,
+        "stage": 0,
+        "revision": 2,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "dish": "B",
+          "branch": "N"
+        },
+        "field_schema": {
+          "dish": [
+            "A",
+            "B",
+            "cancelled"
+          ],
+          "branch": [
+            "N",
+            "S"
+          ]
+        }
+      },
+      "r2": {
+        "id": "r2",
+        "kind": "record",
+        "title": "r2",
+        "text": "R2 North Store confirmed",
+        "at": 0,
+        "stage": 0,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "dish": "A",
+          "branch": "N"
+        },
+        "field_schema": {
+          "dish": [
+            "A",
+            "B",
+            "cancelled"
+          ],
+          "branch": [
+            "N",
+            "S"
+          ]
+        }
+      },
+      "south_order": {
+        "id": "south_order",
+        "kind": "record",
+        "title": "south_order",
+        "text": "S3 South Store confirmed",
+        "at": 0,
+        "stage": 0,
+        "revision": 1,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "dish": "A",
+          "branch": "S"
+        },
+        "field_schema": {
+          "dish": [
+            "A",
+            "B",
+            "cancelled"
+          ],
+          "branch": [
+            "N",
+            "S"
+          ]
+        }
+      }
+    },
+    "triggered_events": [
+      "choose_B"
+    ]
+  },
+  "scope": "Relocated existing programmed execution. No model generation or new semantic judgment."
+}

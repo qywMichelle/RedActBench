@@ -1,0 +1,2238 @@
+{
+  "episode_id": "redact-20261030-b01-t5-02",
+  "version": "v2.4-en.1",
+  "strategy": "reference",
+  "input_hashes": {
+    "hidden": "0c03265e6c23bf34ffc6a521624245f9ba24e9c67ac95658f85426e329e47783",
+    "visible": "8a4f8495aae25fd8b3a1fb8fd255889d971e1819dfb3f87023e2d98e0a4be0f9",
+    "rubrics": "ce0d40410815650a66b2c6463f27f767df72cecf42c8a6550a501fe6819d38e3"
+  },
+  "simulation": {
+    "protocol": "construction-workflow-v2.3",
+    "case_id": "redact-20261030-b01-t5-02",
+    "history": [
+      {
+        "time": 0,
+        "until": 1,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "profile_creator",
+            "profile_U2",
+            "delay"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "profile_creator",
+              "kind": "profile",
+              "title": "Historical expression: creator",
+              "text": "{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh-CN\", \"context\": \"Itinerary and reservation coordination\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [{\"time\": -2, \"channel\": \"Commission\", \"text\": \"Use trip/session prefixes, write time in two layers: station arrival and venue arrival, and do not say safely make it.\"}], \"history_samples\": [{\"message_id\": \"creator-h1\", \"time\": -58, \"target\": \"history-creator-1\", \"channel\": \"public\", \"context\": \"Old travel reminder\", \"text\": \"It still takes a twenty-minute walk after arriving at the station, don't directly match the station arrival time against the admission deadline.\"}, {\"message_id\": \"creator-h2\", \"time\": -46, \"target\": \"history-creator-2\", \"channel\": \"dm\", \"context\": \"One rescheduling\", \"text\": \"What I submitted is an application, not a confirmation; the original reservation is temporarily retained.\"}, {\"message_id\": \"creator-h3\", \"time\": -34, \"target\": \"history-creator-3\", \"channel\": \"dm\", \"context\": \"Later transportation restoration\", \"text\": \"Even if the original train can make it, still check first which new arrangement you have already confirmed, and do not withdraw without authorization.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_creator\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "profile_U2",
+              "kind": "profile",
+              "title": "Historical expressions: U2",
+              "text": "{\"user_id\": \"U2\", \"role\": \"reader\", \"language\": \"zh-CN\", \"context\": \"Flexible traveler\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [], \"history_samples\": [{\"message_id\": \"U2-h1\", \"time\": -58, \"target\": \"history-U2-1\", \"channel\": \"dm\", \"context\": \"Last time being late\", \"text\": \"I easily mistake station arrival for venue arrival, help me mark the walking segment.\"}, {\"message_id\": \"U2-h2\", \"time\": -46, \"target\": \"history-U2-2\", \"channel\": \"dm\", \"context\": \"Another time with options\", \"text\": \"Apply for a later one first, don't write submission as already changed.\"}, {\"message_id\": \"U2-h3\", \"time\": -34, \"target\": \"history-U2-3\", \"channel\": \"dm\", \"context\": \"Alternative transportation\", \"text\": \"If the late session is not confirmed yet, you can also ask me whether I'd like to take the express, don't replace by default.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_U2\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "delay",
+              "kind": "document",
+              "title": "delay",
+              "text": "Notice at t0: T-A changed to arrive at station at 14:30, 20-minute walk to venue = 14:50, cannot make it for M-A latest 14:10. Optional T-B express arrives at station at 13:45 + 20 minutes = 14:05, but requires personal choice and here only registers change of transportation plan; or apply for venue M-B16:00, whether it is confirmed requires checking quota, cannot treat trip B and session B as the same object.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            }
+          ]
+        }
+      },
+      {
+        "time": 1,
+        "until": 2,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "rules",
+            "dm1",
+            "dm2"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "rules",
+              "kind": "document",
+              "title": "rules",
+              "text": "Both originally have M-A confirmed. Retain original M-A during the application for M-B, and only release that person's M-A after M-B is confirmed. T-B transportation can only register requests accepted by the person, which does not equal actually changed tickets. The creator can inquire about M-B quota; without personal acceptance, cannot uniformly change. Sandbox registration means processing requests: after the person explicitly chooses, write MB_pending to indicate submission; after obtaining capacity eligibility proof from currently valid rules or creator capacity reply, set the person's museum=MB/request=MB_confirmed to indicate processing confirmation and releasing their MA. Query alone will not submit, confirm, or release. M-B only has a migration seat reserved for U1 according to original reservation priority order, which will not be transferred to U2 until the end of this window; U2 can only remain pending, not allocated according to the order of inquiry/application.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "dm1",
+              "kind": "dm",
+              "title": "dm1",
+              "text": "U1 original session: Transportation delay affects my original M-A, give options first, don't change directly.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U1"
+            },
+            {
+              "id": "dm2",
+              "kind": "dm",
+              "title": "dm2",
+              "text": "U2 original session: I also have M-A, please distinguish between transportation station arrival and venue deadline, give plans first and I will choose later.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U2"
+            }
+          ]
+        }
+      },
+      {
+        "time": 2,
+        "until": 3,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "edit",
+              "target": "main",
+              "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "edit",
+              "target": "transport",
+              "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm1",
+              "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?"
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm2",
+              "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?"
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "main",
+            "transport"
+          ],
+          "private_messages_sent": 2,
+          "stage": 0,
+          "done": false
+        }
+      },
+      {
+        "time": 3,
+        "until": 5,
+        "action": {
+          "action": "WAIT",
+          "time": 12
+        },
+        "result": {
+          "woke_at": 5,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 5,
+        "until": 12,
+        "action": {
+          "action": "WAIT",
+          "time": 12
+        },
+        "result": {
+          "woke_at": 12,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 12,
+        "until": 13,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "choice1",
+            "choice2"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "choice1",
+              "kind": "dm",
+              "title": "choice1",
+              "text": "U1: I explicitly choose to apply for venue M-B, and temporarily retain T-A for transportation; tell me after inquiry confirmation, do not treat application as success.",
+              "at": 5,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U1"
+            },
+            {
+              "id": "choice2",
+              "kind": "dm",
+              "title": "choice2",
+              "text": "U2: I also apply for M-B first, retaining T-A. If not confirmed, ask me again whether to use the express, do not accept on my behalf.",
+              "at": 5,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "U2"
+            }
+          ]
+        }
+      },
+      {
+        "time": 13,
+        "until": 14,
+        "action": {
+          "action": "ASK",
+          "topics": [
+            "capacity"
+          ],
+          "question": "U1/U2 have chosen to apply for M-B respectively, please check their actual confirmations, does the unconfirmed one retain the original M-A?"
+        },
+        "result": {
+          "request_ids": [
+            "answer_capacity"
+          ],
+          "delivery_at": 18,
+          "question": "U1/U2 have chosen to apply for M-B respectively, please check their actual confirmations, does the unconfirmed one retain the original M-A?"
+        }
+      },
+      {
+        "time": 14,
+        "until": 15,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "set_record",
+              "target": "b1",
+              "fields": {
+                "request": "MB_pending"
+              },
+              "expected_revision": 1
+            },
+            {
+              "kind": "set_record",
+              "target": "b2",
+              "fields": {
+                "request": "MB_pending"
+              },
+              "expected_revision": 1
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "b1",
+            "b2"
+          ],
+          "private_messages_sent": 2,
+          "stage": 1,
+          "done": false
+        }
+      },
+      {
+        "time": 15,
+        "until": 18,
+        "action": {
+          "action": "WAIT",
+          "time": 22
+        },
+        "result": {
+          "woke_at": 18,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 18,
+        "until": 22,
+        "action": {
+          "action": "WAIT",
+          "time": 22
+        },
+        "result": {
+          "woke_at": 22,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 22,
+        "until": 23,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "answer_capacity"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "answer_capacity",
+              "kind": "dm",
+              "title": "Creator reply: Inquire about M-B capacity and each person's processable eligibility (read-only)",
+              "text": "Read-only capacity reply, not a processing result: In this window, M-B16:00 only has a migration seat reserved for U1 according to the original reservation priority order; after U1 explicitly chooses and actually submits it, confirmation can be processed according to records and release their M-A; not having applied yet does not mean already confirmed. U2 has no confirmable seat, and can only submit a waitlist and retain M-A. This seat will not be transferred to U2 until t60, regardless of who inquires/applies first. This query does not modify any records or reservations; transportation alternatives must still be accepted by each person.",
+              "at": 18,
+              "stage": 1,
+              "revision": 1,
+              "assets": [],
+              "sender": "creator"
+            }
+          ]
+        }
+      },
+      {
+        "time": 23,
+        "until": 24,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "set_record",
+              "target": "b1",
+              "fields": {
+                "museum": "MB",
+                "request": "MB_confirmed",
+                "transport": "TA"
+              },
+              "expected_revision": 2
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm1",
+              "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session."
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm2",
+              "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you."
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "b1"
+          ],
+          "private_messages_sent": 4,
+          "stage": 1,
+          "done": false
+        }
+      },
+      {
+        "time": 24,
+        "until": 38,
+        "action": {
+          "action": "WAIT",
+          "time": 40
+        },
+        "result": {
+          "woke_at": 38,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 38,
+        "until": 40,
+        "action": {
+          "action": "WAIT",
+          "time": 40
+        },
+        "result": {
+          "woke_at": 40,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 40,
+        "until": 41,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "recovery"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "recovery",
+              "kind": "document",
+              "title": "Partial restoration of transportation",
+              "text": "Transportation update at t38: T-A restored to arrive at station at 13:45, 20-minute walk = 14:05, can arrive at venue before M-A latest 14:10, but the buffer is only 5 minutes, cannot guarantee actual arrival. T-B still arrives at station at 13:45. Transportation restoration does not automatically cancel already confirmed M-B or T-B requests accepted by the person. Update the two posts and original sessions according to each person's real status before t48.",
+              "at": 38,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            }
+          ]
+        }
+      },
+      {
+        "time": 41,
+        "until": 42,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "edit",
+              "target": "main",
+              "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+              "expected_revision": 2
+            },
+            {
+              "kind": "edit",
+              "target": "transport",
+              "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+              "expected_revision": 2
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm1",
+              "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results."
+            },
+            {
+              "kind": "send_dm",
+              "target": "dm2",
+              "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide."
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "main",
+            "transport"
+          ],
+          "private_messages_sent": 6,
+          "stage": 3,
+          "done": false
+        }
+      },
+      {
+        "time": 42,
+        "until": 54,
+        "action": {
+          "action": "WAIT",
+          "time": 54
+        },
+        "result": {
+          "woke_at": 54,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 54,
+        "until": 55,
+        "action": {
+          "action": "COMMIT",
+          "operations": [],
+          "handoff": "U1 has confirmed M-B 16:00, M-A released, T-A kept; U2's original M-A kept, M-B pending, still T-A. T-A is expected to arrive at the venue at 14:05, both posts and both persons have been updated but actual arrival is not guaranteed, no real ticket modification or ticket issuance, U2 is pending further choice."
+        },
+        "result": {
+          "changed": [],
+          "private_messages_sent": 6,
+          "stage": 4,
+          "done": false
+        }
+      },
+      {
+        "time": 55,
+        "until": 60,
+        "action": {
+          "action": "WAIT",
+          "time": 60
+        },
+        "result": {
+          "woke_at": 60,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "time": 2,
+        "stage": 0,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "none",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "none",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "edit",
+            "target": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "edit",
+            "target": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?"
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?"
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "stage": 1,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "none",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 1,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "none",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 14,
+        "stage": 1,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "set_record",
+            "target": "b1",
+            "fields": {
+              "request": "MB_pending"
+            },
+            "expected_revision": 1
+          },
+          {
+            "kind": "set_record",
+            "target": "b2",
+            "fields": {
+              "request": "MB_pending"
+            },
+            "expected_revision": 1
+          }
+        ]
+      },
+      {
+        "time": 23,
+        "stage": 1,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "set_record",
+            "target": "b1",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "expected_revision": 2
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session."
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you."
+          }
+        ]
+      },
+      {
+        "time": 28,
+        "stage": 2,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 38,
+        "stage": 3,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "M-A opens at 14:00, latest 14:10; T-A delay will lead to arrival at venue at 14:50, cannot guarantee making it according to original plan. Optional T-B express or applying for M-B16:00, both require personal choice, application is not confirmation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A arrives at station at 14:30 + 20-minute walk = 14:50; T-B arrives at station at 13:45 + 20 = 14:05, buffer is only 5 minutes. Transportation B and venue M-B are not the same reservation.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 41,
+        "stage": 3,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results.",
+            "stage": 3
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide.",
+            "stage": 3
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "edit",
+            "target": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "expected_revision": 2
+          },
+          {
+            "kind": "edit",
+            "target": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "expected_revision": 2
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm1",
+            "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results."
+          },
+          {
+            "kind": "send_dm",
+            "target": "dm2",
+            "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide."
+          }
+        ]
+      },
+      {
+        "time": 48,
+        "stage": 4,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results.",
+            "stage": 3
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide.",
+            "stage": 3
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 54,
+        "stage": 4,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results.",
+            "stage": 3
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide.",
+            "stage": 3
+          }
+        ],
+        "handoff": "U1 has confirmed M-B 16:00, M-A released, T-A kept; U2's original M-A kept, M-B pending, still T-A. T-A is expected to arrive at the venue at 14:05, both posts and both persons have been updated but actual arrival is not guaranteed, no real ticket modification or ticket issuance, U2 is pending further choice.",
+        "operations": []
+      },
+      {
+        "time": 60,
+        "stage": 4,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "transport": {
+            "id": "transport",
+            "kind": "post",
+            "title": "transport",
+            "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "b1": {
+            "id": "b1",
+            "kind": "record",
+            "title": "b1",
+            "text": "U1 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MB",
+              "request": "MB_confirmed",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          },
+          "b2": {
+            "id": "b2",
+            "kind": "record",
+            "title": "b2",
+            "text": "U2 venue reservation and transportation plan",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "museum": "MA",
+              "request": "MB_pending",
+              "transport": "TA"
+            },
+            "field_schema": {
+              "museum": [
+                "MA",
+                "MB"
+              ],
+              "request": [
+                "none",
+                "MB_pending",
+                "MB_confirmed",
+                "withdrawn"
+              ],
+              "transport": [
+                "TA",
+                "TB_requested"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+            "stage": 0
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+            "stage": 1
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+            "stage": 1
+          },
+          {
+            "target": "dm1",
+            "recipient": "U1",
+            "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results.",
+            "stage": 3
+          },
+          {
+            "target": "dm2",
+            "recipient": "U2",
+            "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide.",
+            "stage": 3
+          }
+        ],
+        "handoff": "U1 has confirmed M-B 16:00, M-A released, T-A kept; U2's original M-A kept, M-B pending, still T-A. T-A is expected to arrive at the venue at 14:05, both posts and both persons have been updated but actual arrival is not guaranteed, no real ticket modification or ticket issuance, U2 is pending further choice."
+      }
+    ],
+    "public": {
+      "main": {
+        "id": "main",
+        "kind": "post",
+        "title": "main",
+        "text": "T-A now arrives at station at 13:45, 20-minute walk = 14:05, only 5 minutes earlier than M-A latest 14:10, does not guarantee actually making it. Those who have confirmed M-B keep 16:00; unconfirmed ones are handled according to their respective choices, no uniform rollback.",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      },
+      "transport": {
+        "id": "transport",
+        "kind": "post",
+        "title": "transport",
+        "text": "T-A restored to arrive at station at 13:45 + 20 = 14:05, T-B also arrives at station at 13:45. Both are trips, cannot change confirmed M-B to M-A because of this; transportation requests already accepted by the person are not automatically withdrawn either.",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      }
+    },
+    "private_outbox": [
+      {
+        "target": "dm1",
+        "recipient": "U1",
+        "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+        "stage": 0
+      },
+      {
+        "target": "dm2",
+        "recipient": "U2",
+        "text": "T-A arrives at station at 14:30, plus 20-minute walk = 14:50, missing M-A latest 14:10. Optional T-B arrives at station at 13:45, arriving at venue at 14:05 (only 5-minute buffer, requires your choice to register request), or apply for M-B16:00 but requires checking confirmation; which one do you choose?",
+        "stage": 0
+      },
+      {
+        "target": "dm1",
+        "recipient": "U1",
+        "text": "U1's M-B 16:00 has been confirmed, the original M-A has been released; keep T-A, and after the delay, arriving at the venue at 14:50 can still wait for the evening session.",
+        "stage": 1
+      },
+      {
+        "target": "dm2",
+        "recipient": "U2",
+        "text": "U2's M-B is not confirmed yet, original M-A retained, transportation still T-A; current delay cannot make it for M-A, cannot be called successful rescheduling. You can continue to wait, or you can make an explicit choice for T-B request, cannot decide for you.",
+        "stage": 1
+      },
+      {
+        "target": "dm1",
+        "recipient": "U1",
+        "text": "T-A is now expected to arrive at the venue at 14:05, but you have already confirmed M-B 16:00 and will still keep M-B, without switching you back to M-A on your behalf; the arrival time is only an estimate and does not guarantee venue entry results.",
+        "stage": 3
+      },
+      {
+        "target": "dm2",
+        "recipient": "U2",
+        "text": "T-A is now arriving at the station at 13:45 + 20 = 14:05, only 5 minutes away from the M-A cutoff, which can be evaluated but catching it is not guaranteed. You still keep M-A, with the M-B application pending, and the application will not be withdrawn on your behalf without authorization due to traffic recovery; the final choice is up to you to decide.",
+        "stage": 3
+      }
+    ],
+    "handoff": "U1 has confirmed M-B 16:00, M-A released, T-A kept; U2's original M-A kept, M-B pending, still T-A. T-A is expected to arrive at the venue at 14:05, both posts and both persons have been updated but actual arrival is not guaranteed, no real ticket modification or ticket issuance, U2 is pending further choice.",
+    "ended_by": "deadline",
+    "costs": {
+      "calls": 19,
+      "reads": 5,
+      "asks": 1,
+      "writes": 13
+    },
+    "time": 60,
+    "reminders": [],
+    "workflow_records": {
+      "b1": {
+        "id": "b1",
+        "kind": "record",
+        "title": "b1",
+        "text": "U1 venue reservation and transportation plan",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "museum": "MB",
+          "request": "MB_confirmed",
+          "transport": "TA"
+        },
+        "field_schema": {
+          "museum": [
+            "MA",
+            "MB"
+          ],
+          "request": [
+            "none",
+            "MB_pending",
+            "MB_confirmed",
+            "withdrawn"
+          ],
+          "transport": [
+            "TA",
+            "TB_requested"
+          ]
+        }
+      },
+      "b2": {
+        "id": "b2",
+        "kind": "record",
+        "title": "b2",
+        "text": "U2 venue reservation and transportation plan",
+        "at": 0,
+        "stage": 0,
+        "revision": 2,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "museum": "MA",
+          "request": "MB_pending",
+          "transport": "TA"
+        },
+        "field_schema": {
+          "museum": [
+            "MA",
+            "MB"
+          ],
+          "request": [
+            "none",
+            "MB_pending",
+            "MB_confirmed",
+            "withdrawn"
+          ],
+          "transport": [
+            "TA",
+            "TB_requested"
+          ]
+        }
+      }
+    },
+    "triggered_events": [
+      "U1_choice",
+      "U2_choice"
+    ]
+  },
+  "scope": "Relocated existing programmed execution. No model generation or new semantic judgment."
+}

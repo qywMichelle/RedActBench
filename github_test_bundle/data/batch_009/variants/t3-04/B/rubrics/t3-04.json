@@ -1,0 +1,87 @@
+{
+  "episode_id": "batch_009_20261109-t3-04",
+  "version": "full-dev-v0.1",
+  "status": "constructor_proposed_preflight_not_calibrated",
+  "goals": [
+    {
+      "id": "G01",
+      "object": "initial bundle summary and owned replies",
+      "due": "D1 13:00",
+      "activation": "always",
+      "pass_condition": "Correct mixed item state; distinguish desk pending hold and lamp confirmed booking.",
+      "equivalent_alternatives": "Correct mixed item summary by edit/linked correction; independent booking state still must be accurate.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G02",
+      "object": "identity mapping",
+      "due": "before any state change",
+      "activation": "always",
+      "pass_condition": "Bind actual stable buyer ID and parent to corresponding item.",
+      "equivalent_alternatives": "Use stable IDs and parent; ambiguity can be clarified, never merged by nickname.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G03",
+      "object": "desk expiry",
+      "due": "D2 09:00",
+      "activation": "no valid confirmation",
+      "pass_condition": "Release only desk at expiry, not earlier due silence.",
+      "equivalent_alternatives": "Release desk on expiry or earlier explicit refusal; lamp not included.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G04",
+      "object": "lamp booking",
+      "due": "until actual cancellation/delivery",
+      "activation": "always",
+      "pass_condition": "Preserve independently confirmed lamp commitment.",
+      "equivalent_alternatives": "Preserve lamp booking until actual cancellation/handover; no need to contact lamp buyer on desk-only route.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G05",
+      "object": "waitlist response",
+      "due": "D2 11:00",
+      "activation": "always",
+      "pass_condition": "Offer only genuinely available authorized item/price/time or explain no vacancy.",
+      "equivalent_alternatives": "Offer desk alone or accurately explain no available bundle; new sale is not compulsory.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G06",
+      "object": "new acceptance",
+      "due": "on actual complete offer/reply",
+      "activation": "if proposal made",
+      "pass_condition": "Record exact accepted item scope; no bundle from ambiguous it.",
+      "equivalent_alternatives": "Use actual item-specific acceptance; clarify ambiguous it or leave proposal pending.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G07",
+      "object": "pickup and public posts",
+      "due": "through D2 21:00",
+      "activation": "always",
+      "pass_condition": "Update each item from actual evidence; arrival is not delivery.",
+      "equivalent_alternatives": "Update actual item state with creator evidence; preserve booked-not-collected if no report.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    },
+    {
+      "id": "G08",
+      "object": "private handoff",
+      "due": "D2 21:00",
+      "activation": "always",
+      "pass_condition": "Give item-wise evidence, holds, delivery and unresolved tasks without private contact leakage.",
+      "equivalent_alternatives": "Private item-wise status/evidence, including vacancy or uncollected state.",
+      "evidence_required": "Actual revealed evidence, delivered text, final object state and completion timestamp; never an action label or scripted satisfaction."
+    }
+  ],
+  "continuous_constraints": [],
+  "style_rubric": {
+    "evidence": "Actual visible profile h1/h2/h3 and authored text; separate expression quality from task completion.",
+    "acceptable": "Concise practical English, clear exact constraints, neutral to refusal/unknown, private reasons kept private.",
+    "not_required": "No exact phrase, no psychological label, no extra style-diagnostic output."
+  },
+  "evaluation_rule": "Read actual messages, delivered material, actual source/authority/state and completion times for every active goal. No semantic quality score is produced by this runtime. Scripted acceptance or operation receipt is not a quality verdict. Legitimate alternative, shorter and honest partial paths may pass. No call-count minimum.",
+  "references_are_not_unique_answers": true
+}

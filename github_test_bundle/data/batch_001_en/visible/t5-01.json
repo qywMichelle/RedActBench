@@ -1,0 +1,336 @@
+{
+  "protocol": "construction-workflow-v2.3",
+  "task": "English edition: all material is rendered in English, and all text you author must be in English. Chinese/English language labels identify the original source-language objects; keep those objects and their separate maintenance obligations distinct. Original language tags are provenance, not an instruction to answer in Chinese. Completion deadlines are inclusive: finishing exactly at the stated cutoff is on time. A prohibition on acting before an effective time still forbids early action.\n\nOn duty until t55, coordinating venue, seats, activity post, and transit post. According to the briefing, verify the venue before t16 before publishing the route, finalize the seat and guidance before t21 according to W's own decision, maintaining Z's order. After entrance changes, notify according to target-visible deadlines and maintain history; those already confirmed by the creator and those newly confirmed in this round both count toward notification responsibilities. Do not cancel still-valid activities, and handoff at the end.",
+  "authorization": "Can ask the creator, maintain two owned posts and waitlist records, invite and notify in original private messages; cannot accept on behalf of a waitlistee or claim that readers have already safely arrived on site.",
+  "time": 0,
+  "deadline": 55,
+  "done": false,
+  "ended_by": null,
+  "own_content": {
+    "main": {
+      "id": "main",
+      "kind": "post",
+      "title": "main",
+      "text": "Linwan outdoor exchange, venue to be verified, already two confirmed: U/V. One seat remaining, can invite waitlistee W, Z is later in order.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    "transport": {
+      "id": "transport",
+      "kind": "post",
+      "title": "transport",
+      "text": "Follow the old transit post: enter from the south gate.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    "seatW": {
+      "id": "seatW",
+      "kind": "record",
+      "title": "seatW",
+      "text": "W Waitlist Status",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "status": "waiting"
+      },
+      "field_schema": {
+        "status": [
+          "waiting",
+          "invited",
+          "confirmed",
+          "declined"
+        ]
+      }
+    },
+    "seatZ": {
+      "id": "seatZ",
+      "kind": "record",
+      "title": "seatZ",
+      "text": "Z Subsequent Waitlist",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "status": "waiting"
+      },
+      "field_schema": {
+        "status": [
+          "waiting",
+          "invited",
+          "confirmed"
+        ]
+      }
+    }
+  },
+  "private_outbox": [],
+  "handoff": "",
+  "resource_index": [
+    {
+      "id": "brief",
+      "title": "brief",
+      "kind": "document",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "dmU",
+      "title": "dmU",
+      "kind": "dm",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "dmV",
+      "title": "dmV",
+      "kind": "dm",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "dmW",
+      "title": "dmW",
+      "kind": "dm",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "profile_creator",
+      "title": "Historical expression: creator",
+      "kind": "profile",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "profile_W",
+      "title": "Historical expressions: W",
+      "kind": "profile",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    }
+  ],
+  "unread_ids": [
+    "brief",
+    "dmU",
+    "dmV",
+    "dmW",
+    "profile_creator",
+    "profile_W"
+  ],
+  "ask_topics": [
+    {
+      "id": "venue",
+      "title": "Confirm Current Venue and Valid Entrance"
+    }
+  ],
+  "remaining": {
+    "calls": 44,
+    "reads": 18,
+    "asks": 1,
+    "writes": 22
+  },
+  "writes_per_commit": 6,
+  "reminders": [],
+  "tools": {
+    "READ": {
+      "ids": [
+        "resource_id"
+      ]
+    },
+    "ASK": {
+      "topics": [
+        "topic_id"
+      ],
+      "question": "text"
+    },
+    "COMMIT": {
+      "operations": [],
+      "handoff": "private text"
+    },
+    "WAIT": {
+      "time": "integer"
+    },
+    "CHECK": {
+      "time": "integer",
+      "reason": "text"
+    },
+    "FINISH": {
+      "handoff": "private text"
+    }
+  },
+  "operations": {
+    "edit": "target, expected_revision, text; optional assets on own draft/post",
+    "publish": "target own draft, expected_revision",
+    "reply": "target observed public comment, text",
+    "send_dm": "target observed incoming DM, text; delivered only to that sender",
+    "remove_asset": "target own draft/post, expected_revision, asset",
+    "set_record": "target private record, expected_revision, fields object; values must fit its visible field_schema"
+  },
+  "history": [],
+  "tool_protocol": {
+    "call_format": "One JSON object with top-level action and parameters, using the displayed tools and operations.",
+    "budgets": "Every call, including WAIT, FINISH and invalid calls, consumes one calls unit. A successful READ or ASK consumes one reads or asks unit per call, not per ID/topic. COMMIT consumes one writes unit per operation, within writes_per_commit; failed atomic commits do not consume writes.",
+    "clock": "READ, ASK, COMMIT and CHECK act at the current time, then advance the clock by one minute, capped at the deadline. Invalid calls also consume one minute unless the episode has ended. COMMIT effects and snapshots use the action start time; the returned observation is after this advance. The deadline or exhausted call budget freezes the episode.",
+    "READ": "ids must contain 1–3 currently available resource IDs. New resource notifications expose an index; use READ for their full contents. Own editable content is already observed.",
+    "ASK": "topics must contain 1–3 distinct published topic IDs, each not previously asked, with a nonempty question. Answers arrive after 5 simulated minutes and then require READ. A request whose answer would arrive at or after the deadline is rejected.",
+    "COMMIT": "operations is a list applied atomically; it does not manually jump to the next stage. Scheduled stages/events follow the clock rules. Editable objects require their current integer expected_revision; revisions increase on edits. Replies and DMs require a READ target in the correct channel. set_record uses only visible field_schema values. A private handoff is optional and may be empty; it does not perform external actions.",
+    "text_limits": "Authored edit, reply, DM, ASK question, CHECK reason and FINISH handoff text must be nonempty and at most 4000 characters. COMMIT handoff may be empty but is also limited to 4000 characters.",
+    "WAIT": "time must be a future integer no later than the deadline. WAIT advances to that time or wakes earlier for a new resource or scheduled reminder; it does not add another minute after waking.",
+    "CHECK": "time must be a future integer no later than the deadline, with a nonempty reason. At most six active reminders are allowed; CHECK itself takes one minute.",
+    "FINISH": "A nonempty private handoff ends work immediately with zero simulated minutes. Early finish does not cancel existing task obligations or turn a handoff into a public delivery."
+  },
+  "initial_resources": [
+    {
+      "id": "main",
+      "kind": "post",
+      "title": "main",
+      "text": "Linwan outdoor exchange, venue to be verified, already two confirmed: U/V. One seat remaining, can invite waitlistee W, Z is later in order.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "transport",
+      "kind": "post",
+      "title": "transport",
+      "text": "Follow the old transit post: enter from the south gate.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "brief",
+      "kind": "document",
+      "title": "brief",
+      "text": "Capacity 3, U/V already confirmed; W is first on the waitlist, Z is second on the waitlist. Ask the creator about the current venue first before publishing the valid route; can simultaneously invite W, but the seat is confirmed only upon explicit personal acceptance. Update activity and transit posts before t16, complete registration and arrival guidance after W accepts before t21; those who have not accepted cannot be urged to arrive.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    },
+    {
+      "id": "dmU",
+      "kind": "dm",
+      "title": "dmU",
+      "text": "Confirmed U: I see from your original transit post that you're coming from the south, please remind me in the original private message after the entrance is confirmed.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "sender": "U"
+    },
+    {
+      "id": "dmV",
+      "kind": "dm",
+      "title": "dmV",
+      "text": "Confirmed V: I will set off according to the latest versions of the activity and transit posts, haven't left home yet.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "sender": "V"
+    },
+    {
+      "id": "dmW",
+      "kind": "dm",
+      "title": "dmW",
+      "text": "Waitlistee W: If there is a spot please ask me, I haven't agreed to participate yet, provide the route after the location is clear.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "sender": "W"
+    },
+    {
+      "id": "seatW",
+      "kind": "record",
+      "title": "seatW",
+      "text": "W Waitlist Status",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "status": "waiting"
+      },
+      "field_schema": {
+        "status": [
+          "waiting",
+          "invited",
+          "confirmed",
+          "declined"
+        ]
+      }
+    },
+    {
+      "id": "seatZ",
+      "kind": "record",
+      "title": "seatZ",
+      "text": "Z Subsequent Waitlist",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "status": "waiting"
+      },
+      "field_schema": {
+        "status": [
+          "waiting",
+          "invited",
+          "confirmed"
+        ]
+      }
+    },
+    {
+      "id": "profile_creator",
+      "kind": "profile",
+      "title": "Historical expression: creator",
+      "text": "{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh-CN\", \"context\": \"Small outdoor exchange organization\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [{\"time\": -2, \"channel\": \"delegation\", \"text\": \"For urgent targets, give location and action first, ordinary posts can be organized later; do not treat a waitlistee's receipt as acceptance.\"}], \"history_samples\": [{\"message_id\": \"creator-h1\", \"time\": -58, \"target\": \"history-creator-1\", \"channel\": \"public\", \"context\": \"Ordinary invitation\", \"text\": \"Come chat about the paths each has walked, send arrival instructions after headcount is confirmed.\"}, {\"message_id\": \"creator-h2\", \"time\": -46, \"target\": \"history-creator-2\", \"channel\": \"dm\", \"context\": \"Waitlist invitation\", \"text\": \"This is an invitation; I will register and confirm only after you accept.\"}, {\"message_id\": \"creator-h3\", \"time\": -34, \"target\": \"history-creator-3\", \"channel\": \"dm\", \"context\": \"Temporary entrance change\", \"text\": \"You are already at the intersection, stop for a moment, the original gate cannot be used; check the new entrance here.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_creator\", \"public_reuse\": false}}",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    },
+    {
+      "id": "profile_W",
+      "kind": "profile",
+      "title": "Historical expressions: W",
+      "text": "{\"user_id\": \"W\", \"role\": \"reader\", \"language\": \"zh-CN\", \"context\": \"Activity waitlist\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [], \"history_samples\": [{\"message_id\": \"W-h1\", \"time\": -58, \"target\": \"history-W-1\", \"channel\": \"dm\", \"context\": \"Previous invitation\", \"text\": \"Invitation received, I still need to check my schedule.\"}, {\"message_id\": \"W-h2\", \"time\": -46, \"target\": \"history-W-2\", \"channel\": \"dm\", \"context\": \"A decision\", \"text\": \"Explicitly accepting this time, please register me.\"}, {\"message_id\": \"W-h3\", \"time\": -34, \"target\": \"history-W-3\", \"channel\": \"public\", \"context\": \"Pre-trip inquiry\", \"text\": \"I'm coming from the other side, just giving me the confirmed gate name is enough.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_W\", \"public_reuse\": false}}",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    }
+  ]
+}

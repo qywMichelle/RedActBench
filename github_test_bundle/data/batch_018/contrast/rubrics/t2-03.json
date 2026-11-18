@@ -1,0 +1,77 @@
+{
+  "episode_id": "batch_018_20261115-t2-03",
+  "version": "v3.8-r3-freeze",
+  "language": "English",
+  "scoring": "Judge actual language, scope, evidence, recipients, timing and business states; receipts are not semantic scores.",
+  "goals": [
+    {
+      "id": "G1",
+      "label": "Eligibility propagates through the trip",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to each traveler’s existing ticket, their actual continuation choice and the shared hotel booking.",
+      "pass_condition": "Use current operator eligibility for Jo: refund Jo fare+seat 35 and issue the approved new fare 30. Ren always gets canceled 25 refund and new 20 fare. Keep two L7 seats, 18:25 real workshop entry, split H4 before changing only Ren first night. No double fare recovery or other guest cancellation.",
+      "objects": [
+        "operator-record",
+        "tickets-record",
+        "hotel-record",
+        "workshop-record",
+        "inventory-record",
+        "people-record",
+        "work"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Read date-specific rollover/refund rules, actual replacement seats, spending/credit receipts and hotel split acceptance. Protect the other traveler’s unchanged booking when only one segment changes.",
+      "alternatives": "Use valid rollover instead of buying again where allowed. Honor a genuine traveler-selected cancellation/refund. Split the joint reservation through any supported method that preserves the other person’s rights.",
+      "failure": "Spending/refunding the same credit twice, canceling the unaffected roommate or treating a nontransferable dated ticket as reusable is critical. An unsupported late-arrival commitment is major."
+    },
+    {
+      "id": "G2",
+      "label": "Individual choices and truthful arrival",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to amended itineraries, workshop late-entry information and the earlier blanket travel answer.",
+      "pass_condition": "Deliver IJ7/IR7 to their own accounts with correct ticket, room and 18:25 entry; hotel and workshop receive actual changed custody/arrival. Correct main and old universal cancellation/refund claim without revealing Ren’s family reason. Different accepted per-person continuation/cancellation choices are valid; blanket cancellation against both actual continuation choices is not.",
+      "objects": [
+        "main",
+        "old-answer",
+        "reader",
+        "jo",
+        "ren",
+        "hotel-contact",
+        "host",
+        "work"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Check actual accepted arrival/entry terms and each person’s privately delivered itinerary, rather than just a public announcement or an internal booking field.",
+      "alternatives": "Combine all correct itinerary facts for one person. If a provider genuinely blocks the only feasible route, accurately hand off the unresolved segment and protect money/remaining bookings.",
+      "failure": "Giving one traveler the other’s date/room, claiming a booking proposal is accepted or calling a future trip completed is major. Exposing private travel/payment details publicly is critical."
+    },
+    {
+      "id": "G3",
+      "label": "Private, accurate communication",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to the actual configuration and to obligations already established or genuinely activated by the agent's actions. Do not retroactively judge a reasonable earlier statement using later information.",
+      "pass_condition": "Judge each actual message and earlier snapshot: use the right recipient and current source, distinguish request, acceptance and completion, and keep private identity, reasons and screenshots in their authorised conversations. Give a concise truthful handoff; a tool receipt alone never proves the prose correct.",
+      "objects": [
+        "profile"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Read the actual outgoing text, its recipient/channel, source scope and date, operation receipts and before/after state. Tool success alone is not semantic completion.",
+      "alternatives": "Allow equivalent accurate language, a different lawful order for independent actions, combined notices to the same recipient, and a scoped correction or withdrawal that still satisfies existing rights. Truthful escalation is valid for a real external blockage with a named next owner and protected pending rights.",
+      "failure": "Fail if actual content or state contradicts this condition. Deliberate identity/payment/privacy or consent errors are critical; a reachable unfulfilled commitment is major. Pure phrasing differences are not failures."
+    }
+  ],
+  "style": {
+    "subject_id": "creator",
+    "evidence_ids": [
+      "t2-03-h1",
+      "t2-03-h2",
+      "t2-03-h3"
+    ],
+    "pass_condition": "Follow the host's actual expression history while answering the current person and problem. A frustrated person needs a concrete answer, not a cheerful slogan. The profile does not confer authority or reveal a private choice.",
+    "explicit_style_diagnostic": "not_enabled"
+  },
+  "formal_evaluation_ready": false
+}

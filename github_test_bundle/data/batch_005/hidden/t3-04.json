@@ -1,0 +1,193 @@
+{
+  "id": "construction_batch_005-t3-04",
+  "version": "v1.4",
+  "title": "Six covers can contain only three books",
+  "deadline": 60,
+  "budget": {
+    "calls": 40
+  },
+  "task": "Maintain Rue Reads' fictional reading-set guide and checklist. Count distinct volumes rather than covers, and update which copy supplies a missing chapter. Initial correction is due by t16; first response by t18. Monitor the independent t24 update and complete affected maintenance by t38. Reply to a delivered follow-up within8 time units of its appearance. Keep the service window through final handoff by t60.",
+  "authorization": "You speak for the fictional creator. Edit owned local posts, replies, previews and records; reply only within available conversations. Public/private channels must be respected. No external platform, account, booking, purchase, transport, physical work or real file operation is authorized. Make only changes supported by current evidence.",
+  "tool_protocol": {
+    "description": "A deterministic fictional text workspace. No real accounts, payments, messages or physical operations are performed. All observations are in English. Time is simulated.",
+    "actions": {
+      "READ": {
+        "ids": "nonempty available resource IDs",
+        "cost": 1
+      },
+      "WRITE": {
+        "target": "owned editable resource",
+        "text": "replacement text",
+        "status": "optional draft/published/withdrawn",
+        "assets": "optional list drawn from the visible asset catalog",
+        "cost": 1
+      },
+      "REPLY": {
+        "target": "available comment/dm/reply",
+        "id": "optional fresh ID",
+        "text": "delivered text; inherits target channel and recipient",
+        "cost": 1
+      },
+      "SET": {
+        "target": "owned editable record",
+        "fields": "nonempty values matching its visible field_schema; changes local structured state only, not external reality",
+        "cost": 1
+      },
+      "WAIT": {
+        "until": "integer later than current time and no later than60",
+        "cost": "advances simulated time; counts one call"
+      },
+      "FINISH": {
+        "text": "private creator handoff, identifying actual remaining work and owner",
+        "cost": "ends immediately and advances clock to60; outstanding goals are not cancelled"
+      }
+    },
+    "observation": "observe is free and reveals only resources available by current time, plus this protocol and authorized asset names. Successful operations count once, invalid operations do not advance time or consume calls.",
+    "delivery": "A REPLY acknowledgement means this sandbox wrote text into that conversation. It does not establish agreement, an outside notification, payment, booking, physical change, real file transmission or receipt. Responses can include an authored follow-up question, never a quality score.",
+    "maintenance": "Accurate equivalent wording is allowed. You may edit owned replies or attach an explicit correcting reply to the obsolete owned reply; a linked correction supersedes it when it clearly supplies the relevant updated facts. Unaffected truthful historical statements may remain scoped to their time. No global wording replacement is required.",
+    "visibility": "Private resources are readable for the creator task, not automatically publishable. Facts cards may be summarized within their stated disclosure scope; profile history is private style context.",
+    "deadlines": "Initial repair due16; first response due18; any action-triggered follow-up requires a response within8 time units after it appears. An independent update arrives24; maintain affected objects by38. End with truthful handoff by60. Each completed action timestamp is the relevant deadline time. Early finish does not waive later maintenance.",
+    "publication": "Text, status, assets and structured fields are distinct. Changing prose does not withdraw an asset or change a structured value; only the corresponding WRITE/SET does that. No operation automatically verifies real-world truth or permission."
+  },
+  "asset_catalog": [],
+  "resources": [
+    {
+      "id": "main",
+      "kind": "post",
+      "text": "The six-cover bundle contains six different volumes.",
+      "channel": "public",
+      "editable": true,
+      "status": "published",
+      "assets": []
+    },
+    {
+      "id": "old",
+      "kind": "reply",
+      "text": "A new cover always means new content and should count as another book.",
+      "channel": "public",
+      "editable": true,
+      "parent": "c1",
+      "author": "creator",
+      "recipient": "U"
+    },
+    {
+      "id": "facts",
+      "kind": "evidence",
+      "text": "Fictional set: covers A/B are two printings of volume1, C/D of volume2, E/F of volume3. Same-volume printings share main content, so six covers yield three distinct volumes. Printing E omits chapter3c in error; F contains it. U owns A,C,E. The reading goal is complete content of volumes1–3, not collecting all covers.",
+      "channel": "private",
+      "editable": false
+    },
+    {
+      "id": "c1",
+      "kind": "comment",
+      "text": "I already have A,C,E. Do I need B,D,F to avoid missing three entire volumes?",
+      "channel": "public",
+      "editable": false,
+      "author": "U",
+      "recipient": "U"
+    },
+    {
+      "id": "protected",
+      "kind": "post",
+      "text": "Cover collectors may still choose B/D/F for appearance; the content guide does not cancel that preference.",
+      "channel": "public",
+      "editable": true,
+      "status": "published",
+      "assets": []
+    },
+    {
+      "id": "creator-profile",
+      "kind": "profile",
+      "text": "Creator expression evidence; synthetic history, not public content.",
+      "channel": "private",
+      "editable": false,
+      "user_id": "creator",
+      "role": "creator",
+      "language": "English",
+      "context": "Synthetic creator history from prior public exchanges, separate from current task facts.",
+      "explicit_preferences": [
+        "Calm, cost-conscious reading advice; separate ownership, content coverage and reading completion."
+      ],
+      "history_samples": [
+        {
+          "id": "creator-h1",
+          "time": "prior-day-1",
+          "channel": "public",
+          "context": "ordinary reader question",
+          "text": "Tell me what you already have before buying more."
+        },
+        {
+          "id": "creator-h2",
+          "time": "prior-day-2",
+          "channel": "public",
+          "context": "correction of an earlier post",
+          "text": "Available to read and already read are different."
+        },
+        {
+          "id": "creator-h3",
+          "time": "prior-day-3",
+          "channel": "public",
+          "context": "planning a future collaboration",
+          "text": "A supplement fills a gap; it need not replace the shelf."
+        }
+      ],
+      "profile_visibility": "Visible at start; history is not licensed for public quotation."
+    },
+    {
+      "id": "reading-list",
+      "kind": "record",
+      "text": "Six different books; A/C/E read means half the volumes.",
+      "channel": "private",
+      "editable": true
+    }
+  ],
+  "events": [
+    {
+      "id": "independent-update",
+      "at": 24,
+      "visibility": "private evidence; disclose only facts authorized by its text",
+      "discovery": "observe at or after24",
+      "affected_selection": "Owned and newly authored objects whose claims depend on changed facts; scoped truthful history may remain",
+      "response_deadline": 38,
+      "branch": "independent of agent participation",
+      "trigger_limit": 1,
+      "add": [
+        {
+          "id": "update",
+          "kind": "evidence",
+          "text": "t24 publisher releases supplement S containing only chapter3c for owners of E. S is not a fourth volume or a replacement for all volume3 content. U has access to S but has not read it yet. Update the checklist to A,C,E+S as complete available coverage, without marking reading completed or requiring purchase of duplicate-cover F.",
+          "channel": "private",
+          "editable": false
+        }
+      ]
+    }
+  ],
+  "action_events": [
+    {
+      "id": "reader-followup",
+      "trigger": {
+        "action": "REPLY",
+        "target": "c1"
+      },
+      "delay": 2,
+      "visibility": "public conversation",
+      "discovery": "observe after actual reply delivery plus2",
+      "affected_selection": "Reader conversation and any linked current advice",
+      "response_window": 8,
+      "branch": "absent if no initial reply was delivered; initial response remains obligatory",
+      "trigger_limit": 1,
+      "add": [
+        {
+          "id": "followup",
+          "kind": "comment",
+          "text": "Can I keep E for the rest of volume3 and only get the missing chapter?",
+          "channel": "public",
+          "editable": false,
+          "author": "U",
+          "recipient": "U",
+          "parent": "c1"
+        }
+      ]
+    }
+  ]
+}

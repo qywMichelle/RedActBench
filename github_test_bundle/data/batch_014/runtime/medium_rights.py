@@ -1,0 +1,45 @@
+"""Real pre-existing third-party obligations for two medium cases after R2."""
+from copy import deepcopy
+from authoring import T,ZH,txt,lookup,operate
+
+def record(c,rid):
+ for r in c['resources']+[r for rs in c['lookups'].values() for r in rs]:
+  if r['id']==rid:return r
+ raise KeyError(rid)
+
+def extend_boardwalk(c):
+ c=deepcopy(c);ZH.clear();ZH.update(c['translations'])
+ c['task']=T("D1 09:00. I host tomorrow's bird walk. The wetland boardwalk has closed, and the park still has our two gate passes registered to that route. Please sort the usable route and actual park check-in records, correct our old directions, and tell the two people with specific route promises. Keep the picnic booking. Do not put someone on steps against their level-route condition; a level outing can stay pending.|D1 09:00。我组织明天观鸟。湿地栈道关了，公园两张入场通行证还登记旧路线。帮我核能走的安排并实际改公园签到记录，再改旧指引、告诉两位收到具体承诺的人。野餐预约保留。不能违背平路条件把人安排上台阶；平路行程可以待定。")
+ service=record(c,'route-card');service['text']=T('Park gate registration service. Passes PM and PL are currently booked to W tomorrow at 08:00. Gate staff use this external register to admit each route group; our messages do not amend it. PM permits Mo’s already-accepted R alternative; PL may remain unused/pending. A level-S registration is available only if the park has confirmed S for D2.|公园闸口登记服务。PM和PL通行证目前登记明天08:00走W。闸口人员按此外部记录给各路线组放行，私信不能修改。PM允许小莫已接受的R替代；PL可保未使用/待定。S平路登记只在公园已确认D2开放时可用。')
+ service['options']=[{'key':'ridge','description':T('Amend existing gate passes: Mo R, Lee pending; keep picnic|修改既有闸口通行登记：小莫R，小黎待定，保野餐')},{'key':'level-S','description':T('Amend existing passes: Mo R and Lee S, only with date-specific S opening evidence|按对应日期S开放证据修改既有通行证：小莫R，小黎S')}]
+ c['lookups']['card/route-card'].append(txt('park-registration','Actual park gate register for the two existing passes.|两张既有通行证的实际公园闸口登记。','record',fields={'Mo_route':'W','Lee_route':'W','date':'D2','gate':'E','time':'08:00'}))
+ pending={'Mo_route':'R','Lee_route':'pending','date':'D2','gate':'E','time':'08:00'}
+ c['operations']['route-card/ridge']={'set':{'park-registration':pending},'add':[txt('route-receipt','Park gate register amended: PM admits Mo to R from E at 08:00; PL is protected unused/pending, not valid for a forced ridge outing. Picnic unchanged.|公园闸口登记已改：PM供小莫08:00从E走R；PL保未使用/待定，不强制走山脊。野餐不变。','receipt')]}
+ c['operations']['route-card/level-S']={'requires':{'fields':{'ranger-dm-answer':{'side_path':'open','date':'D2'}}},'set':{'park-registration':dict(pending,Lee_route='S')},'add':[txt('route-receipt','Park gate register amended: PM for Mo R and PL for Lee S, from E at 08:00 on D2. Original pass rights and picnic preserved.|公园闸口登记已改：D2 08:00从E，PM供小莫R，PL供小黎S。保原通行权益及野餐。','receipt')]}
+ c['answers']['ranger-dm/path']['add'][0]['fields']={'side_path':'closed','date':'D2'}
+ g=c['goals'][1];g['pass_condition']=T('Preserve Mo’s already-accepted R alternative and Lee’s level-only condition. Amend the existing external park gate passes from closed W: Mo R, Lee honestly pending; Lee S is also lawful only after date-specific opening evidence. A public post/private itinerary cannot update the gate register. Preserve separate picnic rights and tell both their actual itinerary.|保小莫已接受R和小黎仅平路条件。把旧W外部公园闸口通行证实际改为小莫R、小黎诚实待定；有对应日期开放证据后小黎S也合法。公开帖/私信行程不能改闸口登记。保独立野餐权益，告两人实际路线。');g['objects']+=['park-registration','route-receipt']
+ c['translations']=deepcopy(ZH);return c
+
+def extend_parcel(c):
+ c=deepcopy(c);ZH.clear();ZH.update(c['translations'])
+ c['task']=T('D1 18:00. I organize our building parcel help chat. Q82 was reported missing after a neighbour opened its locker. Trace its actual location privately, arrange the recipient’s authorised return, and sort the paid redelivery booking that is still active. Correct my public accusation. Do not publish apartment numbers or collection codes, or infer possession from a door opening.|D1 18:00。我管楼里包裹互助群。邻居开柜后Q82被报丢。私下查实物去向，按收件人授权安排归还，也处理仍生效的已付款改送预约。改我的公开指责，别公开门牌或码，不能仅凭开门认定谁持有。')
+ r=record(c,'recipient-dm');r['text']=T('I asked Brook to help open 12, not to leave Q82 in the lobby. If staff can secure it for my 18:30–19:00 pickup, use that instead of the paid redelivery I booked. Cancel that courier job only once the parcel is actually protected for me, and return its original captured fee. Please confirm both pickup and the money here.|我让小溪帮开12，不是让他把Q82丢大堂。若工作人员能保留供我18:30—19:00领，就用它代替我已付费的改送。包裹实际保护留我后再撤快递任务，原实收费用退回。取件和钱都请在这里确认。')
+ c['lookups']['card/staff'].append(txt('parcel-custody','Actual staff collection reservation for Q82; location evidence alone does not reserve a pickup window.|Q82实际工作人员领取预约；找到位置本身不保留取件时窗。','record',fields={'reserved_for':'none','window':'none'}))
+ c['operations']['staff/hold']['set']={'parcel-custody':{'reserved_for':'Rowan','window':'18:30-19:00'}}
+ c['operations']['staff/check']['add'][0]['text']=T('Cell12 is empty. Staff physically read the Q82 label in the private return bin with Brook’s note. The parcel has been located; this inspection does not yet reserve Rowan’s collection window. It is not in the open lobby.|12格空，工作人员在私有退件箱实读Q82标签及小溪纸条。已找到包裹，但查验还没有保留罗恩取件时窗。包裹不在开放大堂。')
+ entry={'key':'redelivery','title':T('Recipient’s existing paid redelivery booking|收件人既有付费改送预约')};c['resources'][0]['entries'].append(entry)
+ c['lookups']['card/redelivery']=[txt('redelivery-order','Active courier job RD7 for Q82; original capture PAY-P8Z is 6. It has not been dispatched. Its held dispatch fee may be returned only after the job is actually cancelled; staff pickup does not cancel it. Keep private destination and payment reference out of the group.|Q82当前快递任务RD7；原实收PAY-P8Z为6，未派出。任务实际取消后才可退留存运费；工作人员取件不会自动取消。私人地址和付款引用别发群。','record',fields={'job':'scheduled','refund':'none'}),txt('courier','Existing redelivery cancellation and fee service.|既有改送取消及费用服务。','service',options=[{'key':'cancel','description':T('Cancel RD7 after actual protected recipient hold|为收件人实际保护保留后取消RD7')},{'key':'refund','description':T('Return the requested original dispatch capture/amount after cancellation|取消后退请求的原运费实收引用/金额'),'param_schema':{'capture_ref':{'type':'string'},'amount':{'type':'number','minimum':0,'maximum':20}}}])]
+ c['operations']['courier/cancel']={'requires':{'fields':{'parcel-custody':{'reserved_for':'Rowan','window':'18:30-19:00'}}},'set':{'redelivery-order':{'job':'cancelled'}},'add':[txt('courier-cancel-receipt','RD7 actually cancelled before dispatch. No courier trip will be made; the original fee remains refundable, not yet returned.|RD7已在派送前实际取消，不会再出车。原费用现可退，尚未退回。','receipt')]}
+ c['operations']['courier/refund']={'requires':{'fields':{'redelivery-order':{'job':'cancelled'}}},'param_schema':{'capture_ref':{'type':'string'},'amount':{'type':'number','minimum':0,'maximum':20}},'parameter_record':{'resource':'redelivery-order','field':'actual_refund_request','field_map':{'capture_ref':'refund_capture','amount':'refunded_amount'}},'set':{'redelivery-order':{'refund':'executed-as-requested'}},'add':[txt('courier-refund-receipt','The requested original dispatch capture refund was executed. Read the recorded request for actual reference/amount; pickup itself is still pending.|请求的原派送实收退款已执行，实际引用/金额看请求记录；本人取件仍未完成。','receipt')]}
+ for plan in c['plans'].values():
+  a=plan['actions'];idx=next(i for i,v in enumerate(a) if v['action']=='LOOKUP' and v.get('entry')=='recipient');a.insert(idx+1,lookup('redelivery'))
+  idx=next(i for i,v in enumerate(a) if v['action']=='OPERATE' and v.get('target')=='staff' and v.get('choice')=='hold');a[idx+1:idx+1]=[operate('courier','cancel'),operate('courier','refund',capture_ref='PAY-P8Z',amount=6)]
+  for v in a:
+   if v['action']=='REPLY' and v.get('target')=='recipient-dm':
+    old=v['text'];v['text']=T(old+' The paid RD7 redelivery is cancelled and its original 6 fee refunded.|'+ZH.get(old,old)+' 已付费RD7改送已取消，原运费6已退。')
+   if v['action']=='FINISH':
+    old=v['text'];v['text']=T(old+' RD7 is cancelled before dispatch and its original 6 fee returned.|'+ZH.get(old,old)+' RD7已派送前取消，原运费6退回。')
+ g=c['goals'][1];g['pass_condition']+=T(' Also honour the existing conditional paid-redelivery choice: secure the actual recipient hold, cancel RD7 before dispatch, and actually refund the original PAY-P8Z capture 6. A staff hold alone does not cancel the courier or return money; give Rowan the actual fee/pickup result.|另履行既有有条件付费改送选择：先实际保护留给收件人，再派送前取消RD7，实际退原PAY-P8Z的6。工作人员暂存不会自动撤快递或退款；给罗恩真实费用/取件结果。');g['objects']+=['redelivery-order','courier','courier-cancel-receipt','courier-refund-receipt']
+ minimal=deepcopy(c['plans']['reference']);minimal['actions']=[a for a in minimal['actions'] if not(a['action']=='LOOKUP' and a.get('entry') in {'voice','tracking','door-log','neighbour'}) and not(a['action'] in {'ASK','REPLY'} and a.get('target')=='neighbour-dm')]
+ minimal['notes']=T('Staff physical label/hold and original recipient choice suffice; carrier/door-log and an unrequested neighbour inquiry/result are omitted. Real courier cancellation/refund remain.|工作人员实物标签/暂存及原收件人选择足够；省重复物流/开门记录和未请求的邻居追问/结果通知，保真实快递取消与退款。');minimal['failed_goals']={};c['plans']['staff_only_no_question']=minimal
+ c['translations']=deepcopy(ZH);return c

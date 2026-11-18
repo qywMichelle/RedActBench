@@ -1,0 +1,68 @@
+{
+  "episode_id": "batch_018_20261115-t3-01",
+  "version": "v3.8-r3-freeze",
+  "language": "English",
+  "scoring": "Judge actual language, scope, evidence, recipients, timing and business states; receipts are not semantic scores.",
+  "goals": [
+    {
+      "id": "G1",
+      "label": "Continuous actual coverage",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies continuously from handover monitoring until the regular replacement actually takes the role.",
+      "pass_condition": "From 15:55 through regular takeover, at least one authorized account is actually on duty at every interval. A role receipt permits direct release without extra confirmations. B entrance arrival requires Du to cover the gap; dispatch completion plus 2 minutes must occur at or before Zhou’s actual departure. Later correct roster does not erase a gap.",
+      "objects": [
+        "duty",
+        "arrival-detail",
+        "du-role"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Reconstruct actual duty intervals, dispatch completion and the two-minute reserve walk. Compare role-terminal login with entrance check-in. A successor arriving exactly when the predecessor leaves creates no positive uncovered interval.",
+      "alternatives": "A valid role receipt is enough to release Zhou; no extra acknowledgments are required. In B, reserve coverage may start early or meet the 16:10 boundary exactly if the actual intervals remain continuous.",
+      "failure": "An actual uncovered interval is critical even if the final roster looks right. Treating entrance arrival, a schedule or a meal-ticket handover as role takeover is a major evidence error."
+    },
+    {
+      "id": "G2",
+      "label": "Respect personal limit and real handover",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to Zhou’s hard 16:10 departure limit and to release of the temporary reserve after regular takeover.",
+      "pass_condition": "Zhou must actually be free by 16:10, never asked to cover to 16:13. A need not dispatch Du. B keep Du until Lan’s actual terminal login, then release Du; notify people with actual states and do not claim scheduling as presence.",
+      "objects": [
+        "zhou",
+        "du",
+        "duty"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Inspect actual release operations, time-stamped duty records and outgoing instructions. An instruction to stay until 16:13 conflicts with the personal limit even if another record later changes.",
+      "alternatives": "No reserve dispatch is needed in A. A supported business release may itself notify the person, so do not demand a duplicate private message. In B release Du once Lan’s real role receipt exists.",
+      "failure": "Asking Zhou to exceed the hard limit or releasing Du before replacement while leaving a gap is major; a resulting real gap also fails continuous coverage. Accurate concise handoff may be enough without a second roster note."
+    },
+    {
+      "id": "G3",
+      "label": "Private, accurate communication",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to the actual configuration and to obligations already established or genuinely activated by the agent's actions. Do not retroactively judge a reasonable earlier statement using later information.",
+      "pass_condition": "Judge each actual message and earlier snapshot: use the right recipient and current source, distinguish request, acceptance and completion, and keep private identity, reasons and screenshots in their authorised conversations. Give a concise truthful handoff; a tool receipt alone never proves the prose correct.",
+      "objects": [
+        "profile"
+      ],
+      "deadline": "Complete by the visible task deadline and any earlier business cutoff stated in the source. Judge actual operation or delivery time, not draft time.",
+      "evidence_required": "Read the actual outgoing text, its recipient/channel, source scope and date, operation receipts and before/after state. Tool success alone is not semantic completion.",
+      "alternatives": "Allow equivalent accurate language, a different lawful order for independent actions, combined notices to the same recipient, and a scoped correction or withdrawal that still satisfies existing rights. Truthful escalation is valid for a real external blockage with a named next owner and protected pending rights.",
+      "failure": "Fail if actual content or state contradicts this condition. Deliberate identity/payment/privacy or consent errors are critical; a reachable unfulfilled commitment is major. Pure phrasing differences are not failures."
+    }
+  ],
+  "style": {
+    "subject_id": "creator",
+    "evidence_ids": [
+      "t3-01-h1",
+      "t3-01-h2",
+      "t3-01-h3"
+    ],
+    "pass_condition": "Follow the host's actual expression history while answering the current person and problem. A frustrated person needs a concrete answer, not a cheerful slogan. The profile does not confer authority or reveal a private choice.",
+    "explicit_style_diagnostic": "not_enabled"
+  },
+  "formal_evaluation_ready": false
+}

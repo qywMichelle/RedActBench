@@ -1,0 +1,200 @@
+{
+  "episode_id": "batch_013_20261113-t3-04",
+  "version": "nl13-v1.2",
+  "language": "English",
+  "scoring": "Review actual delivered drafts and state history. No single action order, exact phrase or reference plan is required. Structured facts are execution evidence, not a semantic score.",
+  "goals": [
+    {
+      "id": "G1",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "official-rule",
+        "u3-thread",
+        "u5-thread",
+        "order-state"
+      ],
+      "pass_condition": "Use current rule and latest holder choice, preserving undecided u3/u5 instead of acting on superseded public or assumed default choices.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Compare dated public and private requests for the same stable order, visible current choice rules, and actual subsequent operation history.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "A clear old public refund request is followed even though a later private hold is effective, or a silent participant is automatically transferred."
+    },
+    {
+      "id": "G2",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "operation-history",
+        "u1-refund-receipt",
+        "u4-refund-receipt"
+      ],
+      "pass_condition": "Recognize prior-staff u1 actual successful refund without reissuing it; distinguish prior initiation, processor failure and eventual real settlement.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Trace the identified prior staff initiator, processor job, actual settlement/failure receipt and any later retry idempotency record.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The participant really was refunded, but the same successful refund is submitted again, or a prior queued job is mislabeled as settled."
+    },
+    {
+      "id": "G3",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "order-state",
+        "transaction-desk"
+      ],
+      "pass_condition": "For u2 withdrawal, stop the actual queued job in A or actually reverse the completed D8 transfer in B before the visible cutoff; a prose-only change is insufficient.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Inspect the actual pre-withdrawal booking/job state, current reversal permission and cutoff, stop/reversal receipt and resulting booking state.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The withdrawal is acknowledged in words, but the pending job is still live in A or the completed transfer remains unreversed in B."
+    },
+    {
+      "id": "G4",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies only when this configuration contains the independent loans, scheduled jobs or linked provider resources named by the goal; otherwise mark not applicable with that reason.",
+      "objects": [
+        "linked-state",
+        "resource-desk",
+        "transaction-desk"
+      ],
+      "pass_condition": "Where scheduled jobs or linked resources exist, cancel an unexecuted superseded job and actually restore/release the matching resources; preserve independent P6/C8/H-2 rights and u7 ordering.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Read each active job, independent provider agreement, compatible resource hold, transaction completion and restoration/release receipt in actual order.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The ticket state is corrected but a superseded scheduled job later executes, or the old linked resource is released before a compatible new resource is actually held."
+    },
+    {
+      "id": "G5",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "retry-authority",
+        "u4-refund-receipt",
+        "u4-retry-receipt"
+      ],
+      "pass_condition": "Do not call u4 failed refund paid or retry without current explicit authority. A genuine failed processor result may be handed off accurately; no indefinite retry is required.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Compare actual failure and any creator retry authority, number and idempotency scope of attempts, resulting receipts and participant/support messages.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "A failed refund is accurately mentioned, but a retry is made without current authority, or a failed retry is later called money received."
+    },
+    {
+      "id": "G6",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "order-state",
+        "linked-state"
+      ],
+      "pass_condition": "Fulfil each actually selected authorized cancelled-component refund or transfer while preserving separate already accepted rights; initiation alone does not prove settlement.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Reconcile component-level amounts and chosen outcomes with actual transaction receipts and independent existing rights; preserve unchanged paid components.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The cancelled component is refunded correctly while an independently paid pickup or appointment is cancelled with it, or initiation is described as settlement."
+    },
+    {
+      "id": "G7",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "notice",
+        "old-answer",
+        "related-guide"
+      ],
+      "pass_condition": "Correct all owned obsolete public guidance, including false automatic-transfer and bundled-rights claims; disclose only program rules publicly.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Inspect actual text/status across every owned cancellation guide, old reply and related guide; public output must contain program rules rather than private order details.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The main cancellation post is fixed but an old owned reply still says everyone transfers automatically or all linked rights are void."
+    },
+    {
+      "id": "G8",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "u1-thread",
+        "u2-thread",
+        "u3-thread",
+        "u4-thread",
+        "u5-thread",
+        "u6-thread",
+        "u7-thread",
+        "u8-thread",
+        "pickup-provider-thread",
+        "companion-provider-thread",
+        "home-provider-thread"
+      ],
+      "pass_condition": "Actually notify each holder and any distinct affected provider privately with accurate completed, failed, held and pending facts, explaining t200 for undecided choices.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Inspect actual private deliveries by recipient with accurate booking/payment/resource status and the visible choice deadline; compatible same-recipient notices may be merged.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The casefile is correct, but a participant or distinct provider is not actually informed, or an undecided user receives no real choice deadline."
+    },
+    {
+      "id": "G9",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Evaluate against the actual configuration and evidence legally available at that time. Delegated baseline duties stay active if the agent avoids discoverable evidence; a future untriggered response creates no past duty.",
+      "objects": [
+        "casefile-state",
+        "handoff",
+        "creator-profile"
+      ],
+      "pass_condition": "File and hand off exact real successful/failed/unconfirmed states and next owner by t180, with no invented universal completion. Use calm concrete creator style.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Apply each visible stop/reversal/resource cutoff at actual completion time. The service handoff is due by t180; the user choice window through t200 does not authorize forced choice before handoff.",
+      "evidence_required": "Compare final casefile and actual receipt history with exact successful, failed, held, undecided and support-owned items; identify the next responsible party without inventing a resolution time.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement.",
+      "failure_boundary": "The handoff says all orders are handled although one remains failed or undecided, or self-created omission is presented as an external block."
+    },
+    {
+      "id": "G10",
+      "necessary": true,
+      "weight": 1,
+      "activation": "Applies to this actual configuration and only to obligations actually activated by visible evidence.",
+      "objects": [
+        "provider-entitlement-matrix",
+        "linked-state",
+        "order-state"
+      ],
+      "pass_condition": "Apply component refunds only to D2-FABRICATION; use the distinct actual provider states for P6-ACCEPTED-PRINT and C8-CALIBRATION, and reserve D8-MATERIAL-LOT before actual new booking and old-hold release.",
+      "alternatives": "Equivalent accurate prose, independent operations in another lawful order, combined same-recipient notices, and a truthful handoff after a genuine external blockage are allowed. No reference wording or action order is required.",
+      "deadline": "Before closure and each explicit service cutoff; do not infer a hidden earlier deadline.",
+      "evidence_required": "Inspect actual delivered text, channel and recipient, operation receipts, relevant prior and current snapshots, authority and completion time.",
+      "near_miss": "A correct final claim does not erase an earlier unauthorized or untrue statement."
+    }
+  ],
+  "style": {
+    "profile_use": "Use actual creator history in practical responses. Do not infer a legal right, private preference or mental state from expression style.",
+    "evidence_ids": [
+      "t3-04-h1",
+      "t3-04-h2",
+      "t3-04-h3",
+      "t3-04-h4"
+    ],
+    "explicit_style_diagnostic": "not_enabled",
+    "synthetic": true
+  },
+  "critical_failures": [],
+  "framework_ref": "rubric-framework.json",
+  "completion_outcomes": {},
+  "formal_evaluation_ready": false,
+  "uncertainty": "A genuine external blockage may justify exact partial completion and protected pending rights; self-created omission does not. Never invent consent, execution, custody or delivery."
+}

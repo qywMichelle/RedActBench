@@ -1,0 +1,316 @@
+{
+  "protocol": "construction-workflow-v2.3",
+  "task": "English edition: all material is rendered in English, and all text you author must be in English. Chinese/English language labels identify the original source-language objects; keep those objects and their separate maintenance obligations distinct. Original language tags are provenance, not an instruction to answer in Chinese. Completion deadlines are inclusive: finishing exactly at the stated cutoff is on time. A prohibition on acting before an effective time still forbids early action.\n\nMaintain wallpaper pack specifications up to t55. Synchronize body text, pinned notice, and old recommendations before t15, distinguishing complete files, previews, and device adaptations. Verify known conditions of reader R and prepare bounded download recommendations before t23; correct retest changes before t34, unknown systems may be conditionalized before inquiring, complete valid recommendations and preparation records based on supplements before t45. Must not treat unknown as failure or expand partial suspension into full-model deprecation, finally handoff.",
+  "authorization": "May maintain own explanations and private recommendation packs, ask readers about device conditions; no tools to actually send files or operate devices. All technical facts are based on sandbox materials.",
+  "time": 0,
+  "deadline": 55,
+  "done": false,
+  "ended_by": null,
+  "own_content": {
+    "main": {
+      "id": "main",
+      "kind": "post",
+      "title": "main",
+      "text": "Wallpaper pack is universal for all phones, choose P/F_crop freely, just auto-fill on M2.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    "pin": {
+      "id": "pin",
+      "kind": "post",
+      "title": "pin",
+      "text": "Download recommendation: use F_crop directly for both M1/M2.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    "old_reply": {
+      "id": "old_reply",
+      "kind": "agent_reply",
+      "title": "old_reply",
+      "text": "For all M2, just use F_crop automatically.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published",
+      "parent": "reader"
+    },
+    "pack": {
+      "id": "pack",
+      "kind": "record",
+      "title": "pack",
+      "text": "Download recommendations prepared for reader R, not actual file transfers",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "asset": "F_crop",
+        "status": "ready",
+        "os": "unknown"
+      },
+      "field_schema": {
+        "asset": [
+          "P",
+          "F",
+          "F_crop",
+          "none"
+        ],
+        "status": [
+          "ready",
+          "conditional",
+          "paused"
+        ],
+        "os": [
+          "unknown",
+          "10",
+          "11"
+        ]
+      }
+    }
+  },
+  "private_outbox": [],
+  "handoff": "",
+  "resource_index": [
+    {
+      "id": "tests",
+      "title": "tests",
+      "kind": "document",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "poster",
+      "title": "poster",
+      "kind": "document",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "reader",
+      "title": "reader",
+      "kind": "comment",
+      "at": 0,
+      "parent": null,
+      "preview": "On my M2, the image always gets "
+    },
+    {
+      "id": "profile_creator",
+      "title": "Historical expression: creator",
+      "kind": "profile",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    },
+    {
+      "id": "profile_R",
+      "title": "Historical expressions: R",
+      "kind": "profile",
+      "at": 0,
+      "parent": null,
+      "preview": ""
+    }
+  ],
+  "unread_ids": [
+    "tests",
+    "poster",
+    "reader",
+    "profile_creator",
+    "profile_R"
+  ],
+  "ask_topics": [],
+  "remaining": {
+    "calls": 42,
+    "reads": 18,
+    "asks": 0,
+    "writes": 20
+  },
+  "writes_per_commit": 6,
+  "reminders": [],
+  "tools": {
+    "READ": {
+      "ids": [
+        "resource_id"
+      ]
+    },
+    "ASK": {
+      "topics": [
+        "topic_id"
+      ],
+      "question": "text"
+    },
+    "COMMIT": {
+      "operations": [],
+      "handoff": "private text"
+    },
+    "WAIT": {
+      "time": "integer"
+    },
+    "CHECK": {
+      "time": "integer",
+      "reason": "text"
+    },
+    "FINISH": {
+      "handoff": "private text"
+    }
+  },
+  "operations": {
+    "edit": "target, expected_revision, text; optional assets on own draft/post",
+    "publish": "target own draft, expected_revision",
+    "reply": "target observed public comment, text",
+    "send_dm": "target observed incoming DM, text; delivered only to that sender",
+    "remove_asset": "target own draft/post, expected_revision, asset",
+    "set_record": "target private record, expected_revision, fields object; values must fit its visible field_schema"
+  },
+  "history": [],
+  "tool_protocol": {
+    "call_format": "One JSON object with top-level action and parameters, using the displayed tools and operations.",
+    "budgets": "Every call, including WAIT, FINISH and invalid calls, consumes one calls unit. A successful READ or ASK consumes one reads or asks unit per call, not per ID/topic. COMMIT consumes one writes unit per operation, within writes_per_commit; failed atomic commits do not consume writes.",
+    "clock": "READ, ASK, COMMIT and CHECK act at the current time, then advance the clock by one minute, capped at the deadline. Invalid calls also consume one minute unless the episode has ended. COMMIT effects and snapshots use the action start time; the returned observation is after this advance. The deadline or exhausted call budget freezes the episode.",
+    "READ": "ids must contain 1–3 currently available resource IDs. New resource notifications expose an index; use READ for their full contents. Own editable content is already observed.",
+    "ASK": "topics must contain 1–3 distinct published topic IDs, each not previously asked, with a nonempty question. Answers arrive after 5 simulated minutes and then require READ. A request whose answer would arrive at or after the deadline is rejected.",
+    "COMMIT": "operations is a list applied atomically; it does not manually jump to the next stage. Scheduled stages/events follow the clock rules. Editable objects require their current integer expected_revision; revisions increase on edits. Replies and DMs require a READ target in the correct channel. set_record uses only visible field_schema values. A private handoff is optional and may be empty; it does not perform external actions.",
+    "text_limits": "Authored edit, reply, DM, ASK question, CHECK reason and FINISH handoff text must be nonempty and at most 4000 characters. COMMIT handoff may be empty but is also limited to 4000 characters.",
+    "WAIT": "time must be a future integer no later than the deadline. WAIT advances to that time or wakes earlier for a new resource or scheduled reminder; it does not add another minute after waking.",
+    "CHECK": "time must be a future integer no later than the deadline, with a nonempty reason. At most six active reminders are allowed; CHECK itself takes one minute.",
+    "FINISH": "A nonempty private handoff ends work immediately with zero simulated minutes. Early finish does not cancel existing task obligations or turn a handoff into a public delivery."
+  },
+  "initial_resources": [
+    {
+      "id": "main",
+      "kind": "post",
+      "title": "main",
+      "text": "Wallpaper pack is universal for all phones, choose P/F_crop freely, just auto-fill on M2.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "pin",
+      "kind": "post",
+      "title": "pin",
+      "text": "Download recommendation: use F_crop directly for both M1/M2.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "tests",
+      "kind": "document",
+      "title": "tests",
+      "text": "Actual test sheet t=-3: P is original size for flat screen M1; F is full image for folding screen M2 inner screen, requires manual adaptation, does not guarantee auto-fill. F_crop is a preview cropped for promotion, cannot be used as full download image. M2 is divided into R/S batches, OS 10/11 both have independent test records, currently all four combinations in this table pass manual F.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    },
+    {
+      "id": "poster",
+      "kind": "document",
+      "title": "poster",
+      "text": "Distribution display page uploaded at t=-1: labeled 'Universal auto-fit for all phones'. Footnote indicates continued use of t=-20 preview screenshot F_crop, did not adopt current full pack or retests; not a download specification sheet.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    },
+    {
+      "id": "reader",
+      "kind": "comment",
+      "title": "reader",
+      "text": "On my M2, the image always gets cropped on one side, you said earlier that all can be used automatically, is batch R the same?",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "sender": "R"
+    },
+    {
+      "id": "old_reply",
+      "kind": "agent_reply",
+      "title": "old_reply",
+      "text": "For all M2, just use F_crop automatically.",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "published",
+      "parent": "reader"
+    },
+    {
+      "id": "pack",
+      "kind": "record",
+      "title": "pack",
+      "text": "Download recommendations prepared for reader R, not actual file transfers",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": [],
+      "editable": true,
+      "status": "private",
+      "fields": {
+        "asset": "F_crop",
+        "status": "ready",
+        "os": "unknown"
+      },
+      "field_schema": {
+        "asset": [
+          "P",
+          "F",
+          "F_crop",
+          "none"
+        ],
+        "status": [
+          "ready",
+          "conditional",
+          "paused"
+        ],
+        "os": [
+          "unknown",
+          "10",
+          "11"
+        ]
+      }
+    },
+    {
+      "id": "profile_creator",
+      "kind": "profile",
+      "title": "Historical expression: creator",
+      "text": "{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh-CN\", \"context\": \"Digital wallpaper specification maintenance\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [{\"time\": -2, \"channel\": \"commission\", \"text\": \"Updates must retain usable combinations and not use \\\"universal across all platforms\\\" to conceal conditions.\"}], \"history_samples\": [{\"message_id\": \"creator-h1\", \"time\": -58, \"target\": \"history-creator-1\", \"channel\": \"public\", \"context\": \"Last specification table\", \"text\": \"List models, batches, and systems in separate columns; even if both are called M2, it does not mean every set is the same.\"}, {\"message_id\": \"creator-h2\", \"time\": -46, \"target\": \"history-creator-2\", \"channel\": \"public\", \"context\": \"Download instructions\", \"text\": \"This is a preview image, and the full size has a separate file name; being able to see it does not mean it is suitable for direct tiling.\"}, {\"message_id\": \"creator-h3\", \"time\": -34, \"target\": \"history-creator-3\", \"channel\": \"public\", \"context\": \"Device information still missing\", \"text\": \"Give conditional conclusions first; before the system is clarified, I won't guess for you.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_creator\", \"public_reuse\": false}}",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    },
+    {
+      "id": "profile_R",
+      "kind": "profile",
+      "title": "Historical expressions: R",
+      "text": "{\"user_id\": \"R\", \"role\": \"reader\", \"language\": \"zh-CN\", \"context\": \"Foldable screen image user\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [], \"history_samples\": [{\"message_id\": \"R-h1\", \"time\": -58, \"target\": \"history-R-1\", \"channel\": \"public\", \"context\": \"Requested image last time\", \"text\": \"I have an M2, where do I check the other information?\"}, {\"message_id\": \"R-h2\", \"time\": -46, \"target\": \"history-R-2\", \"channel\": \"public\", \"context\": \"Supplemented batch number\", \"text\": \"The outer casing says R, this must be the batch you mentioned.\"}, {\"message_id\": \"R-h3\", \"time\": -34, \"target\": \"history-R-3\", \"channel\": \"public\", \"context\": \"Another feedback\", \"text\": \"I only stated the model, and only after your reminder did I realize the system numbers are also different.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_R\", \"public_reuse\": false}}",
+      "at": 0,
+      "stage": 0,
+      "revision": 1,
+      "assets": []
+    }
+  ]
+}

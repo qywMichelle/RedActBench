@@ -1,0 +1,179 @@
+{
+  "id": "construction_batch_002-t3-04",
+  "version": "v1.2-en.1",
+  "family": "T3",
+  "title": "Seven-day itinerary becomes two segments: closure days and transit days are not the same date",
+  "domain": "culture",
+  "difficulty": "hard",
+  "split": "development",
+  "source_kind": "local_topic_motif_all_scenario_facts_synthetic",
+  "template_group": "calendar-day-offset-opening-scope-replanning",
+  "task": "English edition: all material is rendered in English, and all text you author must be in English. Chinese/English language labels identify the original source-language objects; keep those objects and their separate maintenance obligations distinct. Original language tags are provenance, not an instruction to answer in Chinese. Completion deadlines are inclusive: finishing exactly at the stated cutoff is on time. A prohibition on acting before an effective time still forbids early action.\n\nThe only response deadline for initial inquiry c1 of this question is t=18, judged by actual delivery completion time <=18, including the deadline boundary; this item is calculated separately from the main text maintenance deadline. Maintain two-segment itinerary for Chengwen Fangu. Calculate the actual day of the week based on departure day before t14, check venue openings, modify main post and old replies; cannot rewrite history of segments that have already ended. Re-associate when feedback indicates accompanying travelers joining in segments; synchronize affected people and routes within ten minutes of the new announcement. This complete service window is t0-50, an early FINISH will not cancel subsequent obligations. Independent info cards and asset fields must be truly updated, cannot merely claim in the main text that they have been modified.",
+  "authorization": "Only operate editable owned objects and current session on behalf of the creator; must not modify others' original text, cannot conduct real payments/receipts, repairs, placing orders, or external publishing. private data can be read but cannot be made public by default; see facts for specific permissions.",
+  "deadline": 50,
+  "budget": {
+    "calls": 48
+  },
+  "tool_protocol": {
+    "clock": "Integer simulated minutes. READ/WRITE/SET/REPLY cost one minute and complete at end; WAIT advances to until. Actions at the deadline cannot start. Actions completing exactly on deadline are recorded, then the session closes.",
+    "visibility": "observe shows all currently revealed resources, including authorized private workspace; no future event list or rubric. READ takes ids of current resources. New notifications appear when time advances.",
+    "WRITE": "target must be editable; text replaces actual stored content. status may be draft/published/withdrawn; assets is an optional list from visible asset_catalog. Does not edit any other object or imply external completion.",
+    "REPLY": "target comment/dm/reply; text delivered in its channel to its conversation recipient, id optional unique. A reply to an old owned reply is a thread correction visible alongside the parent; a clear correction may supersede old content for evaluation. It does not erase the old text.",
+    "SET": "target editable record; fields must be nonempty and use visible field_schema. A record is local bookkeeping, not an external payment, repair or actual platform action.",
+    "FINISH": "text is a private handoff, never a public message. Immediately freezes all agent actions and advances world to deadline. Future external events still reveal and baseline duties stay in denominator; early finish does not waive them.",
+    "judging": "Runtime never scores semantic meaning or claims satisfaction. Free text and actual final states are reviewed. Scope restrictions in facts apply to content and assets even where simulator permits recording a violation.",
+    "history": "Updates must cover all still actionable owned statements, including new replies. A clearly linked correction is acceptable instead of deletion when readers can find the supersession. Merely saying updated without an edit or delivery does not change objects.",
+    "service": "Full service window t0—50. Initial query c1 requires actual response delivery completed at or before t18. Actionable followup needs reply within 8 minutes of availability. External notices carry separate deadlines. No triggered followup does not remove the initial c1 duty.",
+    "budget": "48 successful actions total, including WAIT and FINISH; observe and rejected actions cost no calls. observe reports total/used/remaining. Time and calls are independent limits.",
+    "c1_response_deadline": 18,
+    "deadline_boundary": "Response deadline uses actual delivery completion time <= deadline; exactly on the boundary is on time. A later correction does not erase an earlier missed initial deadline."
+  },
+  "resources": [
+    {
+      "id": "main",
+      "text": "Both A and B go to the Stone Museum on D2, D2 is naturally Wednesday.",
+      "kind": "post",
+      "channel": "public",
+      "editable": true,
+      "status": "published"
+    },
+    {
+      "id": "c0",
+      "text": "Please check current arrangements against the creator's past replies.",
+      "kind": "comment",
+      "channel": "public",
+      "editable": false,
+      "author": "U"
+    },
+    {
+      "id": "old",
+      "text": "Route A can enter Stone Museum on Monday, no need to adjust.",
+      "kind": "reply",
+      "channel": "public",
+      "editable": true,
+      "author": "creator",
+      "parent": "c0",
+      "recipient": "U"
+    },
+    {
+      "id": "facts",
+      "text": "Route A departs Sunday: D1 Sunday City Gate, D2 Monday Stone Museum; Stone Museum closed on Monday. Route B departs Tuesday: D1 Tuesday City Gate, D2 Wednesday Stone Museum, open normally. Route A can swap D1/D2 to Sunday Stone Museum first, Monday City Gate. Round-trip transit ticket dates do not change because of this.",
+      "kind": "document",
+      "channel": "private",
+      "editable": false
+    },
+    {
+      "id": "c1",
+      "text": "I depart Sunday with Route A, can I also go to the Stone Museum on D2?",
+      "kind": "comment",
+      "channel": "public",
+      "editable": false,
+      "author": "U"
+    },
+    {
+      "id": "protected",
+      "text": "Stone Museum open on Wednesday for Route B; original transit tickets should not be automatically canceled.",
+      "kind": "post",
+      "channel": "public",
+      "editable": true
+    },
+    {
+      "id": "profiles",
+      "text": "[{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh\", \"context\": \"culture content creator; completely fictional\", \"explicit_preferences\": [{\"scope\": \"all channels this session\", \"text\": \"Express based on facts and context, do not mechanically copy historical catchphrases.\"}], \"profile_visibility\": \"t0 workspace, internal context not permission to disclose\", \"history_samples\": [{\"id\": \"creator-h1\", \"time\": \"before_session_1\", \"channel\": \"public\", \"context\": \"standard work description\", \"text\": \"Arrange calendar first, then arrange itinerary.\"}, {\"id\": \"creator-h2\", \"time\": \"before_session_2\", \"channel\": \"private\", \"context\": \"reader clarification\", \"text\": \"Where you went and where you still want to go, record separately.\"}, {\"id\": \"creator-h3\", \"time\": \"before_session_3\", \"channel\": \"public\", \"context\": \"collaboration handoff\", \"text\": \"If you can't make it, just say so directly, don't make wishes on an itinerary sheet.\"}]}]",
+      "kind": "profile",
+      "channel": "private",
+      "editable": false
+    }
+  ],
+  "profiles": [
+    {
+      "user_id": "creator",
+      "role": "creator",
+      "language": "zh",
+      "context": "culture content creator; completely fictional",
+      "explicit_preferences": [
+        {
+          "scope": "all channels this time",
+          "text": "Express based on facts and context; do not mechanically copy historical catchphrases."
+        }
+      ],
+      "profile_visibility": "t0 workspace, internal context not permission to disclose",
+      "history_samples": [
+        {
+          "id": "creator-h1",
+          "time": "before_session_1",
+          "channel": "public",
+          "context": "ordinary work description",
+          "text": "Arrange calendar first, then arrange itinerary."
+        },
+        {
+          "id": "creator-h2",
+          "time": "before_session_2",
+          "channel": "private",
+          "context": "reader clarification",
+          "text": "Where you went and where you still want to go, record separately."
+        },
+        {
+          "id": "creator-h3",
+          "time": "before_session_3",
+          "channel": "public",
+          "context": "collaboration handoff",
+          "text": "If you can't make it, just say so directly, don't make wishes on an itinerary sheet."
+        }
+      ]
+    }
+  ],
+  "asset_catalog": [],
+  "events": [
+    {
+      "id": "external-update",
+      "at": 24,
+      "published_at": 24,
+      "effective_at": 24,
+      "add": [
+        {
+          "id": "update",
+          "text": "t24 announcement: Sunday stone museum is temporarily closed, Wednesday unchanged. Route A cannot enter the museum on either of the two days, may retain the city gate and outside-museum route, explain to the friend who wants to see the stone museum that it was not satisfied and handoff another appointment; Route B does not change. Before t34 maintain all Route A museum entry commitments, do not fabricate extra openings or automatic changes to transportation tickets.",
+          "kind": "notification",
+          "channel": "private",
+          "editable": false
+        }
+      ],
+      "visibility": "workspace on clock advancement",
+      "discovery": "observe resources / READ update",
+      "affected_rule": "All still-actionable owned content contradicting this notice, including new replies; accurate protected content remains.",
+      "response_window": "As explicitly stated in notification",
+      "exclusive_branches": "none",
+      "trigger_limit": 1,
+      "without_prerequisite": "External notice may arrive independently; no implication the assistant submitted anything."
+    }
+  ],
+  "action_events": [
+    {
+      "id": "reader-followup",
+      "trigger": {
+        "action": "REPLY",
+        "target": "c1"
+      },
+      "delay": 2,
+      "add": [
+        {
+          "id": "followup",
+          "text": "The friend joins only on Route A's D2 Monday, he wants to see the stone museum, can he see it just by following Route A's swapped route?",
+          "kind": "comment",
+          "channel": "public",
+          "editable": false,
+          "author": "U",
+          "parent": "c1"
+        }
+      ],
+      "visibility": "same conversation as c1",
+      "discovery": "observe / READ followup",
+      "response_window": 8,
+      "exclusive_branches": "one followup only",
+      "trigger_limit": 1,
+      "without_prerequisite": "No reply => no followup; initial c1 response duty still required.",
+      "semantics": "A neutral further question after an actual delivery; no claim of satisfaction, acceptance or external completion."
+    }
+  ]
+}

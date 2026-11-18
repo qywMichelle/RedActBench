@@ -1,0 +1,1892 @@
+{
+  "episode_id": "redact-20261030-b01-t4-01",
+  "version": "v2.4-en.1",
+  "strategy": "reference",
+  "input_hashes": {
+    "hidden": "625f59671ca2b9cec625412dbba736ebe68d91ab0f6f4de839147c6277e9aefa",
+    "visible": "a16c84b5f512d4116cc92ccc2fb6299ab35097e36fb3a53824c9aa6a7668b15d",
+    "rubrics": "a9aa7240617a6fbc9a25f92b1d16a4c9ff0dfe2800079bdd21f38e9bbb90d643"
+  },
+  "simulation": {
+    "protocol": "construction-workflow-v2.3",
+    "case_id": "redact-20261030-b01-t4-01",
+    "history": [
+      {
+        "time": 0,
+        "until": 1,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "profile_creator",
+            "profile_CLUB",
+            "rights"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "profile_creator",
+              "kind": "profile",
+              "title": "Historical expression: creator",
+              "text": "{\"user_id\": \"creator\", \"role\": \"creator\", \"language\": \"zh-CN\", \"context\": \"doujin art event collaboration\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [{\"time\": -2, \"channel\": \"commission\", \"text\": \"Politely explain specific purposes and control scope, without promising to delete copies on behalf of others.\"}], \"history_samples\": [{\"message_id\": \"creator-h1\", \"time\": -58, \"target\": \"history-creator-1\", \"channel\": \"public\", \"context\": \"Prior work explanation\", \"text\": \"Images are authorized by their respective artists; being able to display does not mean being able to print.\"}, {\"message_id\": \"creator-h2\", \"time\": -46, \"target\": \"history-creator-2\", \"channel\": \"dm\", \"context\": \"Last withdrawal notice\", \"text\": \"I can withdraw my own pending packages; for those already sent out, must notify and await the other party's receipt.\"}, {\"message_id\": \"creator-h3\", \"time\": -34, \"target\": \"history-creator-3\", \"channel\": \"public\", \"context\": \"Scope explanation\", \"text\": \"Only modify the withdrawn part; keep images still authorized by the other artist.\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_creator\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "profile_CLUB",
+              "kind": "profile",
+              "title": "Historical expression: CLUB",
+              "text": "{\"user_id\": \"CLUB\", \"role\": \"collaborator\", \"language\": \"zh-CN\", \"context\": \"Free material production\", \"source_kind\": \"synthetic\", \"explicit_preferences\": [], \"history_samples\": [{\"message_id\": \"CLUB-h1\", \"time\": -58, \"target\": \"history-CLUB-1\", \"channel\": \"dm\", \"context\": \"Prior package acceptance\", \"text\": \"Received the package, the machine hasn't been turned on yet.\"}, {\"message_id\": \"CLUB-h2\", \"time\": -46, \"target\": \"history-CLUB-2\", \"channel\": \"dm\", \"context\": \"Old receipt\", \"text\": \"Future reprints are paused; the cards already taken earlier cannot be retrieved for you.\"}, {\"message_id\": \"CLUB-h3\", \"time\": -34, \"target\": \"history-CLUB-3\", \"channel\": \"dm\", \"context\": \"New application\", \"text\": \"Can you leave me a version that can continue to be used?\"}], \"profile_visibility\": {\"at\": 0, \"entry\": \"profile_CLUB\", \"public_reuse\": false}}",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            },
+            {
+              "id": "rights",
+              "kind": "document",
+              "title": "rights",
+              "text": "Rights record: Artist A licensed A full online display and free event printing; Artist B independently licensed B full online display and free printing, crediting Yiye required. Partner circle only receives materials for this instance, no sublicense.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": []
+            }
+          ]
+        }
+      },
+      {
+        "time": 1,
+        "until": 2,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "notice",
+            "club"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "notice",
+              "kind": "dm",
+              "title": "notice",
+              "text": "A's original rights holder notification effective t0: Revokes future new printing of A, the two sheets already printed can be retained per original purpose, online display is currently still permitted; B's rights are decided by B in person. This notice is not requesting deletion of what others have already printed.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "ARTIST_A"
+            },
+            {
+              "id": "club",
+              "kind": "dm",
+              "title": "club",
+              "text": "Circle C: Yesterday already received reprint-pending files containing A/B, additionally two sheets of A already printed under old license. No reprint done this time, please notify in original conversation going forward.",
+              "at": 0,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "CLUB"
+            }
+          ]
+        }
+      },
+      {
+        "time": 2,
+        "until": 3,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "set_record",
+              "target": "package",
+              "fields": {
+                "assets": [
+                  "B"
+                ],
+                "credit": "Yiye",
+                "status": "ready"
+              },
+              "expected_revision": 1
+            },
+            {
+              "kind": "edit",
+              "target": "main",
+              "assets": [
+                "A",
+                "B"
+              ],
+              "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "edit",
+              "target": "print_note",
+              "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+              "expected_revision": 1
+            },
+            {
+              "kind": "send_form",
+              "target": "club",
+              "form_id": "print_scope",
+              "fields": {
+                "asset": "A",
+                "use": "Future new printing",
+                "existing": "Keep the two copies already printed",
+                "continuing": "B",
+                "credit": "Yiye",
+                "receipt": "Request processing receipt"
+              }
+            },
+            {
+              "kind": "set_record",
+              "target": "external",
+              "fields": {
+                "notice": "sent",
+                "receipt": "unknown"
+              },
+              "expected_revision": 1
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "main",
+            "print_note",
+            "package",
+            "external"
+          ],
+          "private_messages_sent": 1,
+          "stage": 0,
+          "done": false
+        }
+      },
+      {
+        "time": 3,
+        "until": 6,
+        "action": {
+          "action": "WAIT",
+          "time": 18
+        },
+        "result": {
+          "woke_at": 6,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 6,
+        "until": 18,
+        "action": {
+          "action": "WAIT",
+          "time": 18
+        },
+        "result": {
+          "woke_at": 18,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 18,
+        "until": 19,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "receipt"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "receipt",
+              "kind": "dm",
+              "title": "receipt",
+              "text": "Club C receipt: The subsequent reprint queue has been changed to only contain B with credit to Yiye; A will have no new printing, the existing two copies are retained, cannot claim that all copies have been deleted.",
+              "at": 6,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "CLUB"
+            }
+          ]
+        }
+      },
+      {
+        "time": 19,
+        "until": 20,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "set_record",
+              "target": "external",
+              "fields": {
+                "notice": "sent",
+                "receipt": "future_print_stopped"
+              },
+              "expected_revision": 2
+            },
+            {
+              "kind": "send_dm",
+              "target": "receipt",
+              "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted."
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "external"
+          ],
+          "private_messages_sent": 2,
+          "stage": 1,
+          "done": false
+        }
+      },
+      {
+        "time": 20,
+        "until": 30,
+        "action": {
+          "action": "WAIT",
+          "time": 32
+        },
+        "result": {
+          "woke_at": 30,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 30,
+        "until": 32,
+        "action": {
+          "action": "WAIT",
+          "time": 32
+        },
+        "result": {
+          "woke_at": 32,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 32,
+        "until": 33,
+        "action": {
+          "action": "READ",
+          "ids": [
+            "online_notice"
+          ]
+        },
+        "result": {
+          "resources": [
+            {
+              "id": "online_notice",
+              "kind": "dm",
+              "title": "online_notice",
+              "text": "Rightsholder A gave notice again at t30: from now on, even online displays of A are withdrawn; please stop displays within your own control and amend old guidelines before t42; the two copies already printed still maintain their prior permission. Do not revoke rights on behalf of other creators.",
+              "at": 30,
+              "stage": 0,
+              "revision": 1,
+              "assets": [],
+              "sender": "ARTIST_A"
+            }
+          ]
+        }
+      },
+      {
+        "time": 33,
+        "until": 34,
+        "action": {
+          "action": "COMMIT",
+          "operations": [
+            {
+              "kind": "remove_asset",
+              "target": "main",
+              "asset": "A",
+              "expected_revision": 2
+            },
+            {
+              "kind": "edit",
+              "target": "main",
+              "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+              "expected_revision": 3
+            }
+          ],
+          "handoff": ""
+        },
+        "result": {
+          "changed": [
+            "main",
+            "main"
+          ],
+          "private_messages_sent": 2,
+          "stage": 3,
+          "done": false
+        }
+      },
+      {
+        "time": 34,
+        "until": 48,
+        "action": {
+          "action": "WAIT",
+          "time": 48
+        },
+        "result": {
+          "woke_at": 48,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      },
+      {
+        "time": 48,
+        "until": 49,
+        "action": {
+          "action": "COMMIT",
+          "operations": [],
+          "handoff": "Both local online display and pending reprint package only contain B with credit to Yiye; first withdraw A future printing, then withdraw A online after t30; permissions for the two old physical copies remain unchanged. The club has provided a receipt confirming stoppage of future A reprinting, but has not proven or claimed that all external copies are deleted."
+        },
+        "result": {
+          "changed": [],
+          "private_messages_sent": 2,
+          "stage": 4,
+          "done": false
+        }
+      },
+      {
+        "time": 49,
+        "until": 55,
+        "action": {
+          "action": "WAIT",
+          "time": 55
+        },
+        "result": {
+          "woke_at": 55,
+          "reminders": [],
+          "message": "New content needs to be read via READ."
+        }
+      }
+    ],
+    "snapshots": [
+      {
+        "time": 2,
+        "stage": 0,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "unknown"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "set_record",
+            "target": "package",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "expected_revision": 1
+          },
+          {
+            "kind": "edit",
+            "target": "main",
+            "assets": [
+              "A",
+              "B"
+            ],
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "edit",
+            "target": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "expected_revision": 1
+          },
+          {
+            "kind": "send_dm",
+            "target": "club",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "fields": {
+              "asset": "A",
+              "use": "Future new printing",
+              "existing": "Keep the two copies already printed",
+              "continuing": "B",
+              "credit": "Yiye",
+              "receipt": "Request processing receipt",
+              "form_id": "print_scope"
+            }
+          },
+          {
+            "kind": "set_record",
+            "target": "external",
+            "fields": {
+              "notice": "sent",
+              "receipt": "unknown"
+            },
+            "expected_revision": 1
+          }
+        ]
+      },
+      {
+        "time": 15,
+        "stage": 1,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "unknown"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 19,
+        "stage": 1,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "set_record",
+            "target": "external",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "expected_revision": 2
+          },
+          {
+            "kind": "send_dm",
+            "target": "receipt",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted."
+          }
+        ]
+      },
+      {
+        "time": 25,
+        "stage": 2,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 30,
+        "stage": 3,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange: Full images of A and Yiye's B can still be displayed online; A cannot have new printing from now on, and the two copies previously printed can be kept; subsequent free reprinting will only use B credited to Yiye.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [
+              "A",
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 33,
+        "stage": 3,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": "",
+        "operations": [
+          {
+            "kind": "remove_asset",
+            "target": "main",
+            "asset": "A",
+            "expected_revision": 2
+          },
+          {
+            "kind": "edit",
+            "target": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "expected_revision": 3
+          }
+        ]
+      },
+      {
+        "time": 42,
+        "stage": 4,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": ""
+      },
+      {
+        "time": 48,
+        "stage": 4,
+        "kind": "commit",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": "Both local online display and pending reprint package only contain B with credit to Yiye; first withdraw A future printing, then withdraw A online after t30; permissions for the two old physical copies remain unchanged. The club has provided a receipt confirming stoppage of future A reprinting, but has not proven or claimed that all external copies are deleted.",
+        "operations": []
+      },
+      {
+        "time": 55,
+        "stage": 4,
+        "kind": "boundary",
+        "public": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          }
+        },
+        "own": {
+          "main": {
+            "id": "main",
+            "kind": "post",
+            "title": "main",
+            "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+            "at": 0,
+            "stage": 0,
+            "revision": 4,
+            "assets": [
+              "B"
+            ],
+            "editable": true,
+            "status": "published"
+          },
+          "print_note": {
+            "id": "print_note",
+            "kind": "post",
+            "title": "print_note",
+            "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "published"
+          },
+          "package": {
+            "id": "package",
+            "kind": "record",
+            "title": "package",
+            "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 2,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "assets": [
+                "B"
+              ],
+              "credit": "Yiye",
+              "status": "ready"
+            },
+            "field_schema": {
+              "assets": [
+                [],
+                [
+                  "A"
+                ],
+                [
+                  "B"
+                ],
+                [
+                  "A",
+                  "B"
+                ]
+              ],
+              "credit": [
+                "none",
+                "Yiye"
+              ],
+              "status": [
+                "ready",
+                "paused"
+              ]
+            }
+          },
+          "external": {
+            "id": "external",
+            "kind": "record",
+            "title": "external",
+            "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+            "at": 0,
+            "stage": 0,
+            "revision": 3,
+            "assets": [],
+            "editable": true,
+            "status": "private",
+            "fields": {
+              "notice": "sent",
+              "receipt": "future_print_stopped"
+            },
+            "field_schema": {
+              "notice": [
+                "none",
+                "sent"
+              ],
+              "receipt": [
+                "unknown",
+                "future_print_stopped",
+                "all_copies_deleted"
+              ]
+            }
+          }
+        },
+        "private_outbox": [
+          {
+            "target": "club",
+            "recipient": "CLUB",
+            "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+            "stage": 0
+          },
+          {
+            "target": "receipt",
+            "recipient": "CLUB",
+            "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+            "stage": 1
+          }
+        ],
+        "handoff": "Both local online display and pending reprint package only contain B with credit to Yiye; first withdraw A future printing, then withdraw A online after t30; permissions for the two old physical copies remain unchanged. The club has provided a receipt confirming stoppage of future A reprinting, but has not proven or claimed that all external copies are deleted."
+      }
+    ],
+    "public": {
+      "main": {
+        "id": "main",
+        "kind": "post",
+        "title": "main",
+        "text": "Yunyu Exchange now only displays Yiye's B, and B may be reprinted for free under the original authorization. The online permission for A is now also withdrawn, and the original displayable guidelines are invalidated; the two copies printed earlier are still retained under the old use permission.",
+        "at": 0,
+        "stage": 0,
+        "revision": 4,
+        "assets": [
+          "B"
+        ],
+        "editable": true,
+        "status": "published"
+      },
+      "print_note": {
+        "id": "print_note",
+        "kind": "post",
+        "title": "print_note",
+        "text": "Future reprinting only contains B with credit to Yiye; new printing of A has been withdrawn, and the explanation originally permitting reprinting of A/B is invalidated.",
+        "at": 0,
+        "stage": 0,
+        "revision": 2,
+        "assets": [],
+        "editable": true,
+        "status": "published"
+      }
+    },
+    "private_outbox": [
+      {
+        "target": "club",
+        "recipient": "CLUB",
+        "text": "Club scope change work order: Withdraw Future new printing of A; existing physical items: Keep the two copies already printed; continuing production target: B, credit: Yiye. Request processing receipt. Purposes and other rights not listed for withdrawal retain their original records; this message does not claim that external completion has occurred.",
+        "stage": 0
+      },
+      {
+        "target": "receipt",
+        "recipient": "CLUB",
+        "text": "Received a receipt stating only that future reprinting of A has stopped, and the existing two copies can be retained; the local pending-print package also only contains B with credit; do not write this receipt as all copies deleted.",
+        "stage": 1
+      }
+    ],
+    "handoff": "Both local online display and pending reprint package only contain B with credit to Yiye; first withdraw A future printing, then withdraw A online after t30; permissions for the two old physical copies remain unchanged. The club has provided a receipt confirming stoppage of future A reprinting, but has not proven or claimed that all external copies are deleted.",
+    "ended_by": "deadline",
+    "costs": {
+      "calls": 14,
+      "reads": 4,
+      "asks": 0,
+      "writes": 9
+    },
+    "time": 55,
+    "reminders": [],
+    "workflow_records": {
+      "package": {
+        "id": "package",
+        "kind": "record",
+        "title": "package",
+        "text": "Sandbox reprint-pending list, separated from copies sent yesterday",
+        "at": 0,
+        "stage": 0,
+        "revision": 2,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "assets": [
+            "B"
+          ],
+          "credit": "Yiye",
+          "status": "ready"
+        },
+        "field_schema": {
+          "assets": [
+            [],
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "A",
+              "B"
+            ]
+          ],
+          "credit": [
+            "none",
+            "Yiye"
+          ],
+          "status": [
+            "ready",
+            "paused"
+          ]
+        }
+      },
+      "external": {
+        "id": "external",
+        "kind": "record",
+        "title": "external",
+        "text": "Receipt of the withdrawal notice for the club's copy from yesterday",
+        "at": 0,
+        "stage": 0,
+        "revision": 3,
+        "assets": [],
+        "editable": true,
+        "status": "private",
+        "fields": {
+          "notice": "sent",
+          "receipt": "future_print_stopped"
+        },
+        "field_schema": {
+          "notice": [
+            "none",
+            "sent"
+          ],
+          "receipt": [
+            "unknown",
+            "future_print_stopped",
+            "all_copies_deleted"
+          ]
+        }
+      }
+    },
+    "triggered_events": [
+      "club_receipt"
+    ]
+  },
+  "scope": "Relocated existing programmed execution. No model generation or new semantic judgment."
+}
