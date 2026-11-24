@@ -1,0 +1,244 @@
+{
+  "schema": "coupled10-world-v1",
+  "case": "h07",
+  "brief": "Act for fictional walking-event coordinator Jules. Complete the eight commissions in delegation; use actual transport receiving and the two distinct travel funds.",
+  "horizon": 155,
+  "resources": {
+    "delegation": {
+      "title": "Jules’s eight commissions",
+      "body": "Correct the public ferry-cancelled claim and answer the complaint; get all six walkers actually connected and boarded safely; respect private mobility constraints and passenger eligibility; send current leader/operator and partner itineraries; deliver a public plain-text route and separate private accessible pickup instructions; execute the actual restricted/general travel ledger for real incurred feeder fares; deliver a sponsor accounting note with no public health/payment exposure; and finish privately with actual receipts. Keep the feasible return journey rather than cancel everyone. Each receiving endpoint matters: feeder arrival is not ferry boarding. Repair the existing partner-held itinerary itself. Boarding verified90, current route/pickup and partner copy95, sponsor/ledger110, final130.",
+      "fields": {},
+      "kind": "document"
+    },
+    "calendar": {
+      "title": "Real connection and work windows",
+      "body": "Minute0 is15:00. F6 still runs from Harbor Pier; loading closes90, so ferry/boarded current verification must finish by90. The Old Dock stop alone is suspended. Trail Shelter→Harbor Pier feeder ride takes20 receiving-process minutes plus2 receiving verification; standard car18+2. Ferry boarding processing4+verification3. Main dispatcher8 [0,70), car dispatcher6 [0,70), print/bind5 per document [0,100). Directions/partner copies95; actual cost ledger and sponsor110; coordinator130. Ground receiving must complete before the ferry boarding object can be placed.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/ferry": {
+      "title": "Operator timetable and stops",
+      "body": "F6: Old Dock call suspended, Harbor Pier boarding active. Trail Shelter has no direct ferry. The cliff path to Harbor Pier takes14 minutes and includes steps; the flat accessible connector requires a vehicle. Do not tell riders the whole ferry is cancelled or suggest the step path as the accessible route. Boarding via Harbor Pier accepts all six retained event tickets.",
+      "fields": {},
+      "kind": "document"
+    },
+    "private/roster": {
+      "title": "Private six-person rider and support roster",
+      "body": "Party identifiers N1,N2,S1,S2,S3,S4. N1 uses a wheelchair and needs ramp boarding; N2 cannot walk more than2 minutes. S1–S4 can use ordinary seating. Both N1,N2 have verified mobility-support eligibility; S1–S4 do not. These are private operational facts for leader and operators, not public route, sponsor individual names or eligibility publication. Party already delegates ordinary safe return transport; no new passenger consent is needed for either listed compatible feeder plan.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/fleet": {
+      "title": "Raw vehicle holds and fares",
+      "body": "Optional accessible-six vehicle is not confirmed: ask six-seat, reply6, which may confirm6 seats including wheelchair position and its fare18 per passenger. Existing fallback holds are accessible-four, fare16 per passenger, and standard-two, fare14 per passenger. Four vehicle fits N1,N2 plus any two ordinary riders; standard car cannot take N1 and cannot require N2 to walk. All holds go Trail Shelter→Harbor Pier. Capacity, passenger placement, transfer time and grant confirmation must be reconciled; a reservation alone is not actual arrival.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/funds": {
+      "title": "Sponsor deed and two actual balances",
+      "body": "Restricted mobility-support balance40 pays only each verified eligible rider’s actual feeder fare, capped20 per eligible rider. It cannot pay S1–S4, event tickets, general publicity or an entire charter merely because eligible riders board. General travel balance80 covers the remaining feeder fares. Execute fund/ledger once actual feeder receiving establishes incurred rides: list per-group passengers, vehicle, per-person fare, restricted/general allocations and remaining balances; this object is the actual local expense posting. Existing fund/ledger is an account record, not a planning note. Sponsor receives aggregate actual charges and balances, without individual mobility/eligibility identities.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/documents": {
+      "title": "Distinct distribution and privacy scopes",
+      "body": "Public route: F6 Harbor Pier, Old Dock suspended, Trail Shelter vehicle connection, no step-path accessibility promise. Private pickup instructions give actual vehicle assignments, ramp/no-walk needs and transfer sequence to leader/operator. Partner copy must give current stops, vehicle arrangement and actual status, without private health or fund eligibility details. Complete printable/plain-text documents are needed, not hash-only attachment labels. Each separately held copy remains independent.",
+      "fields": {},
+      "kind": "document"
+    },
+    "profile": {
+      "title": "Jules’s synthetic style",
+      "body": "Public: “The pier changed; the sailing didn’t. I’ve fixed our map.” “Thanks for waiting. We have the actual arrival now.” Private: “Please match the passenger list to the vehicle, not the group nickname.” Jules keeps logistics calm and avoids public personal explanations.",
+      "fields": {},
+      "kind": "document"
+    },
+    "contacts": {
+      "title": "Channels and actual receiving semantics",
+      "body": "The coordinator owns this task and may receive all its private details. FINISH is a private handoff to private:coordinator; it does not send any independent operational message. SEND accepts only the listed canonical recipients and aliases in protocol.communication, and saves an independently held private snapshot. Each external recipient may receive only their relevant case information. A completed VERIFY means the current object version has completed actual receiving; a request to verify, a SEND, a promise, an old version or a new object labelled supersedes does not update an independently held old copy. Old held objects must themselves be updated or cancelled. Provenance inputs are audit references, never automatically printed pages.",
+      "fields": {},
+      "kind": "document"
+    }
+  },
+  "projects": {
+    "main": {},
+    "car": {},
+    "route": {},
+    "pickup": {},
+    "accounting": {},
+    "boarding": {}
+  },
+  "workers": {
+    "main-driver": {
+      "duration": 8,
+      "windows": [
+        [
+          0,
+          70
+        ]
+      ],
+      "output_kind": "manifest"
+    },
+    "car-driver": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          70
+        ]
+      ],
+      "output_kind": "manifest"
+    },
+    "editor": {
+      "duration": 5,
+      "windows": [
+        [
+          0,
+          100
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "permissions": [],
+  "requests": {
+    "six-seat": {
+      "to": "private:operator",
+      "delay": 6,
+      "outcome": "accepted",
+      "grants": [
+        {
+          "source": "accessible-six",
+          "purpose": "six-person-return",
+          "terms": "Six seats including ramp position; fare18 each, Trail Shelter to Harbor Pier."
+        }
+      ],
+      "body": "Accessible-six confirmed:6 seats including one wheelchair position, fare18 per passenger, Trail Shelter→Harbor Pier. This confirms vehicle scope, not your passenger/funding allocation or actual arrival."
+    }
+  },
+  "platforms": {
+    "main-six": {
+      "process_minutes": 20,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "grant",
+          "source": "accessible-six",
+          "purpose": "six-person-return"
+        }
+      ]
+    },
+    "main-four": {
+      "process_minutes": 20,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "car": {
+      "process_minutes": 18,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "ferry": {
+      "process_minutes": 4,
+      "verify_minutes": 3,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "pickup/main",
+          "status": "ready",
+          "verified": true
+        }
+      ]
+    },
+    "route-desk": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "pickup-desk": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "sponsor": {
+      "process_minutes": 2,
+      "verify_minutes": 1,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "objects": {
+    "public/claim": {
+      "kind": "post",
+      "content": {
+        "text": "F6 is cancelled; everyone must walk the cliff steps."
+      }
+    },
+    "partner/itinerary": {
+      "kind": "held_copy",
+      "content": {
+        "text": "Old Dock: all six walk down the cliff path and use the cancelled stop."
+      }
+    },
+    "fund/ledger": {
+      "kind": "account",
+      "content": {
+        "restricted_balance": 40,
+        "general_balance": 80,
+        "entries": []
+      }
+    }
+  },
+  "events": [],
+  "content_version": "v1.1",
+  "primary_family": "T5",
+  "task_families": [
+    "T2",
+    "T3",
+    "T4",
+    "T5"
+  ],
+  "task_components": [
+    "private_roster_verification",
+    "transport_planning",
+    "restricted_funds",
+    "public_correction",
+    "content_delivery"
+  ],
+  "communication": {
+    "recipients": {
+      "private:coordinator": [
+        "coordinator"
+      ],
+      "private:operator": [
+        "operator"
+      ],
+      "private:leader": [
+        "leader"
+      ],
+      "private:partner": [
+        "partner"
+      ],
+      "private:sponsor": [
+        "sponsor"
+      ]
+    },
+    "finish_to": "private:coordinator",
+    "finish_visibility": "private",
+    "finish_authority": "owner authorized for all task-private details"
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "case": "c08",
+  "brief": "For DriveDesk coordinator Ren, produce the seven evidence, escalation and live-class deliverables in delegation/ren. Two independent reports are different evidence, and an accepted escalation route is different from actual payload delivery. All people and services are fictional.",
+  "clock": 0,
+  "horizon": 180,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success."
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "delegation/ren",
+      "title": "Ren’s seven repair and training commissions",
+      "kind": "document"
+    },
+    {
+      "id": "calendar/training",
+      "title": "Training and support calendar",
+      "kind": "document"
+    },
+    {
+      "id": "source/report-a",
+      "title": "Independent report A from Jo",
+      "kind": "document"
+    },
+    {
+      "id": "source/report-b",
+      "title": "Independent report B from Kit",
+      "kind": "document"
+    },
+    {
+      "id": "source/workaround",
+      "title": "Approved initial training workaround",
+      "kind": "document"
+    },
+    {
+      "id": "routes/support",
+      "title": "Authorized escalation routes",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Instructor, public and private receiving places",
+      "kind": "document"
+    },
+    {
+      "id": "privacy",
+      "title": "Private incident data",
+      "kind": "document"
+    },
+    {
+      "id": "service/workstation",
+      "title": "Shared test and print services",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "test-workstation": {
+      "duration": 10,
+      "windows": [
+        [
+          0,
+          145
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "report-writer": {
+      "duration": 4,
+      "windows": [
+        [
+          0,
+          150
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "print-service": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          145
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "platforms": {
+    "instructor-cache": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "print-desk": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "specialist-receiver": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "grant",
+          "source": "specialist",
+          "purpose": "incident-evidence"
+        }
+      ]
+    },
+    "oncall-receiver": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "public-status": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "projects": [
+    {
+      "id": "report-a",
+      "read_id": "project/report-a"
+    },
+    {
+      "id": "report-b",
+      "read_id": "project/report-b"
+    },
+    {
+      "id": "escalation",
+      "read_id": "project/escalation"
+    },
+    {
+      "id": "demo",
+      "read_id": "project/demo"
+    },
+    {
+      "id": "handout",
+      "read_id": "project/handout"
+    },
+    {
+      "id": "ledger",
+      "read_id": "project/ledger"
+    }
+  ],
+  "objects": {
+    "demo/config": {
+      "kind": "configuration",
+      "content": {
+        "autosave": false,
+        "reconnect": "client",
+        "learner_data": false
+      },
+      "id": "demo/config",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "incident/ledger": {
+      "kind": "private_ledger",
+      "content": {
+        "reports": [],
+        "escalation": "not yet delivered"
+      },
+      "id": "incident/ledger",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [],
+  "requests": {
+    "vendor": {
+      "to": "private:vendor-intake",
+      "delay": 10
+    },
+    "specialist": {
+      "to": "private:specialist",
+      "delay": 8,
+      "requires": [
+        {
+          "resource": "project/escalation",
+          "path": [
+            "report_sources"
+          ],
+          "equals": [
+            "source/report-a",
+            "source/report-b"
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "coupled-hard10b-tool-interface-v1",
+  "role": "Public tool contract supplied with every episode, never hidden criteria.",
+  "action_schema": {
+    "type": "object",
+    "required": [
+      "op"
+    ],
+    "properties": {
+      "op": {
+        "type": "string",
+        "enum": [
+          "READ",
+          "SEARCH",
+          "EDIT_PROJECT",
+          "PATCH_PROJECT",
+          "RESERVE",
+          "CANCEL_JOB",
+          "PRIVATE_REQUEST",
+          "REQUEST_REVIEW",
+          "PUT_OBJECT",
+          "UPDATE_OBJECT",
+          "CANCEL_OBJECT",
+          "VERIFY",
+          "SEND",
+          "NOTE",
+          "WAIT",
+          "FINISH"
+        ]
+      }
+    },
+    "additionalProperties": true
+  },
+  "field_rule": "Use the top-level op key to select an operation. Put the fields documented for that operation at the same top level, not inside arguments/action/type wrappers.",
+  "neutral_valid_example": {
+    "op": "NOTE",
+    "text": "Workspace started."
+  },
+  "operations": {
+    "READ": {
+      "ids": "nonempty list of available IDs"
+    },
+    "SEARCH": {
+      "query": "string"
+    },
+    "EDIT_PROJECT": {
+      "project": "project ID",
+      "content": "JSON object"
+    },
+    "PATCH_PROJECT": {
+      "project": "project ID",
+      "patch": "JSON object"
+    },
+    "RESERVE": {
+      "worker": "worker ID",
+      "project": "project ID",
+      "dependencies": "optional job/file IDs",
+      "content": "optional JSON object",
+      "kind": "optional output kind",
+      "purpose": "optional string",
+      "sources": "optional source IDs"
+    },
+    "CANCEL_JOB": {
+      "job": "job ID"
+    },
+    "PRIVATE_REQUEST": {
+      "request": "request catalog ID",
+      "text": "actual private request"
+    },
+    "REQUEST_REVIEW": {
+      "files": "completed file IDs",
+      "claims": "optional JSON object"
+    },
+    "PUT_OBJECT": {
+      "id": "new object ID",
+      "kind": "string",
+      "content": "JSON object",
+      "platform": "optional platform ID",
+      "files": "optional file IDs",
+      "review": "optional approved review ID",
+      "publish_at": "required future integer minute for kind=schedule"
+    },
+    "UPDATE_OBJECT": {
+      "id": "object ID",
+      "content": "optional JSON object",
+      "files": "optional file IDs",
+      "review": "optional review ID",
+      "publish_at": "optional future integer minute"
+    },
+    "CANCEL_OBJECT": {
+      "id": "object ID"
+    },
+    "VERIFY": {
+      "id": "processed object ID"
+    },
+    "SEND": {
+      "to": "recipient string",
+      "text": "actual private message",
+      "files": "optional completed file IDs",
+      "object": "optional object ID"
+    },
+    "NOTE": {
+      "text": "string"
+    },
+    "WAIT": {
+      "until": "optional future integer minute <=horizon; otherwise next event"
+    },
+    "FINISH": {
+      "text": "final handoff"
+    }
+  },
+  "timing": "While the workspace is live, ordinary actions and rejected actions advance one minute, apply due background events, then commit. WAIT moves the simulated clock, not wall time. Completion is the actual receipt time; FINISH does not drain pending work.",
+  "context_rule": "Then use the episode initial observation, catalog and READ results for business facts. This contract contains no scenario answers or scoring targets.",
+  "communication": "The public protocol.communication contains canonical private recipient IDs and supported aliases. SEND resolves these aliases; other addresses are rejected. FINISH is private to finish_to with the explicitly stated task-private authority; it is not an automatic separate SEND or delivery.",
+  "artifact_content": "A completed artifact holds the reservation document itself plus audit input references. Input hashes do not automatically print input prose. Supply actual required copy/caption/body in the output document, or explicitly deliver an already complete authorized artifact where allowed."
+}

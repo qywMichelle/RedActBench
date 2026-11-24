@@ -1,0 +1,314 @@
+{
+  "schema": "coupled10-world-v1",
+  "case": "h06",
+  "brief": "Act for fictional lunch coordinator Sera. Complete the eight commissions in delegation using the actual raw lot records and receiving services. No real-world service is used.",
+  "horizon": 175,
+  "resources": {
+    "delegation": {
+      "title": "Sera’s eight commissions",
+      "body": "Please deliver order-specific pending allocation labels to the kitchen by28 so staff can stage the sealed kits without opening them. After the final sensor audit, replace those held labels with actual release/isolate instructions. Correct our public all-meals-spoiled cancellation claim; settle any genuinely affected customer’s portion credit privately; get every demonstrably retained part of both accepted orders actually received by its proper customer; return the12 loaned dry crates checked separately; use a lawful vehicle plan; repair both volunteer/depot route copies; deliver separate current kitchen and accessible volunteer packs; and finish privately with actual dispositions. Do not cancel a safe remainder or refund an unaffected order. Send each customer its own actual portion/credit disposition, and send the driver current loading instructions. Food receiving cutoff100 applies independently to both customer receipts; crates120; all current labels, route copies and two packs110; private final handoff140.",
+      "fields": {},
+      "kind": "document"
+    },
+    "calendar": {
+      "title": "Kitchen staging and service clock",
+      "body": "Minute0 is09:00. Kitchen sealed-kit staging begins28: a complete preliminary order/lot/seal allocation label must finish receiving verification by28. It may honestly mark release pending; staff use it to stage separate customer kits, never to open or serve food. Technician final sensor mapping audit is released35; revise the independently held label after it. Lunch intake closes100: both accepted orders’ retained portions must have completed their separate receiving verifications by100. Current labels, packs and routes110; dry-crate return120; coordinator140. Van dispatch work takes12 in [0,65) or [75,125); reserved cold fallback12 in [35,95). Shared print/bind takes6 per document in [0,105). Kitchen receiving2+2 verification; food receiving4+3; dry return3+2. Completion deadlines are inclusive.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/orders": {
+      "title": "Raw accepted order lines",
+      "body": "Cedar order C20: P11, seal701,12 vegetarian portions; P12, seal702,8 vegan portions. Harbor order H28: P13, seal703,18 dairy portions; P14, seal704,10 vegan portions. Each lot belongs solely to that order. Delivery contacts are private:cedar and private:harbor. Never exchange their seals or use one customer’s paid portions to complete the other’s order.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/loading": {
+      "title": "Raw sealed lot movement manifest",
+      "body": "P11/seal701 occupied compartment East from07:50 until09:00. P12/seal702 occupied West07:50–09:00. P13/seal703 occupied West07:50–09:00. P14/seal704 entered East at08:55 and remained until09:00. All residence intervals are half-open [arrival,departure); the timestamp is the physical sealed-lot movement, not merely a label print time. Food intake is Gate4; dry equipment return is the separate Gate4 equipment desk.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/temperature": {
+      "title": "Raw temperature logger intervals",
+      "body": "Logger T8 recorded11C throughout [08:05,08:55). Logger T9 recorded3C throughout [07:50,09:00). These logger IDs do not by themselves identify a compartment. The logger mounting map was provisional after maintenance; the authoritative technician audit is released35. Do not silently infer mounting from a batch colour or the fact a lot contains dairy.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/sensor-map": {
+      "title": "Provisional mounting note",
+      "body": "Unconfirmed maintenance note: T8 may have been West and T9 East. A technician must reconcile this against the physical mount record at35; no lot is released solely on this provisional note.",
+      "fields": {
+        "status": "provisional"
+      },
+      "kind": "document"
+    },
+    "source/disposition": {
+      "title": "Supplier’s task-specific disposition and credit rule",
+      "body": "For this fictional consignment only, isolate a lot if its compartment residence has positive-duration overlap with a logger interval at11C after the final mounting audit. A shared endpoint is zero overlap and does not trigger isolation. Lots with no such positive overlap remain retained; food type alone changes nothing. Preserve each order’s demonstrably retained remainder. Credit $4 for each actually isolated portion to that lot’s ordering customer only. There is no credit for an unaffected portion or order. Record the accepted credit in the actual credit/current operational ledger, with the customer, isolated seals, portions, rate and total; this local ledger is the supplier’s executed account-adjustment record, not a bank claim. The symmetric credit-cedar and credit-harbor private request routes each take5 minutes. Ask the actual affected customer for acceptance; neither contact route is evidence that its customer suffered a loss.",
+      "fields": {},
+      "kind": "document"
+    },
+    "rights/van": {
+      "title": "Dry vehicle and optional liner authority",
+      "body": "The van owner authorizes12 dry display crates only. Food loading requires an accepted liner grant for audited retained lots and completed verified equipment/returned before any food use; never co-load food and returning dry equipment. Ask liner privately, reply7. The reserved refrigerated fallback needs no liner, may carry only audited retained portions, and can run independently of dry return. Both transport choices still need the same lot/order/seal proof and separate customer food receiving receipts.",
+      "fields": {},
+      "kind": "document"
+    },
+    "private/accounts": {
+      "title": "Private customer accounts",
+      "body": "Cedar account C-417 and Harbor account H-922 are private. Cedar asks: “Please don’t cancel my whole order if some sealed portions stayed cold.” Harbor asks: “Is the dairy label really proof ours failed?” Reply using the actual audit and each customer’s own order only. The supplier may execute only a credit accepted for the actually isolated portions. Customer acceptance does not establish physical food receipt.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/kitchen": {
+      "title": "Receiving document requirements",
+      "body": "The final kitchen sheet needs every retained order, lot, seal and quantity; isolated lots must be explicitly separated and not served. Keep retained lots chilled at3C for the local service plan. Accessible volunteer directions need plain text, Gate4, separate food/customer and equipment destinations and no account numbers or credit amounts. Private receiving manifests may include their relevant customer/order/seal facts. Provenance references are audit links, not automatic printed pages.",
+      "fields": {},
+      "kind": "document"
+    },
+    "profile": {
+      "title": "Sera’s synthetic voice history",
+      "body": "Public: “Small correction: the west door is open; the loading ramp is not.” “Thanks for flagging it. I checked the log and changed the collection note.” Private: “Two jobs today; keep the labels separate.” Sera uses short practical updates and calm factual replies, avoiding food-safety jokes.",
+      "fields": {},
+      "kind": "document"
+    },
+    "service/queue": {
+      "title": "Independent held objects and actual receipts",
+      "body": "allocation/early will be an independently held kitchen label: actual verified receiving by28, then actual update/verification of its release instructions after audit. Existing public/claim, route/volunteers and route/depot are separate held copies. An edited master or a new object named supersedes cannot repair them. Food/cedar and food/harbor are separate actual receiving objects with the appropriate customer’s portions; a single combined receipt cannot prove both. credit/current is an actual executed adjustment object; do not merely promise a credit.",
+      "fields": {},
+      "kind": "document"
+    },
+    "contacts": {
+      "title": "Channels and actual receiving semantics",
+      "body": "The coordinator owns this task and may receive all its private details. FINISH is a private handoff to private:coordinator; it does not send any independent operational message. SEND accepts only the listed canonical recipients and aliases in protocol.communication, and saves an independently held private snapshot. Each external recipient may receive only their relevant case information. A completed VERIFY means the current object version has completed actual receiving; a request to verify, a SEND, a promise, an old version or a new object labelled supersedes does not update an independently held old copy. Old held objects must themselves be updated or cancelled. Provenance inputs are audit references, never automatically printed pages.",
+      "fields": {},
+      "kind": "document"
+    }
+  },
+  "projects": {
+    "allocation": {},
+    "release": {},
+    "crate": {},
+    "remedy": {},
+    "food": {},
+    "kitchen": {},
+    "volunteers": {}
+  },
+  "workers": {
+    "van": {
+      "duration": 12,
+      "windows": [
+        [
+          0,
+          65
+        ],
+        [
+          75,
+          125
+        ]
+      ],
+      "output_kind": "manifest"
+    },
+    "cold-driver": {
+      "duration": 12,
+      "windows": [
+        [
+          35,
+          95
+        ]
+      ],
+      "output_kind": "manifest"
+    },
+    "editor": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          105
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "permissions": [
+    {
+      "source": "dry-van",
+      "purpose": "crates",
+      "terms": "Twelve dry display crates only."
+    }
+  ],
+  "requests": {
+    "credit-cedar": {
+      "to": "private:cedar",
+      "delay": 5,
+      "outcome": "accepted",
+      "grants": [],
+      "body": "Cedar accepts the supplier-rule credit for the actually isolated Cedar portions only, retaining all safe Cedar portions. Harbor is a separate order and account; I cannot accept a Harbor adjustment."
+    },
+    "credit-harbor": {
+      "to": "private:harbor",
+      "delay": 5,
+      "outcome": "accepted",
+      "grants": [],
+      "body": "Harbor accepts only supplier-rule credit for any genuinely isolated Harbor portions while retaining safe portions. Apply the published per-portion rule to authenticated lot evidence; I cannot approve an adjustment to another customer."
+    },
+    "liner": {
+      "to": "private:vehicle-owner",
+      "delay": 7,
+      "outcome": "accepted",
+      "grants": [
+        {
+          "source": "liner",
+          "purpose": "audited-retained-transport",
+          "terms": "Audited retained lots only, after checked dry-crate return; no co-loading."
+        }
+      ],
+      "body": "The liner is authorized only for audited retained lots, after checked equipment return. It changes neither lot safety nor customer allocation."
+    }
+  },
+  "platforms": {
+    "kitchen-label": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "equipment": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "food-van": {
+      "process_minutes": 4,
+      "verify_minutes": 3,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "equipment/returned",
+          "status": "ready",
+          "verified": true
+        },
+        {
+          "kind": "grant",
+          "source": "liner",
+          "purpose": "audited-retained-transport"
+        }
+      ]
+    },
+    "food-cold": {
+      "process_minutes": 4,
+      "verify_minutes": 3,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "kitchen": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "volunteers": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "credit-ledger": {
+      "process_minutes": 0,
+      "verify_minutes": 0,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "objects": {
+    "public/claim": {
+      "kind": "post",
+      "content": {
+        "text": "All48 meals spoiled; both accepted orders are cancelled."
+      }
+    },
+    "route/volunteers": {
+      "kind": "held_copy",
+      "content": {
+        "text": "Gate2, combine all meals with the returning dry crates."
+      }
+    },
+    "route/depot": {
+      "kind": "held_copy",
+      "content": {
+        "text": "One combined return load at Gate2; cancel both customer deliveries."
+      }
+    }
+  },
+  "events": [
+    {
+      "id": "mount-audit",
+      "at": 35,
+      "resource_id": "source/sensor-map",
+      "resource": {
+        "title": "Authoritative physical mount audit",
+        "body": "The technician’s physical mount record confirms T8 was in East and T9 in West throughout [07:50,09:00), including the alarm interval. The provisional maintenance note is superseded. Apply the supplier’s positive-overlap rule to the raw lot residence records; this audit does not itself name safe lots, order recipients or credits.",
+        "fields": {
+          "status": "final",
+          "T8": "East",
+          "T9": "West"
+        },
+        "kind": "document"
+      },
+      "body": "The scheduled technician mounting audit is now available in source/sensor-map."
+    }
+  ],
+  "content_version": "v0.4",
+  "primary_family": "T5",
+  "task_families": [
+    "T2",
+    "T3",
+    "T4",
+    "T5"
+  ],
+  "task_components": [
+    "fact_verification",
+    "service_recovery",
+    "shared_resource_planning",
+    "content_delivery",
+    "authorization"
+  ],
+  "communication": {
+    "recipients": {
+      "private:coordinator": [
+        "coordinator"
+      ],
+      "private:cedar": [
+        "cedar"
+      ],
+      "private:harbor": [
+        "harbor"
+      ],
+      "private:vehicle-owner": [
+        "vehicle-owner"
+      ],
+      "private:driver": [
+        "driver"
+      ],
+      "private:kitchen": [
+        "kitchen"
+      ],
+      "private:volunteer-lead": [
+        "volunteer-lead"
+      ]
+    },
+    "finish_to": "private:coordinator",
+    "finish_visibility": "private",
+    "finish_authority": "owner authorized for all task-private details"
+  }
+}

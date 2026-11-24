@@ -1,0 +1,371 @@
+{
+  "case": "p18",
+  "brief": "Act for fictional photo-contest coordinator Priya. Reconcile sealed weighted ballots, independent jury tie-breaks and separate image-withdrawal rights. All entries,ballots,licences,fees and services are fictional.",
+  "clock": 0,
+  "horizon": 165,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success.",
+    "communication": {
+      "recipients": {
+        "private:coordinator": [
+          "coordinator"
+        ],
+        "private:lee": [
+          "lee"
+        ],
+        "private:mina": [
+          "mina"
+        ],
+        "private:cedar": [
+          "cedar"
+        ],
+        "private:shore": [
+          "shore"
+        ],
+        "private:jury": [
+          "jury"
+        ],
+        "private:gallery": [
+          "gallery"
+        ]
+      },
+      "finish_to": "private:coordinator",
+      "finish_visibility": "private",
+      "finish_authority": "Task owner may receive all task-private details."
+    }
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "delegation",
+      "title": "Priya’s contest commissions",
+      "kind": "document"
+    },
+    {
+      "id": "calendar",
+      "title": "Sealed ballot and award-service clock",
+      "kind": "document"
+    },
+    {
+      "id": "source/entries",
+      "title": "Distinct entry and image rights",
+      "kind": "document"
+    },
+    {
+      "id": "source/ballots",
+      "title": "Raw sealed membership and ballot records",
+      "kind": "document"
+    },
+    {
+      "id": "source/jury",
+      "title": "Raw jury marks and conflict scope",
+      "kind": "document"
+    },
+    {
+      "id": "rights/exhibit",
+      "title": "Exhibit fallback and scoped optional withdrawal",
+      "kind": "document"
+    },
+    {
+      "id": "source/awards",
+      "title": "Standing local award and refund terms",
+      "kind": "document"
+    },
+    {
+      "id": "service/outputs",
+      "title": "Two result boards and full usable programme",
+      "kind": "document"
+    },
+    {
+      "id": "profile",
+      "title": "Priya’s invented contest history",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Private channels and delivery semantics",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "auditor": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          110
+        ]
+      ],
+      "output_kind": "audited-tally"
+    },
+    "editor": {
+      "duration": 5,
+      "windows": [
+        [
+          0,
+          115
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "access": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          115
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "platforms": {
+    "audit": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "exhibit": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "award": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "audit/current",
+          "verified": true
+        }
+      ]
+    },
+    "paper": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "projects": [
+    {
+      "id": "audit",
+      "read_id": "project/audit"
+    },
+    {
+      "id": "exhibit",
+      "read_id": "project/exhibit"
+    },
+    {
+      "id": "awards",
+      "read_id": "project/awards"
+    },
+    {
+      "id": "results",
+      "read_id": "project/results"
+    },
+    {
+      "id": "programme",
+      "read_id": "project/programme"
+    },
+    {
+      "id": "jury",
+      "read_id": "project/jury"
+    },
+    {
+      "id": "mina",
+      "read_id": "project/mina"
+    },
+    {
+      "id": "cedar",
+      "read_id": "project/cedar"
+    },
+    {
+      "id": "shore",
+      "read_id": "project/shore"
+    }
+  ],
+  "objects": {
+    "public/claim": {
+      "kind": "post",
+      "content": {
+        "text": "E21 wins with11 season points after adding jury9;Lee withdrew both photographs and owns the fee refund."
+      },
+      "id": "public/claim",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "gallery/exhibit": {
+      "kind": "held_copy",
+      "platform": "exhibit",
+      "content": {
+        "text": "Display Lee L12 plus Mina M12 as eligible E12;Lee withdrawal is not effective."
+      },
+      "id": "gallery/exhibit",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "hall/results": {
+      "kind": "held_copy",
+      "platform": "paper",
+      "content": {
+        "text": "E21 points11 winner;E23 points2;E12 still eligible."
+      },
+      "id": "hall/results",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "newsletter/results": {
+      "kind": "held_copy",
+      "platform": "paper",
+      "content": {
+        "text": "E21 points11 winner;delete all E12 images and refundLee."
+      },
+      "id": "newsletter/results",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [],
+  "requests": {
+    "mina-withdraw": {
+      "to": "private:mina",
+      "delay": 5
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}

@@ -1,0 +1,409 @@
+{
+  "case": "h03",
+  "brief": "Resolve the missing paid replay and makeup-session complaint, the two same-name identities and selected-clip attribution. Deliver actual accessible paid access or the pre-agreed useful house replacement, actually book the customer’s selected makeup session, deliver the separate private mentor excerpt, repair the independent archive and prior editor attribution, and answer the public thread without treating a joke as a theft admission.",
+  "clock": 0,
+  "horizon": 150,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success.",
+    "communication": {
+      "recipients": {
+        "private:owner": [],
+        "private:customer": [],
+        "private:mentor": [],
+        "private:archive": [],
+        "private:editor": [],
+        "private:performer-41": [],
+        "private:performer-88": [],
+        "private:legacy-rem": []
+      },
+      "finish_to": "private:owner",
+      "finish_visibility": "private",
+      "finish_authority": "owner authorized for all task-private details"
+    }
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "charter",
+      "title": "Authority and independent deliveries",
+      "kind": "document"
+    },
+    {
+      "id": "profile",
+      "title": "Creator profile — synthetic, privately visible",
+      "kind": "document"
+    },
+    {
+      "id": "operations",
+      "title": "Replay and session service windows",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Private audience scopes",
+      "kind": "document"
+    },
+    {
+      "id": "thread",
+      "title": "Public thread with parent context",
+      "kind": "document"
+    },
+    {
+      "id": "slate",
+      "title": "Selected asset raw provenance",
+      "kind": "document"
+    },
+    {
+      "id": "bookings",
+      "title": "Performance booking directory",
+      "kind": "document"
+    },
+    {
+      "id": "purchase",
+      "title": "Authenticated paid-customer record",
+      "kind": "document"
+    },
+    {
+      "id": "session-offer",
+      "title": "Original makeup offer and reply",
+      "kind": "document"
+    },
+    {
+      "id": "material",
+      "title": "Actual material and standing uses",
+      "kind": "document"
+    },
+    {
+      "id": "history",
+      "title": "Independent held versions",
+      "kind": "document"
+    },
+    {
+      "id": "rights",
+      "title": "Purpose-specific source permissions",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G1",
+      "title": "Public complaint response",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G2",
+      "title": "Identity and material separation",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G3",
+      "title": "Actual accessible paid delivery",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G4",
+      "title": "Actual selected makeup session",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G5",
+      "title": "Private mentor excerpt",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G6",
+      "title": "Independent archive correction",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G7",
+      "title": "Editor historical attribution",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G8",
+      "title": "Owner closure",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "media-editor": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          120
+        ]
+      ],
+      "output_kind": "media"
+    },
+    "access-desk": {
+      "duration": 4,
+      "windows": [
+        [
+          0,
+          122
+        ]
+      ],
+      "output_kind": "accessible-pack"
+    },
+    "document-desk": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          125
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "platforms": {
+    "public": {
+      "process_minutes": 2,
+      "verify_minutes": 1,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "paid": {
+      "process_minutes": 4,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "paid"
+    },
+    "makeup": {
+      "process_minutes": 5,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "mentor": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "mentor"
+    },
+    "archive": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "public"
+    }
+  },
+  "projects": [
+    {
+      "id": "identity",
+      "read_id": "project/identity"
+    },
+    {
+      "id": "answer",
+      "read_id": "project/answer"
+    },
+    {
+      "id": "master",
+      "read_id": "project/master"
+    },
+    {
+      "id": "captions",
+      "read_id": "project/captions"
+    },
+    {
+      "id": "paid-pack",
+      "read_id": "project/paid-pack"
+    },
+    {
+      "id": "makeup",
+      "read_id": "project/makeup"
+    },
+    {
+      "id": "mentor",
+      "read_id": "project/mentor"
+    },
+    {
+      "id": "archive",
+      "read_id": "project/archive"
+    }
+  ],
+  "objects": {
+    "archive/clip": {
+      "kind": "clip",
+      "platform": "archive",
+      "content": {
+        "text": "C4: Rem / Workshop — solo. Public use cleared."
+      },
+      "id": "archive/clip",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [],
+  "requests": {
+    "performer-41-clip": {
+      "to": "private:performer-41",
+      "delay": 6,
+      "requires": [
+        {
+          "resource": "project/identity",
+          "path": [
+            "asset"
+          ],
+          "equals": "C4"
+        },
+        {
+          "resource": "project/identity",
+          "path": [
+            "evidence_recorded"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    "performer-88-clip": {
+      "to": "private:performer-88",
+      "delay": 6,
+      "requires": [
+        {
+          "resource": "project/identity",
+          "path": [
+            "asset"
+          ],
+          "equals": "C4"
+        },
+        {
+          "resource": "project/identity",
+          "path": [
+            "evidence_recorded"
+          ],
+          "equals": true
+        }
+      ]
+    },
+    "legacy-clip": {
+      "to": "private:legacy-rem",
+      "delay": 7
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}

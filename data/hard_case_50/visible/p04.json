@@ -1,0 +1,451 @@
+{
+  "case": "p04",
+  "brief": "Minute0 is09:00 local on this fictional service day. Run Noor’s useful four-learner exchange using raw mode-specific diagnostic revisions, actual accepted modes and shared staffing. Book useful own placements and repair public/partner guides; then complete actual Nim briefing and release Dev’s A2 peer practice before11:20. Do not treat confidence as level, a peer as a tutor, an accepted booking as attendance or a request as completed briefing.",
+  "clock": 0,
+  "horizon": 165,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success.",
+    "communication": {
+      "recipients": {
+        "private:owner": [],
+        "private:Lia": [],
+        "private:Ren": [],
+        "private:Dev": [],
+        "private:Sam": [],
+        "private:facilitators": [],
+        "private:partner": []
+      },
+      "finish_to": "private:owner",
+      "finish_visibility": "private",
+      "finish_authority": "Owner may receive all task-private details; no other recipient inherits this authority."
+    }
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "clock",
+      "title": "Clock origin and completion convention",
+      "kind": "document"
+    },
+    {
+      "id": "charter",
+      "title": "Commission authority and useful completion",
+      "kind": "document"
+    },
+    {
+      "id": "profile",
+      "title": "Noor’s four-learner exchange owner voice",
+      "kind": "document"
+    },
+    {
+      "id": "operations",
+      "title": "Four-learner service clocks and phases",
+      "kind": "document"
+    },
+    {
+      "id": "diagnostics",
+      "title": "Raw mode-specific diagnostics and local revision rules",
+      "kind": "document"
+    },
+    {
+      "id": "choices",
+      "title": "Accepted activity choices and confidential confidence",
+      "kind": "document"
+    },
+    {
+      "id": "staffing",
+      "title": "Raw shared staff/room/availability rules",
+      "kind": "document"
+    },
+    {
+      "id": "service",
+      "title": "Real booking versus briefing/release authority",
+      "kind": "document"
+    },
+    {
+      "id": "activity",
+      "title": "Useful actual language tasks",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Own learner and facilitator boundaries",
+      "kind": "document"
+    },
+    {
+      "id": "old",
+      "title": "Held wrong invitation and real Lia concern",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G1",
+      "title": "Raw revision/mode/shared-staff placement proof",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G2",
+      "title": "Useful anonymous public guide repair",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G3",
+      "title": "Four own useful arrangements and actual Dev release receipt",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G4",
+      "title": "Actual shared Nim briefing and safe practice release",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G5",
+      "title": "Useful actual three-mode activity products",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G6",
+      "title": "Lia own mode concern response",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G7",
+      "title": "Independent partner timetable repair",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G8",
+      "title": "Owner actual phase closure",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "desk": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          140
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "production": {
+      "duration": 5,
+      "windows": [
+        [
+          0,
+          130
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "access": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          140
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "nim": {
+      "duration": 10,
+      "windows": [
+        [
+          120,
+          155
+        ]
+      ],
+      "output_kind": "staffing-record"
+    }
+  },
+  "platforms": {
+    "public": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "public"
+    },
+    "partner": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "partner"
+    },
+    "private": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "private"
+    },
+    "production": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "production"
+    },
+    "booking-service": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "private",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "placements/register",
+          "verified": true
+        }
+      ]
+    },
+    "briefing-record": {
+      "process_minutes": 0,
+      "verify_minutes": 0,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "operations"
+    },
+    "S-release": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "private",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "placements/register",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "briefing/completed",
+          "verified": true
+        }
+      ]
+    }
+  },
+  "projects": [
+    {
+      "id": "plan",
+      "read_id": "project/plan"
+    },
+    {
+      "id": "sessions",
+      "read_id": "project/sessions"
+    },
+    {
+      "id": "activity-master",
+      "read_id": "project/activity-master"
+    },
+    {
+      "id": "learner-guide",
+      "read_id": "project/learner-guide"
+    },
+    {
+      "id": "facilitator-pack",
+      "read_id": "project/facilitator-pack"
+    },
+    {
+      "id": "public-guide",
+      "read_id": "project/public-guide"
+    },
+    {
+      "id": "Lia-ticket",
+      "read_id": "project/Lia-ticket"
+    },
+    {
+      "id": "Ren-ticket",
+      "read_id": "project/Ren-ticket"
+    },
+    {
+      "id": "Dev-ticket",
+      "read_id": "project/Dev-ticket"
+    },
+    {
+      "id": "Sam-ticket",
+      "read_id": "project/Sam-ticket"
+    },
+    {
+      "id": "reply",
+      "read_id": "project/reply"
+    },
+    {
+      "id": "partner",
+      "read_id": "project/partner"
+    },
+    {
+      "id": "briefing",
+      "read_id": "project/briefing"
+    },
+    {
+      "id": "Q-block",
+      "read_id": "project/Q-block"
+    },
+    {
+      "id": "S-release",
+      "read_id": "project/S-release"
+    }
+  ],
+  "objects": {
+    "public/guide": {
+      "kind": "document",
+      "platform": "public",
+      "content": {
+        "text": "Confidence decides advanced level; all revision thresholds identical; peers replace tutors; all can move to spoken pairs; Nim can staff both tables at once."
+      },
+      "id": "public/guide",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "partner/timetable": {
+      "kind": "document",
+      "platform": "partner",
+      "content": {
+        "text": "Confidence decides advanced level; all revision thresholds identical; peers replace tutors; all can move to spoken pairs; Nim can staff both tables at once."
+      },
+      "id": "partner/timetable",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [],
+  "requests": {
+    "Lia-W": {
+      "to": "private:Lia",
+      "delay": 5
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}

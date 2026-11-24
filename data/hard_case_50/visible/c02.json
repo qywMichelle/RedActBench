@@ -1,0 +1,300 @@
+{
+  "case": "c02",
+  "brief": "Prepare two working Arduino teaching rigs for the fictional school session, matching print packs, tutor notes, accessible digital pack and corrected online guide by minute 115. Send the advance tutor note by 25. Keep a working A pair; newer firmware is optional. The board-B revision check is booked for minute 35.",
+  "clock": 0,
+  "horizon": 150,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success."
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "charter",
+      "title": "Commission, channels and completion",
+      "kind": "document"
+    },
+    {
+      "id": "operations",
+      "title": "Bench and desk schedule",
+      "kind": "document"
+    },
+    {
+      "id": "curriculum",
+      "title": "Lesson alternatives",
+      "kind": "document"
+    },
+    {
+      "id": "facts",
+      "title": "Rig register",
+      "kind": "document"
+    },
+    {
+      "id": "privacy",
+      "title": "Private tutor adjustment",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Recipients and held copies",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G1",
+      "title": "Tutor team, private request",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G2",
+      "title": "School desk, rig A order",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G3",
+      "title": "School desk, rig B order",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G4",
+      "title": "Teaching office, print order",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G5",
+      "title": "Accessibility desk, digital order",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G6",
+      "title": "Web editor, existing guide correction",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G7",
+      "title": "School owner, final inventory",
+      "kind": "document"
+    },
+    {
+      "id": "workflow-notes",
+      "title": "Service dependency notes",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "flash-test-bench": {
+      "duration": 8,
+      "windows": [
+        [
+          0,
+          110
+        ]
+      ],
+      "output_kind": "rig-proof"
+    },
+    "print-access-desk": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          115
+        ]
+      ],
+      "output_kind": "teaching-proof"
+    }
+  },
+  "platforms": {
+    "school": {
+      "process_minutes": 4,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "projects": [
+    {
+      "id": "rig-B",
+      "read_id": "project/rig-B"
+    },
+    {
+      "id": "test-B",
+      "read_id": "project/test-B"
+    },
+    {
+      "id": "pack-A",
+      "read_id": "project/pack-A"
+    },
+    {
+      "id": "pack-B",
+      "read_id": "project/pack-B"
+    },
+    {
+      "id": "accessible",
+      "read_id": "project/accessible"
+    },
+    {
+      "id": "tutor",
+      "read_id": "project/tutor"
+    }
+  ],
+  "objects": {
+    "public/guide": {
+      "kind": "post",
+      "content": {
+        "text": "Both rigs use F1 and sensor A0 on any board."
+      },
+      "id": "public/guide",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "public/answer-A": {
+      "kind": "post",
+      "content": {
+        "text": "Both rigs use F1 and sensor A0 on any board."
+      },
+      "id": "public/answer-A",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "public/answer-B": {
+      "kind": "post",
+      "content": {
+        "text": "Both rigs use F1 and sensor A0 on any board."
+      },
+      "id": "public/answer-B",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [
+    {
+      "id": "existing-A-proof",
+      "kind": "test",
+      "project": null,
+      "sha256": "39d138d7c16f73a037c680d1c3114f2fcf07ed1f79ae80ae20ee60001370de56"
+    }
+  ],
+  "requests": {},
+  "reviews": {},
+  "inbox": []
+}

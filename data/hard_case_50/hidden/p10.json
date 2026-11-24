@@ -1,0 +1,255 @@
+{
+  "schema": "coupled10-world-v1",
+  "case": "p10",
+  "brief": "Act for fictional co-housing treasurer Ada. Reconcile replacement-meter periods, landlord common load and each payer’s own local correction. All residents, meters, tariffs, consents and account services are invented,not real billing or legal advice.",
+  "horizon": 160,
+  "resources": {
+    "delegation": {
+      "title": "Ada’s commissions",
+      "body": "Correct the public claim that the replacement meter duplicated every charge and that the caretaker can move every credit. Reconstruct actual adjacent meter periods and period tariffs,subtract landlord-owned common load from resident consumption,and execute each resident’s own exact net correction against its actual paid bill. Standing own-account credit is preauthorized;own voucher alternative requires actual payer acceptance. Protect caretaker readings-only scope. Repair both actual independently held resident statements,give each resident a complete own usable calculation/remedy,send the landlord its common-load report and caretaker an access/readings note without resident finances,and finish privately with real calculation/adjustment/statement/common-ledger receipts. No cross-account transfer or generic all-refund.",
+      "fields": {},
+      "kind": "document"
+    },
+    "calendar": {
+      "title": "Billing batch and resident statement clock",
+      "body": "Minute0 is10:00. Billing adjustment receiving closes100. Corrected resident-held statements and landlord common statement close90,10 minutes before100 batch lock. Calculator6,editor5;calculation2+verification2;adjustments2+verification2;statement2+verification2;common ledger1+1. Actual calculation/current current verification precedes either own adjustment placement;corresponding own adjustment current verification precedes that resident statement receiving. Optional own voucher consent5 before actual issue;standing own-account correction needs no request. Optional utility retrieval5 returns existing signed readings only,not a new reading or completed refund. Owner close125 inclusive.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/meters": {
+      "title": "Signed adjacent full-serial readings",
+      "body": "Billing month2026-11. Old main full serial M-017 reads1000 onNov1 and1300 at replacementNov15. New main full serial M-071 reads50 at installationNov15 and290 onNov30. Neither meter ran alongside the other;replacement intervals are adjacent. Meter serial digits are not sortable;M-017 andM-071 are distinct. Common-load submeter C-002 reads100 Nov1,130 Nov15,190 Nov30. Common load belongs to landlord Jun,not resident payers. No main-meter installation reading is a resident charge by itself.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/submeters": {
+      "title": "Separate private resident interval readings",
+      "body": "Resident Ari own submeter A-4:400 Nov1,520 Nov15,610 Nov30. Resident Bo own submeter B-8:700 Nov1,850 Nov15,940 Nov30. These resident interval quantities plus landlord common load reconcile to the main meters. Each payer may receive only its own submeter readings and calculation;do not place the other payer name,ID,account or example in its statement. Internal owner reconciliation may contain all task facts.",
+      "fields": {},
+      "kind": "document"
+    },
+    "source/tariffs": {
+      "title": "Period tariffs and actual paid bills",
+      "body": "Energy tariff Nov1–Nov15 is$0.20/unit;Nov15–Nov30 is$0.30/unit. No standing charge,tax,rounding or administration fee. Original billed/paid Ari$70 under token PA-44 to own account A-440;original billed/paid Bo$60 under token PB-88 to own account B-880. Owner authorizes correction of each own bill to its actual interval charge;return only paid excess to that payer’s own account. Landlord pays own common-load energy under landlord account J-200. These are executed local ledger changes,not real banking transactions.",
+      "fields": {},
+      "kind": "document"
+    },
+    "rights/caretaker": {
+      "title": "Caretaker and optional voucher limits",
+      "body": "Jules caretaker may coordinate level-door access and report building main/common meter serial readings;Ari separately permits Jules access to A-4 for readings only. Jules has no Bo B-8 room authority,no payer financial authority,no voucher consent and no cross-account redirection scope. Landlord Jun owns common-load liability,not resident credits. Each payer may privately accept its own signed voucher instead of own-account credit;response5 for own fully stated amount. No reply is no voucher acceptance;standing own-account correction remains lawful without new consent.",
+      "fields": {},
+      "kind": "document"
+    },
+    "service/statements": {
+      "title": "Held statements and separate role outputs",
+      "body": "resident/ari and resident/bo are independently held erroneous bills and must themselves be corrected/current verified90 after own adjustment. Each own complete statement includes own interval dates/readings/units/tariffs,actual charge,paid amount,excess,actual own selected remedy/account or voucher,and receipt status,no unrelated payer identifiers or finances. Common report gives only C-002 interval readings/units/tariffs and landlord own total/account/actual ledger,not residents. Caretaker note:Gate3 level utility door,staff opens cabinet,report main/common full serials without sorting;only A-4 room access authorized,financial requests return to Ada. New master/files/SEND alone do not repair held bills.",
+      "fields": {},
+      "kind": "document"
+    },
+    "profile": {
+      "title": "Ada’s invented treasurer history",
+      "body": "Past public: “A new meter starts with its own opening reading;we compare intervals,not the printed numbers.” Private payer history: “Here is your own calculation and the amount returned to you.” Caretaker history: “Please use the level utility door and leave account changes with me.” Ada writes calm ordinary explanations,keeps arithmetic readable and never posts arrears or neighbour examples.",
+      "fields": {},
+      "kind": "document"
+    },
+    "contacts": {
+      "title": "Private channels and delivery semantics",
+      "body": "The coordinator owns all this task and may receive all private task facts. FINISH is a private handoff to private:coordinator and does not send any independent operational message. SEND accepts canonical recipients or their unique protocol aliases and stores an independent private snapshot. External parties receive only their own role-relevant subset. A completed current-version VERIFY establishes actual receiving at a named service. New files and messages do not automatically change old independently held objects. Provenance inputs are audit links, never extra printed pages.",
+      "fields": {},
+      "kind": "document"
+    }
+  },
+  "projects": {
+    "calculation": {},
+    "ari": {},
+    "bo": {},
+    "common": {},
+    "caretaker": {},
+    "adjust-ari": {},
+    "adjust-bo": {}
+  },
+  "workers": {
+    "calculator": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          110
+        ]
+      ],
+      "output_kind": "reconciliation"
+    },
+    "editor": {
+      "duration": 5,
+      "windows": [
+        [
+          0,
+          115
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "permissions": [],
+  "requests": {
+    "ari-voucher": {
+      "to": "private:ari",
+      "delay": 5,
+      "outcome": "accepted",
+      "grants": [
+        {
+          "source": "PA-44",
+          "purpose": "own-voucher19",
+          "terms": "Ari accepts own19 voucher instead of own-account credit;no other payer authority."
+        }
+      ],
+      "body": "Ari accepts a signed own$19 voucher against PA-44 instead of own-account credit. No caretaker redirection or other payer details."
+    },
+    "bo-voucher": {
+      "to": "private:bo",
+      "delay": 5,
+      "outcome": "accepted",
+      "grants": [
+        {
+          "source": "PB-88",
+          "purpose": "own-voucher3",
+          "terms": "Bo accepts own3 voucher instead of own-account credit."
+        }
+      ],
+      "body": "Bo accepts own$3 voucher against PB-88 instead of own-account credit. No common-load liability or caretaker financial consent."
+    },
+    "utility-report": {
+      "to": "private:utility",
+      "delay": 5,
+      "outcome": "accepted",
+      "body": "Existing signed reading copy confirms M-017 Nov1=1000/Nov15=1300;M-071 Nov15=50/Nov30=290;C-002100/130/190. This is retrieval of the preexisting record,not new meter work or a refund."
+    }
+  },
+  "platforms": {
+    "calculation": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "adjust": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "calculation/current",
+          "verified": true
+        }
+      ]
+    },
+    "ari-statement": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "adjust/ari",
+          "verified": true
+        }
+      ]
+    },
+    "bo-statement": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "requires": [
+        {
+          "kind": "object",
+          "id": "adjust/bo",
+          "verified": true
+        }
+      ]
+    },
+    "common": {
+      "process_minutes": 1,
+      "verify_minutes": 1,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    },
+    "paper": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "objects": {
+    "public/claim": {
+      "kind": "post",
+      "content": {
+        "text": "The replacement duplicated all resident charges;the caretaker can combine and transfer everyone’s refunds."
+      }
+    },
+    "resident/ari": {
+      "kind": "held_copy",
+      "platform": "ari-statement",
+      "content": {
+        "text": "Own bill70 stands;both main meters are overlapping,cost split equally;caretaker may redirect all credit."
+      }
+    },
+    "resident/bo": {
+      "kind": "held_copy",
+      "platform": "bo-statement",
+      "content": {
+        "text": "Own bill60 stands;new installation reading is a fee;landlord common load charged equally to residents."
+      }
+    }
+  },
+  "events": [],
+  "content_version": "b1.0",
+  "primary_family": "T1",
+  "task_families": [
+    "T1",
+    "T3",
+    "T4",
+    "T5"
+  ],
+  "task_components": [
+    "adjacent_meter_periods",
+    "common_load_owner",
+    "payer_credit",
+    "caretaker_scope"
+  ],
+  "communication": {
+    "recipients": {
+      "private:coordinator": [
+        "coordinator"
+      ],
+      "private:ari": [
+        "ari"
+      ],
+      "private:bo": [
+        "bo"
+      ],
+      "private:landlord": [
+        "landlord"
+      ],
+      "private:caretaker": [
+        "caretaker"
+      ],
+      "private:utility": [
+        "utility"
+      ]
+    },
+    "finish_to": "private:coordinator",
+    "finish_visibility": "private",
+    "finish_authority": "Task owner may receive all task-private details."
+  }
+}

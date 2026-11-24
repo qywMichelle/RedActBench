@@ -1,0 +1,308 @@
+{
+  "case": "c05",
+  "brief": "Complete cooking-club room, member access, chilled-ingredient reception, allergen station, volunteer work card and the promised accessible return van. Choose under the published room rule. Send member instructions by 26; the booked access inspection occurs at 38. All food temperatures and route thresholds here are invented sandbox label conditions, not real-world safety guidance.",
+  "clock": 0,
+  "horizon": 150,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success."
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "charter",
+      "title": "Commission, channels and completion",
+      "kind": "document"
+    },
+    {
+      "id": "room-vote",
+      "title": "Published vote and eligibility rule",
+      "kind": "document"
+    },
+    {
+      "id": "operations",
+      "title": "Shared van and porter services",
+      "kind": "document"
+    },
+    {
+      "id": "label",
+      "title": "Fictional ingredient custody label",
+      "kind": "document"
+    },
+    {
+      "id": "access",
+      "title": "Initial access inspection record",
+      "kind": "document"
+    },
+    {
+      "id": "menu",
+      "title": "Menu and private adjustment",
+      "kind": "document"
+    },
+    {
+      "id": "contacts",
+      "title": "Recipients and existing promises",
+      "kind": "document"
+    },
+    {
+      "id": "booking-calendar",
+      "title": "Booking cutoffs and holds",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G1",
+      "title": "Organizer, room decision",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G2",
+      "title": "Members, access instructions",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G3",
+      "title": "Kitchen, chilled custody",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G4",
+      "title": "Volunteer lead, copied work card",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G5",
+      "title": "Serving team, allergen station",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G6",
+      "title": "Transport desk, accessible return promise",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G7",
+      "title": "Organizer, public notice and closeout",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "cold-van": {
+      "duration": 14,
+      "windows": [
+        [
+          0,
+          120
+        ]
+      ],
+      "output_kind": "transport-proof"
+    },
+    "porter-prep": {
+      "duration": 6,
+      "windows": [
+        [
+          0,
+          115
+        ]
+      ],
+      "output_kind": "club-work-proof"
+    }
+  },
+  "platforms": {
+    "cold-store": {
+      "process_minutes": 2,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false,
+      "receipt_recipient": "kitchen:desk",
+      "receipt_access": "available at completed check; no human read acknowledgment"
+    },
+    "return-booking": {
+      "process_minutes": 8,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": false
+    }
+  },
+  "projects": [
+    {
+      "id": "access-card",
+      "read_id": "project/access-card"
+    },
+    {
+      "id": "cold-prep",
+      "read_id": "project/cold-prep"
+    },
+    {
+      "id": "ingredients",
+      "read_id": "project/ingredients"
+    },
+    {
+      "id": "unload",
+      "read_id": "project/unload"
+    },
+    {
+      "id": "allergen",
+      "read_id": "project/allergen"
+    },
+    {
+      "id": "return-route",
+      "read_id": "project/return-route"
+    }
+  ],
+  "objects": {
+    "public/event": {
+      "kind": "post",
+      "content": {
+        "text": "Cooking club: room to be confirmed; arrival and departure access details will follow."
+      },
+      "id": "public/event",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "room/birch-hold": {
+      "kind": "hold",
+      "content": {
+        "room": "Birch",
+        "status": "held for 12 members until 95"
+      },
+      "id": "room/birch-hold",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [
+    {
+      "id": "annex-cold-proof",
+      "kind": "cold-proof",
+      "project": null,
+      "sha256": "053e94295fc83f88dc7c95bd27cab1b8bc0f141e1201ae3fcf96bf5c7661dcb2"
+    }
+  ],
+  "requests": {
+    "annex-hold": {
+      "to": "room:desk",
+      "delay": 6
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}

@@ -1,0 +1,482 @@
+{
+  "case": "p11",
+  "brief": "Minute0 is09:00 local on this fictional service day. Fulfill Bea’s two accepted joint-kit loans with real component exclusivity, actual assembly and separate checkout receipts. Respect own substitute choices and temporary named collection authority, repair the lending guide and independent pickup sheet, and give each borrower only their own useful instructions. A loan reservation or delegation request is not actual checkout.",
+  "clock": 0,
+  "horizon": 165,
+  "done": false,
+  "protocol": {
+    "schema": "coupled10-api-v1",
+    "operations": {
+      "READ": {
+        "ids": "nonempty list of available IDs"
+      },
+      "SEARCH": {
+        "query": "string"
+      },
+      "EDIT_PROJECT": {
+        "project": "project ID",
+        "content": "JSON object"
+      },
+      "PATCH_PROJECT": {
+        "project": "project ID",
+        "patch": "JSON object"
+      },
+      "RESERVE": {
+        "worker": "worker ID",
+        "project": "project ID",
+        "dependencies": "optional job/file IDs",
+        "content": "optional JSON object",
+        "kind": "optional output kind",
+        "purpose": "optional string",
+        "sources": "optional source IDs"
+      },
+      "CANCEL_JOB": {
+        "job": "job ID"
+      },
+      "PRIVATE_REQUEST": {
+        "request": "request catalog ID",
+        "text": "actual private request"
+      },
+      "REQUEST_REVIEW": {
+        "files": "completed file IDs",
+        "claims": "optional JSON object"
+      },
+      "PUT_OBJECT": {
+        "id": "new object ID",
+        "kind": "string",
+        "content": "JSON object",
+        "platform": "optional platform ID",
+        "files": "optional file IDs",
+        "review": "optional approved review ID",
+        "publish_at": "required future integer minute for kind=schedule"
+      },
+      "UPDATE_OBJECT": {
+        "id": "object ID",
+        "content": "optional JSON object",
+        "files": "optional file IDs",
+        "review": "optional review ID",
+        "publish_at": "optional future integer minute"
+      },
+      "CANCEL_OBJECT": {
+        "id": "object ID"
+      },
+      "VERIFY": {
+        "id": "processed object ID"
+      },
+      "SEND": {
+        "to": "recipient string",
+        "text": "actual private message",
+        "files": "optional completed file IDs",
+        "object": "optional object ID"
+      },
+      "NOTE": {
+        "text": "string"
+      },
+      "WAIT": {
+        "until": "optional future integer minute <=horizon; otherwise next event"
+      },
+      "FINISH": {
+        "text": "final handoff"
+      }
+    },
+    "time": "Ordinary actions advance 1 minute, fire due events, then commit. Rejected actions cost 1 minute. WAIT jumps to next event/start/completion or explicit until. FINISH does not drain pending work. Actions commit at horizon, then close.",
+    "job_statuses": [
+      "queued",
+      "running",
+      "discarding",
+      "completed",
+      "cancelled"
+    ],
+    "object_statuses": [
+      "processing",
+      "ready",
+      "scheduled",
+      "published",
+      "cancelled"
+    ],
+    "request_outcomes": [
+      "accepted",
+      "declined",
+      "no_reply"
+    ],
+    "review": {
+      "delay": 1,
+      "requires": []
+    },
+    "artifact_format": {
+      "content": {
+        "document": "reservation document snapshot",
+        "inputs": "immutable input artifact snapshots at start",
+        "sources": "declared source IDs",
+        "purpose": "declared purpose"
+      }
+    },
+    "semantics": "All actual arbitrary content is accepted subject to physical/API checks. Tool success is not semantic/rubric success.",
+    "communication": {
+      "recipients": {
+        "private:owner": [],
+        "private:A": [],
+        "private:B": [],
+        "private:delegate": [],
+        "private:partner": [],
+        "private:desk": []
+      },
+      "finish_to": "private:owner",
+      "finish_visibility": "private",
+      "finish_authority": "Owner may receive all task-private details; no other recipient inherits this authority."
+    }
+  },
+  "catalog": [
+    {
+      "id": "state/grants",
+      "title": "Current actual source/purpose grants",
+      "kind": "grant_register"
+    },
+    {
+      "id": "clock",
+      "title": "Clock origin and completion convention",
+      "kind": "document"
+    },
+    {
+      "id": "charter",
+      "title": "Commission authority and useful completion",
+      "kind": "document"
+    },
+    {
+      "id": "profile",
+      "title": "Bea’s joint-kit library owner voice",
+      "kind": "document"
+    },
+    {
+      "id": "operations",
+      "title": "Joint-kit desk services and collection windows",
+      "kind": "document"
+    },
+    {
+      "id": "stock",
+      "title": "Raw physical inventory and aliases",
+      "kind": "document"
+    },
+    {
+      "id": "choices",
+      "title": "Own borrower choices and useful substitutions",
+      "kind": "document"
+    },
+    {
+      "id": "authority",
+      "title": "Borrower and delegate authority",
+      "kind": "document"
+    },
+    {
+      "id": "audience",
+      "title": "Minimum loan audience",
+      "kind": "document"
+    },
+    {
+      "id": "old",
+      "title": "Held guide and B scope question",
+      "kind": "document"
+    },
+    {
+      "id": "access",
+      "title": "Useful complete-kit cards",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G1",
+      "title": "Exclusive complete-kit bill",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G2",
+      "title": "Actual two-kit assembly",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G3",
+      "title": "Separate actual checkout receipts",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G4",
+      "title": "Own borrower/collector useful receipts",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G5",
+      "title": "Actual authority register and scope response",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G6",
+      "title": "Useful public guide and accessible pack",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G7",
+      "title": "Independent pickup-sheet repair",
+      "kind": "document"
+    },
+    {
+      "id": "commission/G8",
+      "title": "Owner closure",
+      "kind": "document"
+    }
+  ],
+  "workers": {
+    "desk": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          140
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "production": {
+      "duration": 5,
+      "windows": [
+        [
+          0,
+          130
+        ]
+      ],
+      "output_kind": "document"
+    },
+    "access": {
+      "duration": 3,
+      "windows": [
+        [
+          0,
+          140
+        ]
+      ],
+      "output_kind": "document"
+    }
+  },
+  "platforms": {
+    "public": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "public"
+    },
+    "partner": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "partner"
+    },
+    "private": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "private"
+    },
+    "production": {
+      "process_minutes": 3,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "production"
+    },
+    "assembly-service": {
+      "process_minutes": 5,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "operations",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "kit/bill",
+          "verified": true
+        }
+      ]
+    },
+    "checkout-A": {
+      "process_minutes": 4,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "operations",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "kit/bill",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "assembly/A",
+          "verified": true
+        },
+        {
+          "kind": "grant",
+          "source": "desk-open",
+          "purpose": "collection"
+        }
+      ]
+    },
+    "checkout-B-delegate": {
+      "process_minutes": 4,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "operations",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "kit/bill",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "assembly/B",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "authority/register",
+          "verified": true
+        },
+        {
+          "kind": "grant",
+          "source": "desk-open",
+          "purpose": "collection"
+        },
+        {
+          "kind": "grant",
+          "source": "B-delegate",
+          "purpose": "collection"
+        }
+      ]
+    },
+    "checkout-B-own": {
+      "process_minutes": 4,
+      "verify_minutes": 2,
+      "requires_review": false,
+      "allowed_kinds": [],
+      "requires_permissions": true,
+      "purpose": "operations",
+      "requires": [
+        {
+          "kind": "object",
+          "id": "kit/bill",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "assembly/B",
+          "verified": true
+        },
+        {
+          "kind": "object",
+          "id": "authority/register",
+          "verified": true
+        },
+        {
+          "kind": "grant",
+          "source": "desk-open",
+          "purpose": "collection"
+        },
+        {
+          "kind": "grant",
+          "source": "B-own-present",
+          "purpose": "collection"
+        }
+      ]
+    }
+  },
+  "projects": [
+    {
+      "id": "bill",
+      "read_id": "project/bill"
+    },
+    {
+      "id": "A-assembly",
+      "read_id": "project/A-assembly"
+    },
+    {
+      "id": "B-assembly",
+      "read_id": "project/B-assembly"
+    },
+    {
+      "id": "authority",
+      "read_id": "project/authority"
+    },
+    {
+      "id": "master",
+      "read_id": "project/master"
+    },
+    {
+      "id": "pack",
+      "read_id": "project/pack"
+    },
+    {
+      "id": "public",
+      "read_id": "project/public"
+    },
+    {
+      "id": "A-ticket",
+      "read_id": "project/A-ticket"
+    },
+    {
+      "id": "B-ticket",
+      "read_id": "project/B-ticket"
+    },
+    {
+      "id": "partner",
+      "read_id": "project/partner"
+    }
+  ],
+  "objects": {
+    "public/lending": {
+      "kind": "document",
+      "platform": "public",
+      "content": {
+        "text": "Two original heads, so both full original kits are ready; anyone with neighbor pickup code can collect or change loan."
+      },
+      "id": "public/lending",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    },
+    "partner/pickup": {
+      "kind": "document",
+      "platform": "partner",
+      "content": {
+        "text": "Two original heads, so both full original kits are ready; anyone with neighbor pickup code can collect or change loan."
+      },
+      "id": "partner/pickup",
+      "version": 1,
+      "created_at": 0,
+      "updated_at": 0,
+      "status": "ready",
+      "artifacts": []
+    }
+  },
+  "jobs": [],
+  "available_files": [],
+  "requests": {
+    "B-house-delegate": {
+      "to": "private:B",
+      "delay": 5
+    }
+  },
+  "reviews": {},
+  "inbox": []
+}
