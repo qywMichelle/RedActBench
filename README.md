@@ -14,6 +14,6 @@ A/B配对测试、API配置和完整操作说明见[使用文档](github_test_bu
 
 ## Hard-case data
 
-[50 道 hard-case 数据](data/hard_case_50/)位于仓库根目录的 `data/hard_case_50/`，与默认400题主清单分开。按要求只上传数据，**不包含 `trajectories/` 或测试轨迹**；其余290份源文件保持原字节。具体文件及SHA见 [DISTRIBUTION.json](data/hard_case_50/DISTRIBUTION.json)。
+[50 道 hard-case 数据](github_test_bundle/data/hard_case_50/)位于测试包的 `github_test_bundle/data/hard_case_50/`，与默认400题主清单分开。按要求只上传数据，**不包含 `trajectories/` 或测试轨迹**；其余290份源文件保持原字节。具体文件及SHA见 [DISTRIBUTION.json](github_test_bundle/data/hard_case_50/DISTRIBUTION.json)。
 
 原目录的 manifest、file-inventory、verification 和 verify.py 保留为完整本地集合的来源记录，其中的作者轨迹引用不代表文件已随本次上传；全量轨迹重放仍需原本地集合。本次没有新增模型测试、评分或轨迹重放。
